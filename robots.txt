@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://notes.tas9.net/sitemap.xml
