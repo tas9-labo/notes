@@ -49,9 +49,9 @@ a{color:inherit}
 
 /* 見出しまわり */
 header.top{padding:76px 8px 0}
-.eyebrow{font-size:15px;letter-spacing:.1em;color:var(--sub);font-weight:600}
+.eyebrow{font-size:18px;letter-spacing:.08em;color:var(--sub);font-weight:600}
 h1{font-size:clamp(28px,3.6vw,40px);line-height:1.18;letter-spacing:-.02em;font-weight:600;margin:12px 0 0}
-.lead{margin-top:16px;font-size:16px;line-height:1.75;color:var(--sub);max-width:44em;text-wrap:pretty}
+.lead{margin-top:16px;font-size:15px;line-height:1.8;color:var(--sub);max-width:44em;text-wrap:pretty}
 .meta{margin-top:12px;font-size:13px;color:var(--sub)}
 
 /* 入口：7章を小さな札で横一列（場所を取らない） */
@@ -547,7 +547,8 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   .wrap{margin:0 0 40px}
   header.top{padding:48px 20px 32px;border-bottom:1px solid var(--line)}
   .pages{margin:0 0 20px}
-  .lead{font-size:15px;margin-top:14px}
+  .eyebrow{font-size:16px}
+  .lead{font-size:14px;margin-top:14px}
   .chapters{gap:6px;margin-top:26px}
   .chapters a{background:var(--tonal);box-shadow:none;padding:5px 10px 5px 6px}
   nav.toc{padding:8px 20px;background:color-mix(in srgb,var(--card) 85%,transparent);border-bottom:1px solid var(--line)}
