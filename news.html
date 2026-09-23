@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<!-- 中身は news.js（新しい順に上へ足す）。運用ルールは CLAUDE.md -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>主なニュース ｜ ゲーム業界の理解を深める地図</title>
+<meta name="description" content="ゲーム業界の主な動きを、新しい順に短くまとめた記録。タグで絞り込める。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="主なニュース">
+<meta property="og:description" content="ゲーム業界の主な動きを、新しい順に短くまとめた記録。タグで絞り込める。">
+<meta property="og:url" content="https://notes.tas9.net/news.html">
+<meta property="og:site_name" content="ゲーム業界の理解を深める地図">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://notes.tas9.net/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="主なニュース">
+<link rel="canonical" href="https://notes.tas9.net/news.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='104 129 105 89'><style>path{fill:%23333}@media (prefers-color-scheme:dark){path{fill:%23f5f5f7}}</style><path d='M176.0366,130.8232c-12.7488,2.0014-26.8024,7.6128-36.4664,15.6061-11.2927,10.4-10.2545,23.0626,7.1971,24.2507-.1219,2.8139-.313,5.8846-.3845,8.7311.098,1.6658.0058,2.6135-1.9803,2.7731-13.8904,2.7385-28.4505,4.9224-38.4208,11.546-.5634.1345-.5432.4985-.7303.8776-.1321.2675-.2402.5534-.2346.8517.1805,9.4435,15.2324.6668,20.8776-.289,6.5802-1.0276,13.6384-3.8511,20.1526-3.8411.1212,5.55.2944,14.6605,5.758,13.9257,3.9485-1.0272,1.507-9.018,2.639-12.9664-1.9142-5.1835,17.9977.4855,14.3948-9.1232-1.9492-3.3911-9.3795-2.2475-14.1548-2.1609.1599-3.5212.3199-7.0434.4798-10.5646,8.7144-.9588,14.6201-1.949,23.0324-4.562.295,11.596.5525,26.7108-1.1542,38.2311-.0275,3.3588-2.2057,6.8232-1.0253,10.0197,5.7303,7.3846,11.2675-2.4999,11.2827-8.2081,1.4005-8.3205,1.4758-17.6229,1.4515-27.0773.6795-4.2975-2.6248-10.9072,2.1598-12.9647,28.8408-14.3216,20.0151-40.3267-14.8742-35.0555ZM191.6307,154.1128c-1.4825.6987-3.4545,2.5314-4.5665,1.4816-.1877-.1772-.4628-.2456-.7176-.2036-6.6749,1.1013-11.6011,3.1055-17.7178,3.8529-4.3312.5755-9.2273,2.0431-13.4649,1.5919-.4554-.5104-.1702-1.961-.4799-2.6411-.9835-1.3435-2.2745-2.5884-4.0782-1.9208-2.2845.19-2.7604,2.7097-3.359,4.8023-15.0419.0143,5.1118-12.4051,8.1573-14.1659,6.9716-3.2369,15.7759-6.2043,24.4709-7.2037,14.1142-.731,26.5272,2.8245,11.7557,14.4062Z'/></svg>">
+<meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+/* このページだけの見た目：絞り込みの札と、縦型の年表 */
+.filter{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:30px}
+.filter button{font:inherit;font-size:13px;line-height:1.4;padding:6px 14px;border-radius:980px;cursor:pointer;
+  background:var(--card);color:var(--sub);border:1px solid var(--line)}
+.filter button:hover{color:var(--ink)}
+.filter button[aria-pressed="true"]{background:var(--accent);color:var(--on-color);border-color:transparent;font-weight:500}
+.filter .count{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--sub)}
+.yr{display:flex;align-items:center;gap:12px;margin:34px 0 4px}
+.yr b{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--sub)}
+.yr i{flex:1;height:1px;background:var(--line)}
+.items{list-style:none;margin:0;padding:0}
+.it{display:grid;grid-template-columns:92px 18px minmax(0,1fr);gap:0;padding:16px 0 18px}
+.it .dt{font-family:var(--mono);font-size:12px;color:var(--sub);padding-top:4px;letter-spacing:.02em}
+.it .rail{position:relative}
+.it .rail::before{content:"";position:absolute;left:50%;top:0;bottom:-18px;width:1px;background:var(--line)}
+.it:last-child .rail::before{bottom:auto;height:16px}
+.it .rail::after{content:"";position:absolute;left:50%;top:7px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--accent)}
+.it .bd{min-width:0;padding-left:18px}
+.it h3{margin:0;font-size:17px;font-weight:600;line-height:1.5;letter-spacing:-.005em}
+.it p{margin-top:8px;font-size:14px;line-height:1.85}
+.it .tg{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;padding:0;list-style:none}
+.it .tg li{background:var(--tonal);border-radius:7px;padding:3px 9px;font-size:11px;color:var(--sub);line-height:1.5}
+.it .ft{margin-top:10px;font-size:12px;color:var(--sub)}
+.it .ft a{color:var(--sub);text-decoration:none;border-bottom:1px solid var(--line)}
+.it .ft a:hover{color:var(--ink)}
+.it .ft .rel{color:var(--accent)}
+.empty{margin-top:30px;font-size:14px;color:var(--sub)}
+@media (max-width:720px){
+  .it{grid-template-columns:14px minmax(0,1fr);padding:14px 0 16px}
+  .it .dt{grid-column:2;padding:0 0 0 16px}
+  .it .rail{grid-row:1 / span 2}
+  .it .bd{grid-column:2;padding-left:16px;margin-top:4px}
+  .filter{margin-top:24px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="crumb"><a class="back" href="index.html">ゲーム業界の理解を深める地図</a><a class="to" href="industry.html">産業のしくみ</a></p>
+  <p class="eyebrow">追う</p>
+  <h1>主なニュース</h1>
+  <p class="lead">ゲーム業界の主な動きを、新しい順に短くまとめています。タグで絞り込めます。</p>
+</header>
+
+<section class="ch" id="news">
+  <div class="ch-head"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M4 5.5h13v13H4zM17 9.5h3v7a2 2 0 01-2 2M7 9h7M7 12h7M7 15h4"/></svg></span><span class="ch-no">LOG</span></div>
+  <h2>業界の動き</h2>
+  <p class="sub">一次資料（公式の発表・公表資料）を読んで、要点だけを書いています。数字をこのサイトの本文に入れる時は、あらためて原典で確かめます。</p>
+
+  <div class="filter" id="filter" role="group" aria-label="タグで絞り込む"></div>
+  <div id="list"></div>
+</section>
+
+<p class="by"><a href="https://www.tas9.net/" target="_blank" rel="noopener">tas9.net</a></p>
+
+</div>
+
+<script src="news.js"></script>
+<script>
+(function(){
+  var sel=[], list=document.getElementById('list'), bar=document.getElementById('filter');
+  var used=window.TAGS.filter(function(t){return window.NEWS.some(function(n){return n.tg.indexOf(t)>=0;});});
+
+  function chip(label,on,fn){
+    var b=document.createElement('button');
+    b.type='button'; b.textContent=label; b.setAttribute('aria-pressed',on?'true':'false');
+    b.addEventListener('click',fn); return b;
+  }
+  function draw(){
+    bar.textContent='';
+    bar.appendChild(chip('すべて',sel.length===0,function(){sel=[];draw();}));
+    used.forEach(function(t){
+      bar.appendChild(chip(t,sel.indexOf(t)>=0,function(){
+        var i=sel.indexOf(t); if(i<0){sel.push(t);}else{sel.splice(i,1);} draw();
+      }));
+    });
+    var items=window.NEWS.filter(function(n){
+      return sel.length===0 || n.tg.some(function(t){return sel.indexOf(t)>=0;});
+    });
+    var c=document.createElement('span'); c.className='count'; c.textContent=items.length+' 件';
+    bar.appendChild(c);
+
+    list.textContent='';
+    if(!items.length){
+      var e=document.createElement('p'); e.className='empty'; e.textContent='この条件の記事はまだありません。';
+      list.appendChild(e); return;
+    }
+    var year=null, ul=null;
+    items.forEach(function(n){
+      var y=n.d.slice(0,4);
+      if(y!==year){
+        year=y;
+        var h=document.createElement('div'); h.className='yr';
+        var b=document.createElement('b'); b.textContent=y+' 年'; h.appendChild(b);
+        h.appendChild(document.createElement('i'));
+        list.appendChild(h);
+        ul=document.createElement('ul'); ul.className='items'; list.appendChild(ul);
+      }
+      var li=document.createElement('li'); li.className='it';
+      var dt=document.createElement('div'); dt.className='dt'; dt.textContent=n.d.slice(5).replace('-','/');
+      var rail=document.createElement('div'); rail.className='rail';
+      var bd=document.createElement('div'); bd.className='bd';
+      var h3=document.createElement('h3'); h3.textContent=n.t; bd.appendChild(h3);
+      (n.s||[]).forEach(function(line){
+        var p=document.createElement('p'); p.textContent=line; bd.appendChild(p);
+      });
+      if(n.tg && n.tg.length){
+        var tg=document.createElement('ul'); tg.className='tg';
+        n.tg.forEach(function(t){var x=document.createElement('li');x.textContent=t;tg.appendChild(x);});
+        bd.appendChild(tg);
+      }
+      var ft=document.createElement('p'); ft.className='ft';
+      ft.appendChild(document.createTextNode('出典：'));
+      (n.src||[]).forEach(function(s,i){
+        if(i){ft.appendChild(document.createTextNode('・'));}
+        var a=document.createElement('a'); a.href=s.u; a.target='_blank'; a.rel='noopener'; a.textContent=s.n;
+        ft.appendChild(a);
+      });
+      if(n.rel){
+        ft.appendChild(document.createTextNode('　'));
+        var r=document.createElement('span'); r.className='rel'; r.textContent='→ '+n.rel; ft.appendChild(r);
+      }
+      bd.appendChild(ft);
+      li.appendChild(dt); li.appendChild(rail); li.appendChild(bd); ul.appendChild(li);
+    });
+  }
+  draw();
+})();
+</script>
+<script src="common.js"></script>
+</body>
+</html>

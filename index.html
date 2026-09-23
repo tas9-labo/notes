@@ -57,6 +57,13 @@
   </a>
 </div>
 
+<a class="hub-link" href="news.html">
+  <span class="k">追う</span>
+  <b>主なニュース</b>
+  <span class="d">業界の主な動きを、新しい順に短くまとめています。タグで絞り込めます。</span>
+  <em id="newsDate"></em>
+</a>
+
 <div class="hub-soon">
   <span class="k">学ぶ</span>
   <b>授業の素材</b>
@@ -68,6 +75,8 @@
 
 </div>
 
+<script src="news.js"></script>
+<script>(function(){var n=(window.NEWS||[])[0],e=document.getElementById("newsDate");if(n&&e){e.textContent="最新 "+n.d;}})();</script>
 <script src="common.js"></script>
 </body>
 </html>
