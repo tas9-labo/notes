@@ -50,7 +50,7 @@ a{color:inherit}
 /* 見出しまわり */
 header.top{padding:76px 8px 0}
 .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);font-weight:600}
-h1{font-size:clamp(30px,3.8vw,42px);line-height:1.18;letter-spacing:-.02em;font-weight:600;margin:12px 0 0}
+h1{font-size:clamp(28px,3.6vw,40px);line-height:1.18;letter-spacing:-.02em;font-weight:600;margin:12px 0 0}
 .lead{margin-top:18px;font-size:18px;line-height:1.7;color:var(--sub);max-width:44em;text-wrap:pretty}
 .meta{margin-top:12px;font-size:13px;color:var(--sub)}
 
@@ -547,7 +547,6 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   .wrap{margin:0 0 40px}
   header.top{padding:48px 20px 32px;border-bottom:1px solid var(--line)}
   .pages{margin:0 0 20px}
-  h1{font-size:30px}
   .lead{font-size:16px;margin-top:14px}
   .chapters{gap:6px;margin-top:26px}
   .chapters a{background:var(--tonal);box-shadow:none;padding:5px 10px 5px 6px}
@@ -661,9 +660,12 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 .hub-hero .mark{display:block;width:auto;height:88px;color:var(--ink)}
 .hub-hero .mark-mirror{position:absolute;left:0;top:0;transform:translateY(100%) scaleY(-1);opacity:.27;pointer-events:none;
   -webkit-mask-image:linear-gradient(to top,#000 0%,transparent 60%);mask-image:linear-gradient(to top,#000 0%,transparent 60%)}
-.hub-hero .title-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:26px}
-.hub-hero .chara{width:38px;height:38px;flex:none;color:var(--ink)}
-.hub-hero h1{margin:0;font-size:clamp(26px,3.4vw,40px);text-wrap:balance}
+.title-row{display:flex;align-items:center;gap:12px;margin-top:12px}
+.title-row h1{margin:0}
+.title-row .chara{width:34px;height:34px;flex:none;color:var(--ink)}
+.hub-hero .title-row{justify-content:center;margin-top:26px}
+.hub-hero .chara{width:38px;height:38px}
+.hub-hero h1{margin:0;text-wrap:balance}
 .hub-hero .lead{margin:18px auto 0;max-width:30em;font-size:17px;text-align:center}
 .hub{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:64px}
 .hub>a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:22px;
@@ -704,6 +706,7 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   .hub-hero{padding:56px 20px 0}
   .hub-hero .mark{height:70px}
   .hub-hero .logo-wrap{padding-bottom:30px}
+  .title-row .chara{width:28px;height:28px}
   .hub-hero .chara{width:32px;height:32px}
   .hub-hero .lead{font-size:16px;margin-top:16px}
   .hub{grid-template-columns:1fr;gap:14px;margin:44px 20px 0}
