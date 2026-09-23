@@ -70,12 +70,23 @@ nav.toc{position:fixed;left:0;right:0;top:0;z-index:5;padding:10px 16px;transfor
   background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 nav.toc.show{transform:none}
 nav.toc ul{position:relative;display:flex;gap:8px;max-width:960px;margin:0 auto;padding:0;list-style:none;overflow-x:auto;scrollbar-width:none}
+.toc-pages{display:flex;align-items:center;gap:6px;max-width:960px;margin:0 auto 8px;padding-bottom:8px;
+  border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent);overflow-x:auto;scrollbar-width:none}
+.toc-pages::-webkit-scrollbar{display:none}
+.toc-pages a{display:flex;align-items:center;flex:none;padding:5px 13px;border-radius:980px;border:1px solid var(--line);
+  color:var(--sub);text-decoration:none;font-size:13px;line-height:1.45;white-space:nowrap;
+  transition:color .2s,border-color .2s,background-color .2s}
+.toc-pages a:hover{color:var(--ink);border-color:var(--sub)}
+.toc-pages a[aria-current="page"]{background:var(--tonal);color:var(--ink);font-weight:500;border-color:transparent}
+.toc-pages .home{padding:4px 11px;color:var(--ink);border-color:transparent}
+.toc-pages .home:hover{border-color:var(--line)}
+.toc-pages .home svg{display:block;width:auto;height:18px;fill:currentColor}
 nav.toc ul::-webkit-scrollbar{display:none}
 nav.toc a{display:block;padding:6px 14px;border-radius:980px;background:var(--card);text-decoration:none;font-size:13px;font-weight:500;white-space:nowrap}
 nav.toc a .n{font-family:var(--mono);color:var(--sub);font-variant-numeric:tabular-nums;margin-right:.5em}
 
 /* 章カード */
-section.ch{background:var(--card);border:1px solid color-mix(in srgb,var(--line) 55%,transparent);border-radius:24px;box-shadow:var(--shadow);padding:46px 40px 40px;margin-top:24px;scroll-margin-top:72px}
+section.ch{background:var(--card);border:1px solid color-mix(in srgb,var(--line) 55%,transparent);border-radius:24px;box-shadow:var(--shadow);padding:46px 40px 40px;margin-top:24px;scroll-margin-top:112px}
 .ch-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .ch-head .ico{width:34px;height:34px;border-radius:10px;margin-right:2px}
 .ch-head .ic{width:20px;height:20px}
@@ -695,24 +706,6 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 .hub em{margin-top:12px;font-family:var(--mono);font-size:11px;font-style:normal;color:var(--sub)}
 .hub>.soon em{align-self:flex-start;background:var(--tonal);border-radius:8px;padding:3px 9px;
   font-family:inherit;letter-spacing:.02em}
-/* 画面の上端にカーソルを置いた時だけ出る、ページ切り替えの帯 */
-.tophover{position:fixed;top:0;left:0;right:0;height:10px;z-index:7}
-.tophover .pagebar{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:center;
-  gap:6px;padding:8px 16px;transform:translateY(-110%);transition:transform .22s;
-  background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line)}
-.tophover:hover .pagebar,.tophover:focus-within .pagebar{transform:none}
-.pagebar a{display:flex;align-items:center;flex:none;padding:5px 13px;border-radius:980px;border:1px solid var(--line);
-  color:var(--sub);text-decoration:none;font-size:13px;line-height:1.45;white-space:nowrap;
-  transition:color .2s,border-color .2s,background-color .2s}
-.pagebar a:hover{color:var(--ink);border-color:var(--sub)}
-.pagebar a[aria-current="page"]{background:var(--tonal);color:var(--ink);font-weight:500;border-color:transparent}
-.pagebar .home{padding:4px 11px;color:var(--ink);border-color:transparent}
-.pagebar .home:hover{border-color:var(--line)}
-.pagebar .home svg{display:block;width:auto;height:18px;fill:currentColor}
-/* 章の目次が出ている時は、その下にずらす */
-.tophover:hover ~ nav.toc.show,.tophover:focus-within ~ nav.toc.show{transform:translateY(48px)}
-
 /* 上の行：3ページの切り替え（丸いタブ）。左端の印は地図のトップへ */
 .pages{display:flex;align-items:center;gap:6px;margin:0 0 24px;overflow-x:auto;scrollbar-width:none}
 .pages::-webkit-scrollbar{display:none}

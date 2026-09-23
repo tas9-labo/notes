@@ -70,7 +70,7 @@
 
   // 上の目次：いま読んでいる章を強調する
   var links={},navUl=document.querySelector('nav.toc ul');
-  document.querySelectorAll('nav.toc a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a;});
+  document.querySelectorAll('nav.toc ul a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a;});
   if('IntersectionObserver' in window){
     var spy=new IntersectionObserver(function(es){
       es.forEach(function(en){
@@ -86,6 +86,7 @@
 
   // 入口カードが見えなくなったら、上に目次を出す
   var nav=document.querySelector('nav.toc'),hero=document.getElementById('chapters');
+  if(!nav||!hero)return;
   if('IntersectionObserver' in window){
     new IntersectionObserver(function(e){
       nav.classList.toggle('show',!e[0].isIntersecting&&e[0].boundingClientRect.top<0);
