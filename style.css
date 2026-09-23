@@ -673,10 +673,11 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 .hub>a{transition:border-color .2s,transform .2s,box-shadow .2s}
 .hub>a:hover{border-color:var(--ac);transform:translateY(-3px);box-shadow:var(--shadow)}
 .hub>.soon{color:var(--sub)}
-.hub .k{display:flex;align-items:center;justify-content:center;gap:8px;font-size:18px;font-weight:600;letter-spacing:.06em;color:var(--ac)}
+.hub .k{display:flex;align-items:center;justify-content:center;gap:8px;font-size:18px;font-weight:600;letter-spacing:.06em;color:var(--ink)}
 .hub .k .ic{width:19px;height:19px}
 .hub>.soon .k{color:var(--sub)}
-.hub b{display:block;margin-top:8px;font-size:15px;font-weight:600;line-height:1.5;text-align:center}
+.hub .k .ic{color:var(--ac)}
+.hub b{display:block;margin-top:8px;font-size:15px;font-weight:600;line-height:1.5}
 .hub .d{display:block;flex:1;margin-top:10px;font-size:13px;color:var(--sub);line-height:1.8;text-wrap:pretty}
 .hub em{margin-top:12px;font-family:var(--mono);font-size:11px;font-style:normal;color:var(--sub)}
 .hub>.soon em{align-self:flex-start;background:var(--tonal);border-radius:8px;padding:3px 9px;
