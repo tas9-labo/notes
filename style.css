@@ -655,6 +655,17 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 /* 大枠と現場のページを行き来する小さなリンク */
 /* 出典の一覧：ページには番号を出さないので1列（2026-09-22） */
 .srcs li{grid-template-columns:1fr}.srcs .d{grid-column:1}
+/* 入口の頭に敷く写真（飾り）。下へ向かって地色に溶かす。文字は前面 */
+.hero-bg{position:absolute;top:0;left:0;right:0;height:520px;overflow:hidden;pointer-events:none;z-index:0}
+.hero-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 62%;opacity:.26;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 38%,transparent 92%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 38%,transparent 92%)}
+:root:not([data-theme="dark"]) .hero-bg img{opacity:.10;filter:saturate(.7)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hero-bg img{opacity:.26;filter:none}}
+:root[data-theme="dark"] .hero-bg img{opacity:.26;filter:none}
+.wrap{position:relative;z-index:1}
+@media (max-width:720px){.hero-bg{height:380px}}
+
 /* 入口ページ（notes のハブ）：テーマごとのカードを並べる */
 /* 入口ページ：中央に +9 の印、その下にテーマ2枚 */
 .hub-hero{padding:18px 8px 0;text-align:center}
