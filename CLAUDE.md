@@ -1,8 +1,8 @@
 # CLAUDE.md（notes — ゲーム業界 +9 メモ）
 
-学生・業界外の人に「ゲーム業界の全体像」を図で説明するための教材。2ページ構成：`index.html`（産業の大枠）と `dev.html`（作る側の現場）。
+学生・業界外の人に「ゲーム業界の全体像」を図で説明するためのメモサイト「**+9 メモ**」。3ページ構成：`index.html`（入口）・`industry.html`（産業の大枠）・`dev.html`（作る側の現場）。
 作者（tas9・業界20年超のモーションデザイナー／専門学校講師）が、授業と説明の場で使う。
-**状態：未公開のモック（2026-09-21 着手）**。公開先は `tas9.net` 配下を想定するが、場所・時期は未決定。
+**状態：未公開（2026-09-21 着手）**。控えは非公開リポジトリ `tas9-labo/notes`。公開先は `notes.tas9.net` を予定（DNS の CNAME はまだ）。
 
 ## 成り立ちと原本
 
@@ -37,7 +37,8 @@
 
 | ファイル | 役割 |
 |---|---|
-| `index.html` | 大枠のページ「ゲーム業界 +9 メモ」。見た目は tas9_net の系統（グレー地・Inter＋Noto Sans JP・ライト/ダーク自動）＋章ごとの差し色 |
+| `index.html` | 入口のページ「+9 メモ」（テーマ別のカード2枚）。`.hub` の見た目は style.css |
+| `industry.html` | 大枠のページ「ゲーム業界 +9 メモ」。見た目は tas9_net の系統（グレー地・Inter＋Noto Sans JP・ライト/ダーク自動）＋章ごとの差し色 |
 | `dev.html` | 現場のページ「ゲーム開発の現場 +9 メモ」（2026-09-22 モック作成・添削はこれから）。index と相互リンク |
 | `style.css` | 2ページ共通の見た目（2026-09-22 に index.html のインライン CSS を切り出した。切り出し前後で描画は同一と確認）。ページ固有の図の CSS は各 HTML の `<style>` に |
 | `common.js` | 2ページ共通の振る舞い：用語のポップアップ・注釈・印刷時の展開・上の目次。ページ固有の計算は各 HTML のインライン `<script>` に |
@@ -429,3 +430,7 @@
   入口＝2枚のカード（産業の大枠＝industry.html／作る側の現場＝dev.html）。各ページの先頭に入口へ戻るパン屑（.crumb）を置き、メモ同士の相互リンク（.xlink）も残した。
   入口の見た目（.hub・.hub-note・.crumb）は共通の style.css に置いた。ページが増えても入口にカードを1枚足すだけで済む形。
   公開はまだ（3ページとも noindex のまま）。公開時にやること：noindex を外す／OGP 画像を用意する／CNAME と DNS（notes）を足す。
+- **公開の下ごしらえ（2026-09-23）**：3ページから `noindex` を外した。OGP を整備：`og:url`・`og:site_name`・`og:locale`・`og:image`（1200×630）・`og:image:alt`・`canonical` を追加し、`twitter:card` を `summary_large_image` に。
+  画像は自作の3枚（`og.png`／`og-industry.png`／`og-dev.png`）。作り方＝黒地に章の色の縦帯＋「+9 メモ」＋区分＋題名＋説明＋notes.tas9.net。
+  生成は scratchpad の `mk_og.py`（HTML を書いて headless Edge で 1200×630 撮影）。題名や章構成を変えたら、このスクリプトの CARDS を直して撮り直す。
+  残りは公開作業だけ：GitHub Pages を有効にする（リポジトリを公開に切り替え）→ `CNAME` を置く → GoDaddy の DNS に `notes` の CNAME を足す。
