@@ -1,7 +1,7 @@
 /* ゲーム業界 +9 メモ：共通スタイル（index.html と dev.html で共用）。色の体系・約束は CLAUDE.md */
 :root{
   --bg:#e9ebef; --card:#f7f8fa; --ink:#15171c; --sub:#5f656e; --line:#d5d9e0;
-  --tonal:#eceef2; --node:#ffffff; --accent:#0f5fd0; --accent-soft:#e3ebf9;
+  --tonal:#eceef2; --node:#ffffff; --accent:#4f7d12; --accent-soft:#edf5dd;
   --warm:#f1ecdf; --warm-ink:#6a5422; --coin:#9a7413;
   --c-teal:#0e7f8c; --c-blue:#1160c9; --c-violet:#5a6a80; --c-gold:#8f6f10; --c-green:#1a7a56; --c-coral:#c2562a; --c-slate:#5b6472;
   --imp3:#c65312; --imp2:#1160c9; --on-color:#fff; --warn:#a97f00;
@@ -10,7 +10,7 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#0a0b0d; --card:#14161a; --ink:#e7e9ee; --sub:#8d949f; --line:#282c33;
-    --tonal:#1d2127; --node:#181b20; --accent:#5ea8ff; --accent-soft:#17243a;
+    --tonal:#1d2127; --node:#181b20; --accent:#a8dc4e; --accent-soft:#1e2a13;
     --warm:#26211a; --warm-ink:#dcbc80; --coin:#e0c15f;
     --c-teal:#35b7c9; --c-blue:#5ea8ff; --c-violet:#a9b6c9; --c-gold:#e0c15f; --c-green:#8fd4a8; --c-coral:#ff8a4d; --c-slate:#7f8794;
     --imp3:#ff8a4d; --imp2:#5ea8ff; --on-color:#0a0b0d; --warn:#e8c25c;
@@ -19,7 +19,7 @@
 }
 :root[data-theme="dark"]{
     --bg:#0a0b0d; --card:#14161a; --ink:#e7e9ee; --sub:#8d949f; --line:#282c33;
-    --tonal:#1d2127; --node:#181b20; --accent:#5ea8ff; --accent-soft:#17243a;
+    --tonal:#1d2127; --node:#181b20; --accent:#a8dc4e; --accent-soft:#1e2a13;
     --warm:#26211a; --warm-ink:#dcbc80; --coin:#e0c15f;
     --c-teal:#35b7c9; --c-blue:#5ea8ff; --c-violet:#a9b6c9; --c-gold:#e0c15f; --c-green:#8fd4a8; --c-coral:#ff8a4d; --c-slate:#7f8794;
     --imp3:#ff8a4d; --imp2:#5ea8ff; --on-color:#0a0b0d; --warn:#e8c25c;
