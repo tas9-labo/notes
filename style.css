@@ -49,7 +49,8 @@ a{color:inherit}
 
 /* 見出しまわり */
 header.top{padding:76px 8px 0}
-.eyebrow{font-size:18px;letter-spacing:.08em;color:var(--sub);font-weight:600}
+.eyebrow{display:flex;align-items:center;gap:8px;font-size:18px;letter-spacing:.08em;color:var(--sub);font-weight:600}
+.eyebrow .ic{width:19px;height:19px;color:var(--ac)}
 h1{font-size:clamp(28px,3.6vw,40px);line-height:1.18;letter-spacing:-.02em;font-weight:600;margin:12px 0 0}
 .lead{margin-top:16px;font-size:15px;line-height:1.8;color:var(--sub);max-width:44em;text-wrap:pretty}
 .meta{margin-top:12px;font-size:13px;color:var(--sub)}
