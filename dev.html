@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <!-- 運用ルールと宿題は CLAUDE.md。共通の見た目は style.css、共通の振る舞いは common.js。事実の原本は「出典」のリンク先 -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゲーム開発の現場 +9 メモ</title>
-<meta name="description" content="作る側から見たゲーム開発のメモ。役割分担・規模・変化・スキル・お金・業界への入口。">
+<title>開発の現場 ｜ ゲーム業界の地図</title>
+<meta name="description" content="何人で、どう分担して、いくらで作るか。役割分担・規模・変化・スキル・お金・業界への入口の6章。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ゲーム開発の現場 +9 メモ">
-<meta property="og:description" content="作る側から見たゲーム開発のメモ。役割分担・規模・変化・スキル・お金・業界への入口。">
+<meta property="og:title" content="開発の現場">
+<meta property="og:description" content="何人で、どう分担して、いくらで作るか。役割分担・規模・変化・スキル・お金・業界への入口の6章。">
 <meta property="og:url" content="https://notes.tas9.net/dev.html">
-<meta property="og:site_name" content="+9 メモ">
+<meta property="og:site_name" content="ゲーム業界の地図">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://notes.tas9.net/og-dev.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="ゲーム開発の現場 +9 メモ">
+<meta property="og:image:alt" content="開発の現場">
 <link rel="canonical" href="https://notes.tas9.net/dev.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230b6e6e' stroke-width='1.8' stroke-linecap='round'><style>@media (prefers-color-scheme:dark){svg{stroke:%236fd3cc}}</style><circle cx='9' cy='8.5' r='3'/><path d='M3.5 19a5.5 5.5 0 0111 0'/><circle cx='17' cy='9.5' r='2.3'/><path d='M16.2 14.2a4.6 4.6 0 014.3 4.8'/></svg>">
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='104 129 105 89'><style>path{fill:%23333}@media (prefers-color-scheme:dark){path{fill:%23f5f5f7}}</style><path d='M176.0366,130.8232c-12.7488,2.0014-26.8024,7.6128-36.4664,15.6061-11.2927,10.4-10.2545,23.0626,7.1971,24.2507-.1219,2.8139-.313,5.8846-.3845,8.7311.098,1.6658.0058,2.6135-1.9803,2.7731-13.8904,2.7385-28.4505,4.9224-38.4208,11.546-.5634.1345-.5432.4985-.7303.8776-.1321.2675-.2402.5534-.2346.8517.1805,9.4435,15.2324.6668,20.8776-.289,6.5802-1.0276,13.6384-3.8511,20.1526-3.8411.1212,5.55.2944,14.6605,5.758,13.9257,3.9485-1.0272,1.507-9.018,2.639-12.9664-1.9142-5.1835,17.9977.4855,14.3948-9.1232-1.9492-3.3911-9.3795-2.2475-14.1548-2.1609.1599-3.5212.3199-7.0434.4798-10.5646,8.7144-.9588,14.6201-1.949,23.0324-4.562.295,11.596.5525,26.7108-1.1542,38.2311-.0275,3.3588-2.2057,6.8232-1.0253,10.0197,5.7303,7.3846,11.2675-2.4999,11.2827-8.2081,1.4005-8.3205,1.4758-17.6229,1.4515-27.0773.6795-4.2975-2.6248-10.9072,2.1598-12.9647,28.8408-14.3216,20.0151-40.3267-14.8742-35.0555ZM191.6307,154.1128c-1.4825.6987-3.4545,2.5314-4.5665,1.4816-.1877-.1772-.4628-.2456-.7176-.2036-6.6749,1.1013-11.6011,3.1055-17.7178,3.8529-4.3312.5755-9.2273,2.0431-13.4649,1.5919-.4554-.5104-.1702-1.961-.4799-2.6411-.9835-1.3435-2.2745-2.5884-4.0782-1.9208-2.2845.19-2.7604,2.7097-3.359,4.8023-15.0419.0143,5.1118-12.4051,8.1573-14.1659,6.9716-3.2369,15.7759-6.2043,24.4709-7.2037,14.1142-.731,26.5272,2.8245,11.7557,14.4062Z'/></svg>">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1d1d1f" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +36,7 @@
 .rel-arrow{align-self:center;text-align:center;color:var(--sub);font-size:15px;padding-top:18px}
 .rel-arrow::before{content:"→"}
 /* 制作／実装の輪：左に MDL・RIG（2行分）、右に ANM→PRG→VFX・UI→SFX→ANM の循環 */
-.cyc{display:grid;grid-template-columns:1fr 16px 1fr 16px 1fr;grid-template-rows:auto 18px auto;gap:2px;flex:1;border:1px dashed var(--line);border-radius:14px;padding:8px}
+.cyc{display:grid;grid-template-columns:1fr 16px 1fr 16px 1fr;grid-template-rows:auto 18px auto;gap:2px;flex:1;border:1px solid var(--line);border-radius:14px;padding:8px}
 .cyc .tall{grid-column:1;grid-row:1/4}
 .cyc .a1{grid-column:2;grid-row:1/4;align-self:center}
 .cyc .anm{grid-column:3;grid-row:1}.cyc .a2{grid-column:4;grid-row:1;align-self:center}.cyc .prg{grid-column:5;grid-row:1}
@@ -48,14 +48,14 @@
 .rel .sec{padding:10px 11px;flex:1}.rel .sec.wide{margin-top:12px;padding:10px 14px}
 .rel .sec b{font-size:12px}.rel .sec span{font-size:12px;line-height:1.35}.rel .sec small{font-size:11px;line-height:1.45}
 .rel-back{margin-top:10px;font-size:12px;color:var(--sub)}
-.sec{border-radius:14px;padding:12px 14px;background:color-mix(in srgb,var(--gc) 14%,var(--card));border-left:3px solid var(--gc)}
+.sec{border-radius:4px 12px 12px 4px;padding:12px 14px;background:var(--node);border:1px solid var(--line);border-left:3px solid var(--gc)}
 .sec b{display:block;font-size:13px;color:var(--gc);letter-spacing:.04em}
 .sec span{display:block;font-size:13px;font-weight:600;margin-top:2px}
 .sec small{display:block;font-size:11px;color:var(--sub);margin-top:4px;line-height:1.5}
 .g-plan{--gc:var(--c-blue)}.g-art{--gc:var(--c-violet)}.g-tech{--gc:var(--c-teal)}.g-qa{--gc:var(--c-gold)}
-/* +9 の視点：本人の経験。事実の箱とは線の種類で分ける */
-.v9{margin-top:14px;border:1px dashed var(--ac);border-radius:14px;padding:12px 16px;font-size:13px;line-height:1.8}
-.v9-k{display:block;font-size:11px;letter-spacing:.08em;color:var(--ac);margin-bottom:4px;font-weight:600}
+/* 視点：本人の経験。事実の箱とは分ける（左の罫線＋章の色） */
+.v9{margin-top:20px;border-left:2px solid var(--ac);padding:2px 0 2px 18px;font-size:14px;line-height:1.85}
+.v9-k{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);margin-bottom:6px;font-weight:600}
 .v9 p{margin:0}
 /* 02 規模 */
 /* 小・中・大の段：左に項目名、右に3段。行の高さは subgrid で揃える。右へ行くほど章の色を濃く＝規模の流れ */
@@ -142,7 +142,7 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
 .common li{position:relative;padding-left:11px;margin-top:3px;word-break:auto-phrase}
 .common li::before{content:"";position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--ac)}
 /* 02 いまの流れ：07（大枠）の「様々な課題」と同じ枠。追い風＝青・向かい風＝橙（矢印の向きでも見分ける） */
-.issues .g4{--cc:var(--c-teal)}
+.issues .g4{--cc:var(--c-slate)}
 .issues .g-pos{--cc:var(--imp2)}.issues .g-neg{--cc:var(--imp3)}
 .issues .g-pos .gl b,.issues .g-neg .gl b{color:var(--cc)}
 .issues li b{font-weight:700;color:var(--ink)}
@@ -172,9 +172,6 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
   .skills th:nth-child(2),.skills td:nth-child(2){display:none}
 }
 @media (max-width:480px){.common,.facts{grid-template-columns:1fr}}
-/* 章の色は番号ではなく役割で決める（03 変化＝緑・05 お金＝金） */
-#c3,.chapters li:nth-child(3){--ac:var(--c-green)}
-#c5,.chapters li:nth-child(5){--ac:var(--c-gold)}
 </style>
 </head>
 <body>
@@ -207,10 +204,10 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
 <div class="wrap">
 
 <header class="top">
-  <p class="crumb"><a href="index.html">+9 メモ</a></p>
-  <h1>ゲーム開発の現場 +9 メモ</h1>
-  <p class="lead">作る側から見た、現場・お金・スキル・変化のメモをまとめています。</p>
-  <a class="xlink" href="industry.html">← 産業の大枠は「ゲーム業界 +9 メモ」</a>
+  <p class="crumb"><a class="back" href="index.html">ゲーム業界の地図</a><a class="to" href="industry.html">産業のしくみ</a></p>
+  <p class="eyebrow">観る</p>
+  <h1>開発の現場</h1>
+  <p class="lead">何人で、どう分担して、いくらで作るか。作る側から見た6章。</p>
 
   <ul class="chapters" id="chapters">
     <li><a href="#c1"><span class="ico"><svg class="ic"><use href="#i-team"/></svg></span><span class="tt"><span class="n">01</span><b>役割分担</b></span></a></li>
@@ -257,7 +254,7 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
     <div class="rel-back">※検証や実装で問題が出たら、制作・企画へ差し戻し。行き来しながら完成させる</div>
   </div>
 
-  <div class="v9"><b class="v9-k">+9 の視点</b><p>各セクションはバトンをつなぐリレー。<br>大切なのは「次の人が作業しやすいバトン」を渡すこと。<br>例：骨格（リグ）を理解して、アニメーターが動かしやすいモデルを作る。<br>自分の専門だけでなく、隣の職種を知る。それが現場で求められる第一歩。</p></div>
+  <div class="v9"><b class="v9-k">視点</b><p>各セクションはバトンをつなぐリレー。<br>大切なのは「次の人が作業しやすいバトン」を渡すこと。<br>例：骨格（リグ）を理解して、アニメーターが動かしやすいモデルを作る。<br>自分の専門だけでなく、隣の職種を知る。それが現場で求められる第一歩。</p></div>
 
   <p class="point">開発はチーム戦。ホウレンソウで、お互いの見ている景色を確かめ合いながら進む。</p>
 </section>
@@ -295,7 +292,7 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
   </div>
   <p class="fig-note">幅は、公表されている数字と実例をもとにした目安。人数は、いちばん多い時期の人数。外注・宣伝費は含まない。<br>開発費は、ほぼ「人数 × 期間」で決まる。1人1年 ≒ 約900万円（平均年収 約674万円に、会社負担の保険とオフィス代を足した概算）。</p>
 
-  <div class="v9"><b class="v9-k">+9 の視点</b><p>人数が増えるほど、一人の担当は狭く深くなる。少人数ほど兼任で広くなる。<br>覚悟を決めて大きく打って出るか、コスパを意識して小さく進むか。<br>どちらを選ぶかは、各社のお財布事情と相談しながら決まっていく傾向にある。<br>ただ、人数が多くても少なくても、「連携力」の高い人材の需要は高まる一方。</p></div>
+  <div class="v9"><b class="v9-k">視点</b><p>人数が増えるほど、一人の担当は狭く深くなる。少人数ほど兼任で広くなる。<br>覚悟を決めて大きく打って出るか、コスパを意識して小さく進むか。<br>どちらを選ぶかは、各社のお財布事情と相談しながら決まっていく傾向にある。<br>ただ、人数が多くても少なくても、「連携力」の高い人材の需要は高まる一方。</p></div>
 
   <p class="point"><span>大型はより大きく、小規模はより多く。真ん中が減っている。<br>人数が増えるほど、分業と連携の重みが増す。</span></p>
 </section>
@@ -362,7 +359,7 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
     <div><b>全体性</b><ul><li>別の職種を意識する（チーム戦の意識）</li></ul></div>
   </div>
 
-  <div class="v9"><b class="v9-k">+9 の視点</b><p>デザイナーは、相手の「なんかかゆい」ところを掻いてあげる人。<br>質問を重ねてヒントを集め、形にする。引き出しは多いほどいい。<br>言われたことだけをする「オペレーター」は、現場では褒め言葉にならない。</p></div>
+  <div class="v9"><b class="v9-k">視点</b><p>デザイナーは、相手の「なんかかゆい」ところを掻いてあげる人。<br>質問を重ねてヒントを集め、形にする。引き出しは多いほどいい。<br>言われたことだけをする「オペレーター」は、現場では褒め言葉にならない。</p></div>
 
   <p class="point"><span>道具や開発環境は変わっても、人の感性と、人と関わる力は変わらない。<br>どれだけ便利な道具が生まれても、使うのは人。問われるのは「何を使うか」ではなく「誰が使うか」。</span></p>
 </section>
@@ -455,7 +452,7 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
     <p class="sim-note"><span id="simNote">手取り＝月給から税・社会保険料を引いた額（賞与なし・住民税ありで計算）。賞与があれば、その分が上乗せになる。</span><br>生活費の既定値＝34歳以下の一人暮らしの会社員などの平均。自分の暮らしに合わせて動かせる（年収200〜300万円の人なら合計で約12万円）。<br>税・保険料は、東京・独身・40歳未満として計算した概算。</p>
   </div>
 
-  <div class="v9"><b class="v9-k">+9 の視点</b><p>「相場」は一言では言えない。単価も給料も、会社ごとのお財布事情で決まる。<br>比べる相手は、人の年収ではない。自分の実働工数（どれだけ手を動かし、何を仕上げたか）を伝えられるかどうか。<br>まずは、自分の身の程を知る機会をつくること。</p></div>
+  <div class="v9"><b class="v9-k">視点</b><p>「相場」は一言では言えない。単価も給料も、会社ごとのお財布事情で決まる。<br>比べる相手は、人の年収ではない。自分の実働工数（どれだけ手を動かし、何を仕上げたか）を伝えられるかどうか。<br>まずは、自分の身の程を知る機会をつくること。</p></div>
 
   <p class="point"><span>社会保障の費用は、会社員なら会社が半分を払い、フリーランスは全部を自分で払う。<br>数字だけに惑わされないよう、お金の仕組みへの理解を深めておく。</span></p>
 </section>
@@ -511,7 +508,7 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
     <div><b>入口も締切も一つではない</b><ul><li>随時募集や、年に何度も締切がある</li><li>別の業界で働いてから入った人もいる</li></ul></div>
   </div>
 
-  <div class="v9"><b class="v9-k">+9 の視点</b><p>大手（数百人）は担当が細かく決まり、狭く深く。教育制度も整うが、「ゲーム全体を作っている」実感は薄くなりがち。<br>中小（数十人）は兼任が多く、幅広く。若手のうちから重要な仕事を任されるが、自分で学ぶ主体性が要る。<br>どちらが上でもない。一つを極めたいか、全体を知りたいか。</p></div>
+  <div class="v9"><b class="v9-k">視点</b><p>大手（数百人）は担当が細かく決まり、狭く深く。教育制度も整うが、「ゲーム全体を作っている」実感は薄くなりがち。<br>中小（数十人）は兼任が多く、幅広く。若手のうちから重要な仕事を任されるが、自分で学ぶ主体性が要る。<br>どちらが上でもない。一つを極めたいか、全体を知りたいか。</p></div>
 
   <p class="point"><span>作品は「何を作ったか」より「どう作ったか」が伝わるように。<br>入口も締切も一つではない。挑める回数は自分で増やせる。</span></p>
 </section>
@@ -519,7 +516,7 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
 <!-- 出典 -->
 <section class="ch" id="src">
   <h2>出典</h2>
-  <p class="sub">以下のリンクや企業の公表資料を参考にまとめています。</p>
+  <p class="sub">以下のリンクや企業の公表資料を参考にまとめています。2026-09-23 時点で確かめた内容です。</p>
   <details class="more">
     <summary>出典の一覧を開く</summary>
   <ul class="srcs">
@@ -586,6 +583,8 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
   </ul>
   </details>
 </section>
+
+<p class="by"><a href="https://www.tas9.net/" target="_blank" rel="noopener">tas9.net</a></p>
 
 </div>
 

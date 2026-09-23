@@ -1,50 +1,44 @@
 /* ゲーム業界 +9 メモ：共通スタイル（index.html と dev.html で共用）。色の体系・約束は CLAUDE.md */
 :root{
-  --bg:#e5e5ea; --card:#f5f5f7; --ink:#1d1d1f; --sub:#6e6e73; --line:#d2d2d7;
-  --tonal:#e9e9ee; --node:#ffffff; --accent:#0b6e6e; --accent-soft:#dcebea;
-  --warm:#f4ead6; --warm-ink:#6b4e16; --coin:#b8860b;
-  --c-teal:#0b6e6e; --c-blue:#2f6fbf; --c-violet:#7a5cc7; --c-gold:#b8860b; --c-green:#2f8f5b; --c-coral:#c2564a; --c-slate:#5b6b8a;
-  --imp3:#e5560f; --imp2:#1a5fe0; --on-color:#fff; --warn:#d99a00;
-  --shadow:0 10px 40px rgba(0,0,0,.08);
+  --bg:#e9ebef; --card:#f7f8fa; --ink:#15171c; --sub:#5f656e; --line:#d5d9e0;
+  --tonal:#eceef2; --node:#ffffff; --accent:#0f5fd0; --accent-soft:#e3ebf9;
+  --warm:#f1ecdf; --warm-ink:#6a5422; --coin:#9a7413;
+  --c-teal:#0e7f8c; --c-blue:#1160c9; --c-violet:#5a6a80; --c-gold:#8f6f10; --c-green:#1a7a56; --c-coral:#c2562a; --c-slate:#5b6472;
+  --imp3:#c65312; --imp2:#1160c9; --on-color:#fff; --warn:#a97f00;
+  --shadow:0 1px 2px rgba(16,20,28,.05),0 8px 28px rgba(16,20,28,.06);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#000000; --card:#1d1d1f; --ink:#f5f5f7; --sub:#a1a1a6; --line:#3a3a3c;
-    --tonal:#2c2c2e; --node:#2a2a2d; --accent:#6fd3cc; --accent-soft:#1f3433;
-    --warm:#352c1a; --warm-ink:#e9cf97; --coin:#e9cf97;
-    --c-teal:#6fd3cc; --c-blue:#8db8ff; --c-violet:#c0aaf5; --c-gold:#e9cf97; --c-green:#86d9a8; --c-coral:#f4a08e; --c-slate:#aab8d2;
-    --imp3:#ff7a3d; --imp2:#4d94ff; --on-color:#14161a; --warn:#ffcc33;
-    --shadow:0 10px 40px rgba(0,0,0,.6);
+    --bg:#0a0b0d; --card:#14161a; --ink:#e7e9ee; --sub:#8d949f; --line:#282c33;
+    --tonal:#1d2127; --node:#181b20; --accent:#5ea8ff; --accent-soft:#17243a;
+    --warm:#26211a; --warm-ink:#dcbc80; --coin:#e0c15f;
+    --c-teal:#35b7c9; --c-blue:#5ea8ff; --c-violet:#a9b6c9; --c-gold:#e0c15f; --c-green:#8fd4a8; --c-coral:#ff8a4d; --c-slate:#7f8794;
+    --imp3:#ff8a4d; --imp2:#5ea8ff; --on-color:#0a0b0d; --warn:#e8c25c;
+    --shadow:0 1px 0 rgba(255,255,255,.03),0 18px 50px rgba(0,0,0,.5);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#000000; --card:#1d1d1f; --ink:#f5f5f7; --sub:#a1a1a6; --line:#3a3a3c;
-  --tonal:#2c2c2e; --node:#2a2a2d; --accent:#6fd3cc; --accent-soft:#1f3433;
-  --warm:#352c1a; --warm-ink:#e9cf97; --coin:#e9cf97;
-  --c-teal:#6fd3cc; --c-blue:#8db8ff; --c-violet:#c0aaf5; --c-gold:#e9cf97; --c-green:#86d9a8; --c-coral:#f4a08e; --c-slate:#aab8d2;
-  --imp3:#ff7a3d; --imp2:#4d94ff; --on-color:#14161a; --warn:#ffcc33;
-  --shadow:0 10px 40px rgba(0,0,0,.6);
+    --bg:#0a0b0d; --card:#14161a; --ink:#e7e9ee; --sub:#8d949f; --line:#282c33;
+    --tonal:#1d2127; --node:#181b20; --accent:#5ea8ff; --accent-soft:#17243a;
+    --warm:#26211a; --warm-ink:#dcbc80; --coin:#e0c15f;
+    --c-teal:#35b7c9; --c-blue:#5ea8ff; --c-violet:#a9b6c9; --c-gold:#e0c15f; --c-green:#8fd4a8; --c-coral:#ff8a4d; --c-slate:#7f8794;
+    --imp3:#ff8a4d; --imp2:#5ea8ff; --on-color:#0a0b0d; --warn:#e8c25c;
+    --shadow:0 1px 0 rgba(255,255,255,.03),0 18px 50px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box}
-/* 章ごとの色 --ac（見出しのアイコン・図の主役・POINT に使う）。お金の話は金、機器は年表と市場で同じ色（家庭用＝青緑・携帯機＝緑・PC＝青・モバイル＝紫・アーケード＝珊瑚） */
+:root{--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
+/* 色の使い方：章は全部同じ1色（--accent）。色で意味を持たせるのは図の区分だけ（--c-* の寒色の段階＋暖色2つ） */
 :root{--ac:var(--accent)}
-section.ch,.chapters li{--ac:var(--accent);--ac-soft:color-mix(in srgb,var(--ac) 16%,var(--card))}
-#c1,.chapters li:nth-child(1){--ac:var(--c-teal)}
-#c2,.chapters li:nth-child(2){--ac:var(--c-blue)}
-#c3,.chapters li:nth-child(3){--ac:var(--c-gold)}
-#c4,.chapters li:nth-child(4){--ac:var(--c-violet)}
-#c5,.chapters li:nth-child(5){--ac:var(--c-green)}
-#c6,.chapters li:nth-child(6){--ac:var(--c-coral)}
-#c7,.chapters li:nth-child(7){--ac:var(--c-slate)}
+section.ch,.chapters li{--ac:var(--accent);--ac-soft:color-mix(in srgb,var(--ac) 13%,var(--card))}
 #terms,#src{--ac:var(--sub)}
 #terms{display:none}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);
   font-family:"Inter","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Helvetica Neue",
     "Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif;
-  font-size:15px;line-height:1.75;padding:16px;
+  font-size:16px;line-height:1.75;padding:16px;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-.wrap{max-width:920px;margin:16px auto 48px}
+.wrap{max-width:960px;margin:16px auto 64px}
 p{margin:0;text-wrap:pretty}
 a{color:inherit}
 .nw{white-space:nowrap}
@@ -54,39 +48,39 @@ a{color:inherit}
 .ico{display:flex;flex:none;width:38px;height:38px;border-radius:11px;background:var(--ac-soft);color:var(--ac);align-items:center;justify-content:center}
 
 /* 見出しまわり */
-header.top{padding:28px 8px 0}
+header.top{padding:76px 8px 0}
 .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);font-weight:600}
-h1{font-size:34px;line-height:1.25;letter-spacing:.02em;font-weight:600;margin:10px 0 0}
-.lead{margin-top:14px;text-wrap:pretty}
+h1{font-size:clamp(30px,3.8vw,42px);line-height:1.18;letter-spacing:-.02em;font-weight:600;margin:12px 0 0}
+.lead{margin-top:18px;font-size:18px;line-height:1.7;color:var(--sub);max-width:44em;text-wrap:pretty}
 .meta{margin-top:12px;font-size:13px;color:var(--sub)}
 
 /* 入口：7章を小さな札で横一列（場所を取らない） */
-.chapters{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.chapters{list-style:none;margin:34px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
 .chapters a{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:12px;padding:6px 12px 6px 7px;text-decoration:none;box-shadow:var(--shadow);transition:transform .15s}
 .chapters a:hover{transform:translateY(-2px)}
 .chapters .ico{width:26px;height:26px;border-radius:8px}
 .chapters .ico .ic{width:14px;height:14px}
 .chapters .tt{display:flex;align-items:baseline;gap:6px}
-.chapters .n{font-size:11px;letter-spacing:.08em;color:var(--sub);font-weight:600;font-variant-numeric:tabular-nums}
+.chapters .n{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--sub);font-weight:600;font-variant-numeric:tabular-nums}
 .chapters b{font-size:14px;font-weight:600;line-height:1.3}
 
 /* 目次（入口カードが画面から消えたら上に出る） */
 nav.toc{position:fixed;left:0;right:0;top:0;z-index:5;padding:10px 16px;transform:translateY(-100%);transition:transform .2s;
   background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 nav.toc.show{transform:none}
-nav.toc ul{position:relative;display:flex;gap:8px;max-width:920px;margin:0 auto;padding:0;list-style:none;overflow-x:auto;scrollbar-width:none}
+nav.toc ul{position:relative;display:flex;gap:8px;max-width:960px;margin:0 auto;padding:0;list-style:none;overflow-x:auto;scrollbar-width:none}
 nav.toc ul::-webkit-scrollbar{display:none}
 nav.toc a{display:block;padding:6px 14px;border-radius:980px;background:var(--card);text-decoration:none;font-size:13px;font-weight:500;white-space:nowrap}
-nav.toc a .n{color:var(--sub);font-variant-numeric:tabular-nums;margin-right:.5em}
+nav.toc a .n{font-family:var(--mono);color:var(--sub);font-variant-numeric:tabular-nums;margin-right:.5em}
 
 /* 章カード */
-section.ch{background:var(--card);border-radius:28px;box-shadow:var(--shadow);padding:34px 32px 30px;margin-top:20px;scroll-margin-top:64px}
+section.ch{background:var(--card);border:1px solid color-mix(in srgb,var(--line) 55%,transparent);border-radius:24px;box-shadow:var(--shadow);padding:46px 40px 40px;margin-top:24px;scroll-margin-top:72px}
 .ch-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .ch-head .ico{width:34px;height:34px;border-radius:10px;margin-right:2px}
 .ch-head .ic{width:20px;height:20px}
-.ch-no{font-size:12px;letter-spacing:.14em;color:var(--sub);font-weight:600;font-variant-numeric:tabular-nums}
-h2{font-size:24px;line-height:1.35;font-weight:600;margin:12px 0 0;letter-spacing:.01em}
-.sub{margin-top:8px;color:var(--sub);font-size:14px}
+.ch-no{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--sub);font-weight:600;font-variant-numeric:tabular-nums}
+h2{font-size:29px;line-height:1.3;font-weight:600;margin:14px 0 0;letter-spacing:-.015em}
+.sub{margin-top:12px;color:var(--sub);font-size:15px;line-height:1.7}
 .fig{margin-top:24px}
 .fig-title{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin:26px 0 12px;font-size:13px;font-weight:600}
 .fig-title small{font-weight:400;color:var(--sub);font-size:12px}
@@ -157,7 +151,7 @@ button.node.sub .nd{font-size:12px}
 .box p{margin-top:4px;font-size:13px;line-height:1.7}
 
 /* 要点（各章の一言。ここだけ拾い読みしても通じるように） */
-.point{display:flex;gap:12px;align-items:baseline;margin-top:22px;background:var(--ac-soft);border-radius:14px;padding:13px 18px;font-weight:500}
+.point{display:flex;gap:14px;align-items:baseline;margin-top:26px;background:var(--ac-soft);border-radius:16px;padding:16px 20px;font-size:15px;font-weight:500}
 .point::before{content:"POINT";flex:none;font-size:10px;letter-spacing:.14em;font-weight:700;color:var(--ac)}
 
 /* お金の2つの道 */
@@ -267,7 +261,7 @@ button.node.sub .nd{font-size:12px}
 .band.l3{--bc:var(--c-green)}
 .band.l5{--bc:var(--c-blue)}
 .band.l4{--bc:var(--c-violet)}
-.band.l1,.band.l2,.band.l3,.band.l4,.band.l5{background:color-mix(in srgb,var(--bc) 22%,var(--card))}
+.band.l1,.band.l2,.band.l3,.band.l4,.band.l5{background:color-mix(in srgb,var(--bc) 16%,var(--card))}
 /* 日本の勢い：橙の濃さ＝勢い（印の「大」と同じ橙）。1980〜90年代が濃く、2000年代に薄れ、2010年代後半から戻す（見方） */
 .band.heat{--bc:var(--imp3);background:linear-gradient(90deg,color-mix(in srgb,var(--imp3) 4%,var(--card)) 0%,color-mix(in srgb,var(--imp3) 70%,var(--card)) 20%,var(--imp3) 34%,color-mix(in srgb,var(--imp3) 95%,var(--card)) 48%,color-mix(in srgb,var(--imp3) 40%,var(--card)) 56%,color-mix(in srgb,var(--imp3) 8%,var(--card)) 66%,color-mix(in srgb,var(--imp3) 8%,var(--card)) 74%,color-mix(in srgb,var(--imp3) 45%,var(--card)) 82%,color-mix(in srgb,var(--imp3) 90%,var(--card)) 100%)}
 .band-row.heat-row{margin-top:14px}
@@ -323,7 +317,7 @@ details.ask[open] summary::after{content:"－"}
 details.ask .a{padding:0 0 15px 32px;font-size:14px;color:var(--sub)}
 
 /* 現場メモ（本人が書く欄） */
-.memo{display:flex;gap:12px;align-items:baseline;margin-top:14px;border:1px dashed var(--sub);border-radius:14px;padding:12px 18px}
+.memo{display:flex;gap:12px;align-items:baseline;margin-top:16px;background:var(--tonal);border-left:2px solid var(--line);border-radius:4px 14px 14px 4px;padding:13px 18px}
 .memo-k{flex:none;font-size:12px;font-weight:600;color:var(--sub);white-space:nowrap}
 .memo p{font-size:13px;color:var(--sub);line-height:1.7}
 
@@ -410,7 +404,7 @@ details.ask .a{padding:0 0 15px 32px;font-size:14px;color:var(--sub)}
 .issues ul{margin:0;padding:0;list-style:none;font-size:13px;line-height:1.6}
 .issues li{position:relative;padding:4px 0 4px 14px}
 .issues li::before{content:"";position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--cc)}
-.issues .g1{--cc:var(--c-gold)}.issues .g2{--cc:var(--c-coral)}.issues .g3{--cc:var(--c-blue)}
+.issues .g1{--cc:var(--c-blue)}.issues .g2{--cc:var(--c-violet)}.issues .g3{--cc:var(--c-teal)}
 .issues .gnote{grid-column:2;margin:2px 0 4px 14px;font-size:12px;color:var(--sub);line-height:1.6}
 /* 札の上段＝アイコンと項目名を横並び（見出しはアイコンの右） */
 
@@ -551,14 +545,15 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 @media (max-width:720px){
   body{padding:0;background:var(--card)}
   .wrap{margin:0 0 40px}
-  header.top{padding:28px 20px 26px;border-bottom:1px solid var(--line)}
-  h1{font-size:28px}
-  .chapters{gap:6px}
+  header.top{padding:48px 20px 32px;border-bottom:1px solid var(--line)}
+  h1{font-size:30px}
+  .lead{font-size:16px;margin-top:14px}
+  .chapters{gap:6px;margin-top:26px}
   .chapters a{background:var(--tonal);box-shadow:none;padding:5px 10px 5px 6px}
   nav.toc{padding:8px 20px;background:color-mix(in srgb,var(--card) 85%,transparent);border-bottom:1px solid var(--line)}
   nav.toc a{background:var(--tonal)}
-  section.ch{border-radius:0;box-shadow:none;padding:30px 20px 26px;margin-top:0;border-bottom:1px solid var(--line)}
-  h2{font-size:21px}
+  section.ch{border-radius:0;box-shadow:none;border:0;border-bottom:1px solid var(--line);padding:38px 20px 32px;margin-top:0}
+  h2{font-size:23px}
   .flow{flex-direction:column}
   .node{display:grid;grid-template-columns:38px 1fr;column-gap:14px;align-items:start}
   .node>.ico{grid-row:1 / span 4}
@@ -656,20 +651,55 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 /* 大枠と現場のページを行き来する小さなリンク */
-.xlink{display:inline-block;margin-top:10px;font-size:13px;color:var(--sub);text-decoration:none;border-bottom:1px solid var(--line)}
-.xlink:hover{color:var(--ink)}
 /* 出典の一覧：ページには番号を出さないので1列（2026-09-22） */
 .srcs li{grid-template-columns:1fr}.srcs .d{grid-column:1}
 /* 入口ページ（notes のハブ）：テーマごとのカードを並べる */
-.hub{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
-.hub>a{display:block;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;text-decoration:none;color:inherit}
-.hub>a:hover{border-color:var(--ac)}
-.hub .k{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--ac)}
-.hub b{display:block;margin-top:8px;font-size:18px;letter-spacing:.01em}
-.hub span+span,.hub b+span{display:block;margin-top:8px;font-size:13px;color:var(--sub);line-height:1.8}
-.hub em{display:block;margin-top:12px;font-size:12px;font-style:normal;color:var(--ac)}
-.hub-note{margin:18px 0 0;font-size:12px;color:var(--sub);line-height:1.7}
-.crumb{margin:0 0 10px;font-size:12px}
+/* 入口ページ：中央に +9 の印、その下にテーマ2枚 */
+.hub-hero{padding:92px 8px 0;text-align:center}
+.hub-hero .logo-wrap{position:relative;display:inline-block;padding-bottom:36px}
+.hub-hero .mark{display:block;width:auto;height:88px;color:var(--ink)}
+.hub-hero .mark-mirror{position:absolute;left:0;top:0;transform:translateY(100%) scaleY(-1);opacity:.27;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to top,#000 0%,transparent 60%);mask-image:linear-gradient(to top,#000 0%,transparent 60%)}
+.hub-hero .title-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:26px}
+.hub-hero .chara{width:38px;height:38px;flex:none;color:var(--ink)}
+.hub-hero h1{margin:0;font-size:clamp(30px,4vw,44px)}
+.hub-hero .lead{margin:18px auto 0;max-width:30em;font-size:17px;text-align:center}
+.hub{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:64px}
+.hub>a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:22px;
+  padding:30px 30px 26px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s,box-shadow .2s}
+.hub>a:hover{border-color:var(--ac);transform:translateY(-3px);box-shadow:var(--shadow)}
+.hub .k{display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
+.hub b{display:block;margin-top:12px;font-size:23px;font-weight:600;letter-spacing:-.01em;line-height:1.35}
+.hub .d{display:block;margin-top:12px;font-size:15px;color:var(--sub);line-height:1.75;text-wrap:pretty}
+.hub .ct{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 2px;padding:0;list-style:none}
+.hub .ct li{background:var(--tonal);border-radius:8px;padding:4px 10px;font-size:12px;color:var(--sub);line-height:1.5}
+/* 上の行：左＝地図へもどる、右＝もう1枚へ */
+.crumb{display:flex;justify-content:space-between;gap:12px;margin:0 0 16px;font-size:12px;letter-spacing:.02em}
 .crumb a{color:var(--sub);text-decoration:none}
+.crumb .back::before{content:"← "}
+.crumb .to::after{content:" →"}
 .crumb a:hover{color:var(--ink)}
-@media (max-width:720px){.hub{grid-template-columns:1fr}}
+
+/* まとめた人（名刺サイトへ） */
+.by{margin:36px 8px 0;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--sub);text-align:center}
+.by a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}
+.by a:hover{color:var(--ink);border-color:var(--sub)}
+.hub-soon{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px;margin-top:18px;padding:20px 24px;
+  border:1px solid var(--line);border-radius:18px;color:var(--sub)}
+.hub-soon .k{font-size:11px;font-weight:600;letter-spacing:.14em}
+.hub-soon b{font-size:16px;font-weight:600;color:var(--ink)}
+.hub-soon .d{font-size:14px;line-height:1.7}
+.hub-soon em{margin-left:auto;font-size:12px;font-style:normal;background:var(--tonal);border-radius:8px;padding:3px 10px}
+@media (max-width:720px){
+  .hub-hero{padding:56px 20px 0}
+  .hub-hero .mark{height:70px}
+  .hub-hero .logo-wrap{padding-bottom:30px}
+  .hub-hero .chara{width:32px;height:32px}
+  .hub-hero .lead{font-size:16px;margin-top:16px}
+  .hub{grid-template-columns:1fr;gap:14px;margin:44px 20px 0}
+  .by{margin:30px 20px 0}
+  .hub>a{padding:24px 22px 22px;border-radius:18px}
+  .hub b{font-size:20px}
+  .hub-soon{margin:14px 20px 0;padding:18px 20px}
+  .hub-soon em{margin-left:0}
+}
