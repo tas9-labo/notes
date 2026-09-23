@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<!-- 運用ルールと宿題は CLAUDE.md。共通の見た目は style.css、共通の振る舞いは common.js。事実の原本は「出典」のリンク先 -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ゲーム開発の現場 +9 メモ</title>
+<meta name="description" content="作る側から見たゲーム開発のメモ。チーム・規模・お金・スキル・変化・入り方。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ゲーム開発の現場 +9 メモ">
+<meta property="og:description" content="作る側から見たゲーム開発のメモ。チーム・規模・お金・スキル・変化・入り方。">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230b6e6e' stroke-width='1.8' stroke-linecap='round'><style>@media (prefers-color-scheme:dark){svg{stroke:%236fd3cc}}</style><circle cx='9' cy='8.5' r='3'/><path d='M3.5 19a5.5 5.5 0 0111 0'/><circle cx='17' cy='9.5' r='2.3'/><path d='M16.2 14.2a4.6 4.6 0 014.3 4.8'/></svg>">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d1d1f" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+/* このページだけの図。共通の物は style.css */
+/* 01 チーム：相関図。上に決める人、左から右へ 企画→設定→制作→実装→検証、下に橋渡しの TA と差し戻し（色は 02 章の職種の群と同じ） */
+.rel{margin-top:14px}
+.rel .sec.wide{margin-top:10px}
+.rel-flow{display:grid;grid-template-columns:1fr 16px 1fr 16px 3.4fr 16px 1fr;gap:8px 2px;align-items:stretch;margin-top:12px}
+.rel-col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.rel-h{font-size:11px;font-weight:600;color:var(--sub);letter-spacing:.08em}
+.rel-arrow{align-self:center;text-align:center;color:var(--sub);font-size:15px;padding-top:18px}
+.rel-arrow::before{content:"→"}
+/* 制作／実装の輪：左に MDL・RIG（2行分）、右に ANM→PRG→VFX・UI→SFX→ANM の循環 */
+.cyc{display:grid;grid-template-columns:1fr 16px 1fr 16px 1fr;grid-template-rows:auto 18px auto;gap:2px;flex:1;border:1px dashed var(--line);border-radius:14px;padding:8px}
+.cyc .tall{grid-column:1;grid-row:1/4}
+.cyc .a1{grid-column:2;grid-row:1/4;align-self:center}
+.cyc .anm{grid-column:3;grid-row:1}.cyc .a2{grid-column:4;grid-row:1;align-self:center}.cyc .prg{grid-column:5;grid-row:1}
+.cyc .a3{grid-column:3;grid-row:2;align-self:center}.cyc .a4{grid-column:5;grid-row:2;align-self:center}
+.cyc .sfx{grid-column:3;grid-row:3}.cyc .a5{grid-column:4;grid-row:3;align-self:center}.cyc .vfx{grid-column:5;grid-row:3}
+.cyc-note{display:none}
+.ar{color:var(--sub);font-size:15px;text-align:center;line-height:1}
+.ar.r::before{content:"→"}.ar.l::before{content:"←"}.ar.u::before{content:"↑"}.ar.d::before{content:"↓"}
+.rel .sec{padding:10px 11px;flex:1}.rel .sec.wide{margin-top:12px;padding:10px 14px}
+.rel .sec b{font-size:12px}.rel .sec span{font-size:12px;line-height:1.35}.rel .sec small{font-size:11px;line-height:1.45}
+.rel-back{margin-top:10px;font-size:12px;color:var(--sub)}
+.sec{border-radius:14px;padding:12px 14px;background:color-mix(in srgb,var(--gc) 14%,var(--card));border-left:3px solid var(--gc)}
+.sec b{display:block;font-size:13px;color:var(--gc);letter-spacing:.04em}
+.sec span{display:block;font-size:13px;font-weight:600;margin-top:2px}
+.sec small{display:block;font-size:11px;color:var(--sub);margin-top:4px;line-height:1.5}
+.g-plan{--gc:var(--c-blue)}.g-art{--gc:var(--c-violet)}.g-tech{--gc:var(--c-teal)}.g-qa{--gc:var(--c-gold)}
+/* +9 の視点：本人の経験。事実の箱とは線の種類で分ける */
+.v9{margin-top:14px;border:1px dashed var(--ac);border-radius:14px;padding:12px 16px;font-size:13px;line-height:1.8}
+.v9-k{display:block;font-size:11px;letter-spacing:.08em;color:var(--ac);margin-bottom:4px;font-weight:600}
+.v9 p{margin:0}
+/* 02 規模 */
+/* 小・中・大の段：左に項目名、右に3段。行の高さは subgrid で揃える。右へ行くほど章の色を濃く＝規模の流れ */
+.tiers{display:grid;grid-template-columns:56px repeat(3,minmax(0,1fr));grid-template-rows:repeat(6,auto);gap:0 8px;margin-top:14px}
+.t-lab,.tier{display:grid;grid-row:1 / span 6;grid-template-rows:subgrid}
+.t-lab>div{font-size:11px;font-weight:600;color:var(--sub);padding:10px 0;border-top:1px solid var(--line)}
+.t-lab>div:first-child{border-top:0}
+.tier{border-radius:14px;padding:0 12px 2px;background:color-mix(in srgb,var(--ac) var(--tint),var(--card))}
+.tier.s{--tint:6%}.tier.m{--tint:14%}.tier.l{--tint:26%}
+.tier>div{padding:9px 0;border-top:1px solid var(--line);font-size:13px;line-height:1.55;min-width:0}
+.tier>.t-name{border-top:0;padding-top:12px;font-size:16px;font-weight:700}
+.t-name small{margin-left:8px;font-size:11px;font-weight:600;color:var(--sub);letter-spacing:.06em}
+.tier>.num{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.tier>.ex{font-size:12px;color:var(--sub);word-break:auto-phrase}
+.tier>.ex b{color:var(--ink);font-weight:600}.tier>.ex small{display:block;margin-top:4px;font-size:11px}
+.tier>.now{font-weight:600;color:var(--ac)}
+.facts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fact{background:var(--tonal);border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.6}
+.fact b{display:block;font-size:12px;color:var(--ac)}
+/* 03 お金 */
+/* 03 一人暮らしの試算（静的な図。動きはつけない） */
+.sim{margin-top:14px;background:var(--node);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.sim h3{margin:0 0 10px;font-size:15px;font-weight:600}
+.sim-mode{display:inline-flex;gap:3px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.sim-mode button{appearance:none;border:0;background:transparent;color:var(--sub);font:inherit;font-size:13px;font-weight:600;padding:6px 16px;border-radius:999px;cursor:pointer}
+.sim-mode button.on{background:var(--ink);color:var(--card)}
+.sim-in{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:14px}
+.sim-in label{display:block;font-size:12px;color:var(--sub)}
+.sim-in label b{display:block;font-size:20px;color:var(--ink);margin:2px 0 4px;font-variant-numeric:tabular-nums}
+.sim-in input[type=range]{width:100%;accent-color:var(--ac)}
+.sim-in small{display:block;font-size:11px;line-height:1.6;margin-top:2px}
+details.sim-cost{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+details.sim-cost>summary{display:flex;align-items:baseline;gap:10px;width:100%;font-size:13px;color:var(--ink)}
+details.sim-cost>summary span{margin-left:auto;font-size:12px;color:var(--sub)}
+details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
+.sim-cost-top{display:flex;justify-content:flex-end;margin-top:8px}
+.sim-cost-top button{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--sub);font:inherit;font-size:11px;padding:3px 10px;border-radius:999px;cursor:pointer}
+.sim-cost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px 18px;margin-top:6px}
+.sim-cost-grid label{display:grid;grid-template-columns:1fr auto;align-items:baseline;font-size:11px;color:var(--sub)}
+.sim-cost-grid label b{font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+.sim-cost-grid input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--ac);margin-top:2px}
+.sim-bar{position:relative;margin-top:16px;padding:4px 0}
+.sim-track{display:flex;height:20px;border-radius:7px;overflow:hidden;background:var(--line)}
+.sim-track i{display:block;height:100%}
+.sim .r i,.sim-track .r{background:var(--imp3)}
+.sim .l i,.sim-track .l{background:color-mix(in srgb,var(--sub) 50%,var(--node))}
+.sim .k i,.sim-track .k{background:var(--imp2)}
+.sim-def{position:absolute;top:4px;height:20px;border-radius:0 7px 7px 0;background:repeating-linear-gradient(45deg,var(--node) 0 3px,transparent 3px 7px);opacity:.75}
+.sim-mk{position:absolute;top:0;bottom:0;width:3px;margin-left:-1px;background:var(--ink);border-radius:2px}
+.sim-bar [hidden]{display:none}
+.sim-out{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 16px;margin:10px 0 0}
+.sim-out dt{font-size:12px;color:var(--sub);display:flex;align-items:center;gap:6px}
+.sim-out dt i{flex:none;width:10px;height:10px;border-radius:3px}
+.sim-out dd{margin:2px 0 0;font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
+.sim-out .minus{color:var(--imp3)}
+.sim-note{margin:12px 0 0;font-size:12px;color:var(--sub);line-height:1.7}
+/* 03 比較表：会社員4列（新卒・中途 × 中小・大手）＋フリーランス3列（梅竹松）。狭い画面では表の中だけ横に動く */
+.cmp-wrap{margin-top:14px;overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--node)}
+.cmp{width:100%;min-width:780px;border-collapse:collapse;font-size:12px;line-height:1.5}
+.cmp th,.cmp td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+.cmp thead th{font-size:13px;font-weight:600}
+.cmp thead .grp{background:color-mix(in srgb,var(--ac) 14%,var(--node))}
+.cmp .fl{background:color-mix(in srgb,var(--c-slate) 10%,var(--node))}
+.cmp thead .grp.fl{background:color-mix(in srgb,var(--c-slate) 22%,var(--node))}
+.cmp small{display:block;font-size:11px;font-weight:400;color:var(--sub);line-height:1.4;word-break:auto-phrase}
+.cmp td b{display:block;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cmp .gs{border-left:1px solid var(--line)}
+.cmp .money small{white-space:nowrap}
+.cmp .na{color:var(--sub)}
+.cmp .rh{text-align:left;font-weight:600;white-space:nowrap;position:sticky;left:0;z-index:1;background:var(--node)}
+.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+/* 04 スキル */
+.skills{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px;line-height:1.6}
+.skills th{text-align:left;font-size:11px;color:var(--sub);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line)}
+.skills td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top;word-break:auto-phrase}
+.skills td:first-child{font-weight:600;white-space:nowrap}
+.skills td:first-child b{display:block;font-weight:700;letter-spacing:.02em}
+.skills td:first-child small{display:block;margin-top:1px;font-size:11px;font-weight:400;color:var(--sub)}
+.skills td:nth-child(2){color:var(--sub)}
+.common{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.common div{background:var(--tonal);border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.5;color:var(--sub)}
+.common b{display:block;font-size:13px;color:var(--ink);margin-bottom:2px}
+.common ul{margin:4px 0 0;padding:0;list-style:none}
+.common li{position:relative;padding-left:11px;margin-top:3px;word-break:auto-phrase}
+.common li::before{content:"";position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--ac)}
+/* 02 いまの流れ：07（大枠）の「様々な課題」と同じ枠。追い風＝青・向かい風＝橙（矢印の向きでも見分ける） */
+.issues .g4{--cc:var(--c-teal)}
+.issues .g-pos{--cc:var(--imp2)}.issues .g-neg{--cc:var(--imp3)}
+.issues .g-pos .gl b,.issues .g-neg .gl b{color:var(--cc)}
+.issues li b{font-weight:700;color:var(--ink)}
+.issues .fig-note{margin-top:0;padding-top:10px;border-top:1px solid var(--line)}
+/* 06 入り方 */
+.routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.route{background:var(--node);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:13px;line-height:1.7}
+.route b{display:block;font-size:15px;margin-bottom:6px}
+.route b small{font-size:11px;font-weight:400;color:var(--sub);margin-left:8px}
+.route p{margin:0;color:var(--sub)}
+.route p+p{margin-top:6px}
+@media (max-width:720px){
+  .common,.facts{grid-template-columns:1fr 1fr}
+  .sim-in{grid-template-columns:1fr}.sim-out{grid-template-columns:1fr 1fr}
+  .tiers{display:block}.t-lab{display:none}
+  .tier{display:block;margin-top:8px;padding:0 12px 4px}
+  .tier>div[data-k]{display:flex;gap:10px;align-items:baseline}
+  .tier>div[data-k]::before{content:attr(data-k);flex:none;width:44px;font-size:11px;font-weight:600;color:var(--sub)}
+  .rel-flow{grid-template-columns:1fr}.rel-arrow{padding:0;line-height:1}.rel-arrow::before{content:"↓"}
+  .cyc{grid-template-columns:1fr;grid-template-rows:none}
+  .cyc>*{grid-column:auto !important;grid-row:auto !important}
+  .cyc .tall{order:1}.cyc .a1{order:2}.cyc .anm{order:3}.cyc .a2{order:4}.cyc .prg{order:5}.cyc .a4{order:6}.cyc .vfx{order:7}.cyc .a5{order:8}.cyc .sfx{order:9}.cyc-note{order:10}
+  .cyc .a3{display:none}.cyc .ar::before{content:"↓"}.cyc .ar{padding:2px 0}
+  .cyc-note{display:block;font-size:11px;color:var(--sub);text-align:center;padding-top:4px}
+  .routes{grid-template-columns:1fr}
+  .skills td:first-child{white-space:normal}
+  .skills th:nth-child(2),.skills td:nth-child(2){display:none}
+}
+@media (max-width:480px){.common,.facts{grid-template-columns:1fr}}
+/* 章の色は番号ではなく役割で決める（03 変化＝緑・05 お金＝金） */
+#c3,.chapters li:nth-child(3){--ac:var(--c-green)}
+#c5,.chapters li:nth-child(5){--ac:var(--c-gold)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19a5.5 5.5 0 0111 0"/><circle cx="17" cy="9.5" r="2.3"/><path d="M16.2 14.2a4.6 4.6 0 014.3 4.8"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3.5l9 4.5-9 4.5-9-4.5 9-4.5zM3 12.5l9 4.5 9-4.5M3 16.5l9 4.5 9-4.5"/></symbol>
+    <symbol id="i-yen" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9 7.5l3 4.5 3-4.5M12 12v5M9.5 12.5h5M9.5 15h5"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9.5 18.5h5M10.5 21h3M12 3a6 6 0 00-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0012 3z"/></symbol>
+    <symbol id="i-loop" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 01-13.3 4.7M4.5 12a7.5 7.5 0 0113.3-4.7"/><path d="M18.5 3.5v4h-4M5.5 20.5v-4h4"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-6.5M20 13.5v-5h-5"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M4 7l6 6 4-4 6 6.5M20 10.5v5h-5"/></symbol>
+    <symbol id="i-in" viewBox="0 0 24 24"><path d="M12 4v10.5M8 10.5l4 4 4-4M4.5 16.5v3h15v-3"/></symbol>
+  </defs>
+</svg>
+
+<nav class="toc" aria-label="目次">
+  <ul>
+    <li><a href="#c1"><span class="n">01</span>役割分担</a></li>
+    <li><a href="#c2"><span class="n">02</span>規模</a></li>
+    <li><a href="#c3"><span class="n">03</span>変化</a></li>
+    <li><a href="#c4"><span class="n">04</span>スキル</a></li>
+    <li><a href="#c5"><span class="n">05</span>お金</a></li>
+    <li><a href="#c6"><span class="n">06</span>門を叩く</a></li>
+    <li><a href="#src">出典</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="crumb"><a href="index.html">+9 メモ</a></p>
+  <h1>ゲーム開発の現場 +9 メモ</h1>
+  <p class="lead">作る側から見た、現場・お金・スキル・変化のメモをまとめています。</p>
+  <a class="xlink" href="industry.html">← 産業の大枠は「ゲーム業界 +9 メモ」</a>
+
+  <ul class="chapters" id="chapters">
+    <li><a href="#c1"><span class="ico"><svg class="ic"><use href="#i-team"/></svg></span><span class="tt"><span class="n">01</span><b>役割分担</b></span></a></li>
+    <li><a href="#c2"><span class="ico"><svg class="ic"><use href="#i-layers"/></svg></span><span class="tt"><span class="n">02</span><b>規模</b></span></a></li>
+    <li><a href="#c3"><span class="ico"><svg class="ic"><use href="#i-loop"/></svg></span><span class="tt"><span class="n">03</span><b>変化</b></span></a></li>
+    <li><a href="#c4"><span class="ico"><svg class="ic"><use href="#i-bulb"/></svg></span><span class="tt"><span class="n">04</span><b>スキル</b></span></a></li>
+    <li><a href="#c5"><span class="ico"><svg class="ic"><use href="#i-yen"/></svg></span><span class="tt"><span class="n">05</span><b>お金</b></span></a></li>
+    <li><a href="#c6"><span class="ico"><svg class="ic"><use href="#i-in"/></svg></span><span class="tt"><span class="n">06</span><b>門を叩く</b></span></a></li>
+  </ul>
+</header>
+
+<!-- 01 チーム -->
+<section class="ch" id="c1">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-team"/></svg></span><span class="ch-no">01 ／ 役割分担</span></div>
+  <h2>開発する上での役割分担</h2>
+  <p class="sub">ゲームは一人では作れない。区分の名前は会社で違うが、だいたいこの形。</p>
+
+  <div class="rel">
+    <div class="sec g-plan wide"><b>DIR・PRD・PM</b><span>ディレクター／プロデューサー／PM</span><small>方向と品質を決める。予算・スケジュール・人員を管理する。全体を見る</small></div>
+    <div class="rel-flow">
+      <div class="rel-col"><div class="rel-h">企画</div><div class="sec g-plan"><b>PLN・GD</b><span>プランナー／ゲームデザイナー</span><small>ルールと体験の設計。仕様書、試作</small></div></div>
+      <div class="rel-arrow" aria-hidden="true"></div>
+      <div class="rel-col"><div class="rel-h">設定</div><div class="sec g-art"><b>ART</b><span>コンセプト／2D</span><small>世界観・キャラ・背景の設定画</small></div></div>
+      <div class="rel-arrow" aria-hidden="true"></div>
+      <div class="rel-col"><div class="rel-h">制作／実装</div>
+        <div class="cyc">
+          <div class="sec g-art tall"><b>MDL・RIG</b><span>モデラー／リガー</span><small>見た目と、動かすための骨組み</small></div>
+          <div class="ar r a1" aria-hidden="true"></div>
+          <div class="sec g-art anm"><b>ANM</b><span>アニメーター</span><small>動きと感情</small></div>
+          <div class="ar r a2" aria-hidden="true"></div>
+          <div class="sec g-tech prg"><b>PRG</b><span>プログラマー</span><small>ゲームとして動かす</small></div>
+          <div class="ar u a3" aria-hidden="true"></div>
+          <div class="ar d a4" aria-hidden="true"></div>
+          <div class="sec g-art sfx"><b>SFX</b><span>サウンド</span><small>効果音とBGM</small></div>
+          <div class="ar l a5" aria-hidden="true"></div>
+          <div class="sec g-art vfx"><b>VFX・UI</b><span>エフェクト／UI</span><small>演出と画面</small></div>
+          <div class="cyc-note">SFX から ANM へ戻って、また回る</div>
+        </div>
+      </div>
+      <div class="rel-arrow" aria-hidden="true"></div>
+      <div class="rel-col"><div class="rel-h">検証</div><div class="sec g-qa"><b>QA</b><span>品質・検証</span><small>遊べる商品にする</small></div></div>
+    </div>
+    <div class="sec g-tech wide"><b>TA</b><span>テクニカルアーティスト</span><small>設定〜実装の間をつなぐ。ツールと効率化で全体を支える</small></div>
+    <div class="rel-back">※検証や実装で問題が出たら、制作・企画へ差し戻し。行き来しながら完成させる</div>
+  </div>
+
+  <div class="v9"><b class="v9-k">+9 の視点</b><p>各セクションはバトンをつなぐリレー。<br>大切なのは「次の人が作業しやすいバトン」を渡すこと。<br>例：骨格（リグ）を理解して、アニメーターが動かしやすいモデルを作る。<br>自分の専門だけでなく、隣の職種を知る。それが現場で求められる第一歩。</p></div>
+
+  <p class="point">開発はチーム戦。ホウレンソウで、お互いの見ている景色を確かめ合いながら進む。</p>
+</section>
+<section class="ch" id="c2">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-layers"/></svg></span><span class="ch-no">02 ／ 規模</span></div>
+  <h2>1本を作る規模</h2>
+  <p class="sub">1本のゲームに、何人が、何年、いくらかけるか。小・中・大の目安。</p>
+
+  <div class="tiers">
+    <div class="t-lab"><div></div><div>人数</div><div>期間</div><div>開発費</div><div>実例</div><div>いま</div></div>
+    <div class="tier s">
+      <div class="t-name">小規模<small>インディー</small></div>
+      <div class="num" data-k="人数"><span>1〜10人</span></div>
+      <div class="num" data-k="期間"><span>数か月〜2年</span></div>
+      <div class="num" data-k="開発費"><span>数百万〜1億円台</span></div>
+      <div class="ex" data-k="実例"><span><b>『8番出口』</b>（2023年）<br>1人・約9か月（構想6＋制作3）<br>費用は公表されていない</span></div>
+      <div class="now" data-k="いま"><span>↑ 数が増えている</span></div>
+    </div>
+    <div class="tier m">
+      <div class="t-name">中規模<small>AA</small></div>
+      <div class="num" data-k="人数"><span>20〜100人</span></div>
+      <div class="num" data-k="期間"><span>1〜3年</span></div>
+      <div class="num" data-k="開発費"><span>数億〜20億円前後</span></div>
+      <div class="ex" data-k="実例"><span><b>『パルワールド』</b>（2024年）<br>3〜4人 → 数十人・約3年<br>会社の資金 約10億円をほぼ使い切った</span></div>
+      <div class="now" data-k="いま"><span>↓ 数が減っている</span></div>
+    </div>
+    <div class="tier l">
+      <div class="t-name">大規模<small>AAA</small></div>
+      <div class="num" data-k="人数"><span>200〜500人</span></div>
+      <div class="num" data-k="期間"><span>3〜5年</span></div>
+      <div class="num" data-k="開発費"><span>40億〜数百億円</span></div>
+      <div class="ex" data-k="実例"><span><b>CESA が示した AAA の一例</b><br>約300人・3〜5年<br>100億〜1,000億円<br><small>内訳：<span class="nw">アート130人・</span><span class="nw">プログラマー90人・</span><span class="nw">ゲームデザイン40人・</span><span class="nw">プランナー25人・</span><span class="nw">サウンド12人</span>（QA 等は別）</small></span></div>
+      <div class="now" data-k="いま"><span>↑ さらに大きく</span></div>
+    </div>
+  </div>
+  <p class="fig-note">幅は、公表されている数字と実例をもとにした目安。人数は、いちばん多い時期の人数。外注・宣伝費は含まない。<br>開発費は、ほぼ「人数 × 期間」で決まる。1人1年 ≒ 約900万円（平均年収 約674万円に、会社負担の保険とオフィス代を足した概算）。</p>
+
+  <div class="v9"><b class="v9-k">+9 の視点</b><p>人数が増えるほど、一人の担当は狭く深くなる。少人数ほど兼任で広くなる。<br>覚悟を決めて大きく打って出るか、コスパを意識して小さく進むか。<br>どちらを選ぶかは、各社のお財布事情と相談しながら決まっていく傾向にある。<br>ただ、人数が多くても少なくても、「連携力」の高い人材の需要は高まる一方。</p></div>
+
+  <p class="point"><span>大型はより大きく、小規模はより多く。真ん中が減っている。<br>人数が増えるほど、分業と連携の重みが増す。</span></p>
+</section>
+<section class="ch" id="c3">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-loop"/></svg></span><span class="ch-no">03 ／ 変化</span></div>
+  <h2>開発の変化</h2>
+  <p class="sub">20年で変わったことと、いまの風向き。</p>
+
+  <div class="issues">
+    <h3>変わったこと</h3>
+    <div class="grp g1"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-bulb"/></svg></span><b>道具</b></div>
+      <ul><li><b>エンジンが無償に</b>：個人や小さな会社でも作れる（Unreal・Unity は2015年から）</li><li><b>AI も道具に</b>：権利と雇用のルール作りが進む</li></ul></div>
+    <div class="grp g2"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-layers"/></svg></span><b>作り方</b></div>
+      <ul><li><b>大型化と長期化</b>：人数・期間・開発費が増える</li><li><b>大型は300人規模</b>：3〜5年かかるのも珍しくない</li><li><b>海外市場が前提</b>：多言語・同時発売・各国のレーティング</li></ul></div>
+    <div class="grp g3"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-in"/></svg></span><b>売り方</b></div>
+      <ul><li><b>ダウンロードが主流</b>：任天堂 53.5%・カプコン 約85%</li><li><b>運営が売上の主役</b>：発売後も続くライブサービス（EA は売上の74%）</li><li><b>基本無料は続ける世界</b>：運営費 1億円／月・50人の例</li><li><b>止めるだけで大損失</b>：作りかけの廃棄で二百億円超の例</li></ul></div>
+  </div>
+
+  <div class="issues">
+    <h3>いま、どう変わっているか</h3>
+    <div class="grp g-pos"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-up"/></svg></span><b>追い風（プラス）</b></div>
+      <ul>
+        <li><b>世界の市場は伸びている</b>：2025年は9.1%増、2026年も伸びる予測</li>
+        <li><b>小規模でも世界に届く</b>：エンジンは無料、Steam には100ドルで出せる</li>
+        <li><b>作り手と支援が増えている</b>：インディーが増え、出版社や国の支援も広がる</li>
+        <li><b>人が足りない＝出番が多い</b>：大型は300〜500人規模。高度な開発人材が不足</li>
+      </ul></div>
+    <div class="grp g-neg"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-down"/></svg></span><b>向かい風（マイナス）</b></div>
+      <ul>
+        <li><b>開発費が上がり続ける</b>：世界向けの大型は100億円以上。モバイルも10年で約7倍</li>
+        <li><b>真ん中が減っている</b>：中規模が減り、大型か小規模かに分かれる</li>
+        <li><b>日本のスマホゲームは頭打ち</b>：アプリ市場は2021年から3年続けて減り、横ばい</li>
+        <li><b>モバイルの主役は中国勢</b>：PC＋モバイルの海外売上は、中国が日本の約6倍（2021年）</li>
+        <li><b>日本市場の新作ヒットも海外勢</b>：2024年上半期に目立った新作6本のうち5本</li>
+        <li><b>新作は絞られる</b>：スクエニは「量から質」へ。スマホ向けは当たる割合を上げる方針</li>
+        <li><b>売れるのは一部</b>：Steam には年に約1.5万本。売上は一部の作品に集中</li>
+      </ul></div>
+    <p class="fig-note">費用が上がる理由：求められる品質が上がり、人数と時間が増え、技術者の人件費も上がった。</p>
+  </div>
+
+  <p class="point">作る量も、続ける期間も増えた。だから分業と連携が、いっそう要る。</p>
+</section>
+<section class="ch" id="c4">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-bulb"/></svg></span><span class="ch-no">04 ／ スキル</span></div>
+  <h2>求められるスキル</h2>
+  <p class="sub">職種ごとの道具と、全職種に共通する力。</p>
+
+  <table class="skills">
+    <tr><th>職種</th><th>主な道具</th><th>いま求められること</th></tr>
+    <tr><td><b>TA／RIG</b><small>テクニカルアーティスト／リガー</small></td><td>Maya／3ds Max・Python・C#／C++<br>Unity／UE・シェーダー（HLSL）</td><td>ワークフローの構築とツール開発<br>AI の取り込みとニーズの汲み取り</td></tr>
+    <tr><td><b>ANM</b><small>3Dアニメーター</small></td><td>Maya・MotionBuilder・3ds Max<br>Unity／UE・Photoshop</td><td>動きへの関心と観察の積み重ね<br>他の職種と組む力</td></tr>
+    <tr><td><b>VFX</b><small>エフェクト</small></td><td>Maya・After Effects・Photoshop<br>Unity／UE・Houdini</td><td>発想の引き出しの多さ<br>表現のテンポ感</td></tr>
+    <tr><td><b>UI／UX</b><small>UI／UXデザイナー</small></td><td>Photoshop・Illustrator・Figma<br>Unity／UE・After Effects</td><td>多様な機器をまたぐ使いやすさ<br>気づかれない便利さの作り込み</td></tr>
+    <tr><td><b>PLN</b><small>プランナー</small></td><td>Excel・PowerPoint<br>Unity／UE・SQL（数値の集計）</td><td>仕様書への落とし込み<br>開発者を迷わせない示し方</td></tr>
+    <tr><td><b>CHR MDL</b><small>キャラクターモデラー</small></td><td>Maya・ZBrush・Substance Painter<br>Unity／UE・Photoshop</td><td>造形力<br>新しい作り方を見つける探究心</td></tr>
+    <tr><td><b>ENV MDL</b><small>背景・プロップ</small></td><td>Maya・Blender・ZBrush<br>Substance Painter・Unity／UE</td><td>写実性と美術の感性<br>新しい作り方を見つける探究心</td></tr>
+  </table>
+
+  <div class="fig-title">全職種に共通する力</div>
+  <div class="common">
+    <div><b>ユーザー視点でモノを考える力</b><ul><li>作ったものが、ゲームの中でどう見えるかを実機で判断する</li></ul></div>
+    <div><b>臨機応変な判断と決断力</b><ul><li>品質を出すために最適化する</li><li>イレギュラーに最善策を見つける</li><li>自分から動いて課題を解決する</li></ul></div>
+    <div><b>伝える力</b><ul><li>ホウレンソウを欠かさない</li><li>他の職種と円滑に連携する</li></ul></div>
+    <div><b>全体性</b><ul><li>別の職種を意識する（チーム戦の意識）</li></ul></div>
+  </div>
+
+  <div class="v9"><b class="v9-k">+9 の視点</b><p>デザイナーは、相手の「なんかかゆい」ところを掻いてあげる人。<br>質問を重ねてヒントを集め、形にする。引き出しは多いほどいい。<br>言われたことだけをする「オペレーター」は、現場では褒め言葉にならない。</p></div>
+
+  <p class="point"><span>道具や開発環境は変わっても、人の感性と、人と関わる力は変わらない。<br>どれだけ便利な道具が生まれても、使うのは人。問われるのは「何を使うか」ではなく「誰が使うか」。</span></p>
+</section>
+<section class="ch" id="c5">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-yen"/></svg></span><span class="ch-no">05 ／ お金</span></div>
+  <h2>お金の話</h2>
+  <p class="sub">ゲーム業界の会社員（新卒・中途 × 中小・大手）と、フリーランス（梅・竹・松）の7つを、同じ物差しで並べた目安。</p>
+
+  <div class="cmp-wrap">
+  <table class="cmp">
+    <thead>
+      <tr><th rowspan="2" class="rh"></th><th colspan="2" class="grp gs">会社員・新卒<small>1年目・大卒の初任給</small></th><th colspan="2" class="grp gs">会社員・中途<small>社員の平均（35〜41歳）</small></th><th colspan="3" class="grp gs fl">フリーランス<small>ゲームのモーション案件</small></th></tr>
+      <tr><th class="gs">中小</th><th>大手</th><th class="gs">中小</th><th>大手</th><th class="gs fl">梅<small>安めの案件</small></th><th class="fl">竹<small>一番多い額</small></th><th class="fl">松<small>高めの案件</small></th></tr>
+    </thead>
+    <tbody>
+      <tr class="money"><th class="rh">月の収入<small>上：平均<br>下：各社の幅</small></th><td class="gs"><b>約22万円</b><small>20〜25万円</small></td><td><b>約31万円</b><small>28.8〜33万円</small></td><td class="gs"><b>約41万円</b><small>33〜53万円</small></td><td><b>約82万円</b><small>82万円前後</small></td><td class="gs fl"><b>45〜55万円</b></td><td class="fl"><b>60万円</b></td><td class="fl"><b>65万円〜</b></td></tr>
+      <tr class="money"><th class="rh">年の収入<small>上：平均<br>下：各社の幅</small></th><td class="gs"><b>約270万円</b><small>240〜300万円<br>＋賞与</small></td><td><b>約370万円</b><small>346〜396万円<br>＋賞与</small></td><td class="gs"><b>約490万円</b><small>397〜635万円</small></td><td><b>約980万円</b><small>982〜985万円</small></td><td class="gs fl"><b>540〜660万円</b></td><td class="fl"><b>720万円</b></td><td class="fl"><b>780万円〜</b></td></tr>
+      <tr><th class="rh">賞与</th><td class="gs" colspan="2">年2回が多い<small>初年度は少なめ（夏は寸志など）</small></td><td class="gs" colspan="2">年2回が多い<small>上の年の収入に含まれる</small></td><td class="gs fl" colspan="3">なし</td></tr>
+      <tr class="money"><th class="rh">実質手取り（目安）<small>1か月あたり</small></th><td class="gs"><b>約19万円</b><small>17〜21万円</small></td><td><b>約26万円</b><small>24〜28万円</small></td><td class="gs"><b>約32万円</b><small>26〜41万円</small></td><td><b>約59万円</b><small>59万円前後</small></td><td class="gs fl"><b>31〜37万円</b></td><td class="fl"><b>約39万円</b></td><td class="fl"><b>42万円〜</b></td></tr>
+      <tr><th class="rh">健康保険</th><td class="gs" colspan="4">会社と半分ずつ払う<small>病気で休むと、給与の約3分の2が出る</small></td><td class="gs fl" colspan="3">国民健康保険。全額を自分で払う<small>休んでも手当は出ない</small></td></tr>
+      <tr><th class="rh">年金</th><td class="gs" colspan="4">厚生年金。会社と半分ずつ払う<small>保険料18.3%。国民年金に上乗せされる</small></td><td class="gs fl" colspan="3">国民年金のみ<small>月17,920円（定額・2026年度）</small></td></tr>
+      <tr><th class="rh">雇用保険<small>失業・育休の給付</small></th><td class="gs" colspan="4">あり<small>本人の負担は給与の0.5%</small></td><td class="gs fl" colspan="3">なし</td></tr>
+      <tr><th class="rh">労災<small>仕事中のけが</small></th><td class="gs" colspan="4">あり<small>保険料は会社が全額を払う</small></td><td class="gs fl" colspan="3">任意で特別加入できる<small>保険料は自分で払う</small></td></tr>
+      <tr><th class="rh">仕事のルール</th><td class="gs" colspan="4">労働基準法などが守る<small>労働時間・休日・解雇の決まり</small></td><td class="gs fl" colspan="3">フリーランス新法（2024年11月から）<small>条件は書面で明示・報酬は受取から60日以内</small></td></tr>
+      <tr><th class="rh">退職金<small>制度がある会社（全産業）</small></th><td class="gs">約7割</td><td>約9割</td><td class="gs">約7割</td><td>約9割</td><td class="gs fl" colspan="3">なし<small>自分で積み立てる</small></td></tr>
+      <tr><th class="rh">有給休暇<small>中途は全産業</small></th><td class="gs" colspan="2">入社半年で10日<small>法律の最低。大手は15日の例も</small></td><td class="gs">年17.4日<small>取得 11.3日</small></td><td>年18.5日<small>取得 12.8日</small></td><td class="gs fl" colspan="3">なし<small>休むと収入が減る</small></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <details class="more">
+    <summary>表の数字の出どころと前提</summary>
+    <p class="fig-note">会社員は、ゲーム会社の公表値の平均。新卒＝初任給（大卒・2026〜2027年）、中途＝有価証券報告書の平均年間給与。<br>大手＝カプコン・コナミ・セガ・スクウェア・エニックス・コーエーテクモ・任天堂（新卒5社・中途2社）。<br>中小＝日本一ソフトウェア・トーセ・ケイブ・エディア・サイバーコネクトツー・シリコンスタジオ（新卒4社・中途5社）。<br>中小の年収は、有価証券報告書を出している6社の値。公表の義務がない小さな会社は、これより低いこともある。<br>新卒の月は基本給など（固定残業代を含む会社もある）。専門卒は同額〜2万円低い。中途の月＝年÷12（賞与・残業代込み）。<br>フリーランスは、仲介会社に掲載中のゲームのモーション案件（業務委託56件・2026年9月）の月額。多くは募集の上限額。<br>梅＝安めの約4分の1（55万円以下）、竹＝一番多い60万円、松＝高めの約3割（65万円以上）。別の集計でも平均は月61.9万円。<br>受けられるのは、実務経験3〜5年以上が目安。年＝月×12（仕事が途切れない場合）で、経費・税・保険料を払う前の額。<br>実質手取りは、税・社会保険料（フリーランスは経費1割も）を引いた概算。東京・独身・40歳未満、フリーランスは青色申告で計算。<br>新卒の手取りは、住民税がまだ引かれない1年目の額（2年目から月1万円ほど減る）。<br>新卒の手取りには賞与を含まない。中途は、年収に賞与が入っている。<br>退職金と中途の有給休暇は、ゲーム業界だけの統計がないため全産業の値（中小＝従業員30〜99人）。</p>
+  </details>
+
+  <div class="issues">
+    <h3>業界全体の目安</h3>
+    <div class="grp g1"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-yen"/></svg></span><b>今の水準</b></div>
+      <ul>
+        <li><b>開発者の年収</b>：平均 674万円・中央値 約600万円（CESA の調査・339人・2024年）</li>
+        <li><b>新卒の水準は別</b>：初任給は月20〜33万円（上の表）。ここから何年もかけて上がる</li>
+        <li><b>働く時間</b>：通常期は週44時間、繁忙期は52時間を超える</li>
+        <li><b>勤務地</b>：関東78.8%・近畿17.4%。都市部に集まっている</li>
+      </ul>
+      <p class="gnote">回答者は25〜44歳が7割強で、真ん中は30代前半。経験を積んだ人を含む額。<br>表の各社の数字は、平均だけが公表されている。</p></div>
+    <div class="grp g-pos"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-up"/></svg></span><b>待遇は上がっている</b></div>
+      <ul>
+        <li><b>初任給は上がり続けている</b>：カプコンは2025年に月30万円、セガは2026年に大卒33万円へ</li>
+        <li><b>大手の年収も上がっている</b>：カプコンの平均年間給与は、4年で713万円から985万円に</li>
+      </ul></div>
+    <div class="grp g-neg"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-down"/></svg></span><b>厳しさも増している</b></div>
+      <ul>
+        <li><b>求められる水準が上がる</b>：機器の進化で、高度な開発人材が求められ、足りていない</li>
+        <li><b>学校と現場に差がある</b>：大手の新卒研修は、短くて半年、長いと数年かかる</li>
+        <li><b>入口は作品と試験</b>：新卒でも、作品・プログラミングテスト・企画書で選ばれる</li>
+        <li><b>学び続ける前提</b>：技術の変化が速く、必要なスキルの調査も1〜2年で古くなる</li>
+      </ul>
+      <p class="gnote">作品と試験はスクウェア・エニックスの新卒採用の例。それ以外は、業界団体 CESA が国に出した提言（2026年）。</p></div>
+  </div>
+
+  <div class="sim" id="sim">
+    <h3>都市部で一人暮らしをしたら（かんたん試算）</h3>
+    <div class="sim-mode" role="group" aria-label="働き方"><button type="button" data-mode="emp" aria-pressed="true" class="on">会社員</button><button type="button" data-mode="fl" aria-pressed="false">フリーランス</button></div>
+    <div class="sim-in">
+      <label><span id="incLab">月給（額面）</span><b id="incOut">30万円</b><input type="range" id="inc" min="15" max="60" step="1" value="30"><small id="incRef">表の目安：新卒 中小 約22万・大手 約31万</small></label>
+      <label><span>家賃（管理費こみ）</span><b id="rentOut">7.7万円</b><input type="range" id="rent" min="4" max="13" step="0.1" value="7.7"><small>東京23区（ひとり向け）：アパート 7.7万・マンション 11.4万<br>大阪市（ひとり向け）：アパート 6.7万・マンション 7.3万</small></label>
+    </div>
+    <details class="more sim-cost">
+      <summary>生活費の内訳（家賃以外）<span>合計 <b id="liveSum">14.5万円</b></span></summary>
+      <div class="sim-cost-top"><button type="button" id="costReset">既定にもどす</button></div>
+      <div class="sim-cost-grid">
+        <label data-k="food"><span>食費</span><b>4.2万</b><input type="range" min="0" max="10" step="0.1" value="4.2"></label>
+        <label data-k="util"><span>水道・光熱費</span><b>0.8万</b><input type="range" min="0" max="3" step="0.1" value="0.8"></label>
+        <label data-k="comm"><span>通信費（スマホ・ネット）</span><b>0.7万</b><input type="range" min="0" max="2" step="0.1" value="0.7"></label>
+        <label data-k="tran"><span>交通費（車こみ）</span><b>1.5万</b><input type="range" min="0" max="5" step="0.1" value="1.5"></label>
+        <label data-k="daily"><span>日用品・消耗品</span><b>0.6万</b><input type="range" min="0" max="3" step="0.1" value="0.6"></label>
+        <label data-k="cloth"><span>服・くつ</span><b>0.6万</b><input type="range" min="0" max="3" step="0.1" value="0.6"></label>
+        <label data-k="med"><span>医療費</span><b>0.7万</b><input type="range" min="0" max="3" step="0.1" value="0.7"></label>
+        <label data-k="fun"><span>趣味・娯楽</span><b>2.5万</b><input type="range" min="0" max="8" step="0.1" value="2.5"></label>
+        <label data-k="soc"><span>交際費</span><b>1.3万</b><input type="range" min="0" max="5" step="0.1" value="1.3"></label>
+        <label data-k="etc"><span>その他（美容・雑費など）</span><b>1.6万</b><input type="range" min="0" max="5" step="0.1" value="1.6"></label>
+      </div>
+    </details>
+    <div class="sim-bar" aria-hidden="true"><div class="sim-track"><i class="r" id="bR"></i><i class="l" id="bL"></i><i class="k" id="bK"></i></div><span class="sim-def" id="bD" hidden></span><span class="sim-mk" id="bM" hidden></span></div>
+    <dl class="sim-out">
+      <div class="net"><dt>手取り（1か月）</dt><dd id="oNet">24万円</dd></div>
+      <div class="r"><dt><i></i>家賃</dt><dd id="oRent">7.7万円</dd></div>
+      <div class="l"><dt><i></i>生活費（家賃以外）</dt><dd id="oLive">14.5万円</dd></div>
+      <div class="k"><dt><i></i>残り</dt><dd id="oLeft">1.8万円</dd></div>
+    </dl>
+    <p class="sim-note"><span id="simNote">手取り＝月給から税・社会保険料を引いた額（賞与なし・住民税ありで計算）。賞与があれば、その分が上乗せになる。</span><br>生活費の既定値＝34歳以下の一人暮らしの会社員などの平均。自分の暮らしに合わせて動かせる（年収200〜300万円の人なら合計で約12万円）。<br>税・保険料は、東京・独身・40歳未満として計算した概算。</p>
+  </div>
+
+  <div class="v9"><b class="v9-k">+9 の視点</b><p>「相場」は一言では言えない。単価も給料も、会社ごとのお財布事情で決まる。<br>比べる相手は、人の年収ではない。自分の実働工数（どれだけ手を動かし、何を仕上げたか）を伝えられるかどうか。<br>まずは、自分の身の程を知る機会をつくること。</p></div>
+
+  <p class="point"><span>社会保障の費用は、会社員なら会社が半分を払い、フリーランスは全部を自分で払う。<br>数字だけに惑わされないよう、お金の仕組みへの理解を深めておく。</span></p>
+</section>
+<section class="ch" id="c6">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-in"/></svg></span><span class="ch-no">06 ／ 門を叩く</span></div>
+  <h2>ゲーム業界への門を叩く</h2>
+  <p class="sub">何を用意して、どう準備するか。各社の募集要項に書かれていることから。</p>
+
+  <div class="routes">
+    <div class="route"><b>新卒採用<small>学科・学歴を問わない会社もある</small></b><p>書類と作品の選考、複数回の面接。</p><p>締切は一度ではなく随時募集もある。</p><p>応募は会社の窓口か就職サイト経由。</p></div>
+    <div class="route"><b>インターン・アルバイト<small>現場を見る入口</small></b><p>インターンは時期を決めて募集される。</p><p>アルバイトはデバッグや開発の補助から。</p><p>書類選考と面接1〜2回で始められる。</p></div>
+    <div class="route"><b>中途（経験者）採用<small>経験3年以上・5年以上など</small></b><p>職種ごとの募集で、必要な経験が書かれる。</p><p>実績＝関わった作品と担当範囲。</p><p>転職経験者は半分を超える。</p><p>3〜5年の経験で独立する道もある。</p></div>
+    <div class="route"><b>フリーランス<small>経験3〜5年以上が目安</small></b><p>会社で経験を積んでから独立する人が多い。</p><p>相場はあくまで目安。合わせるものではない。</p><p>自分の実働がどれだけの価値かで考える。</p></div>
+  </div>
+
+  <div class="issues">
+    <h3>作品集（ポートフォリオ）の作り方</h3>
+    <div class="grp g1"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-bulb"/></svg></span><b>伝わるもの</b></div>
+      <ul>
+        <li><b>技術</b>：見れば分かる</li>
+        <li><b>姿勢</b>：作品に出る</li>
+        <li><b>人柄</b>：作品集の全体から伝わる</li>
+      </ul></div>
+    <div class="grp g2"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-team"/></svg></span><b>見られていること</b></div>
+      <ul>
+        <li><b>熱意</b>：上手さより、本気で作ったかが伝わる</li>
+        <li><b>意図</b>：何を見せたいか、なぜ作ったかが読み取れる</li>
+        <li><b>個性と感性</b>：こだわった所に、その人らしさが出る</li>
+        <li><b>丁寧さ</b>：構成・並べ方・文字づかいまで見られている</li>
+      </ul></div>
+    <div class="grp g4"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-layers"/></svg></span><b>書き添えること</b></div>
+      <ul>
+        <li><b>担当範囲</b>：共同制作は、自分がどこを作ったかを明記</li>
+        <li><b>課題か自主制作か</b>：学校の課題だけでは判断が難しい</li>
+        <li><b>作り方</b>：使ったツールと環境・選んだ理由・制作期間</li>
+        <li><b>狙い</b>：その作品でアピールしたい点を一言</li>
+      </ul></div>
+    <div class="grp g3"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-in"/></svg></span><b>見る人への配慮</b></div>
+      <ul>
+        <li><b>要点から</b>：忙しい中で、時間を割いて見てもらう</li>
+        <li><b>シンプルに</b>：何をやりたいか・何ができるかが一目で分かる</li>
+        <li><b>気配り</b>：ファイルの綴じ方や梱包まで印象に残る</li>
+        <li><b>手元に残す</b>：出した作品や書類は返ってこない会社もある</li>
+      </ul>
+      <p class="gnote">避けたいのは「なんとなく作った」「課題をこなしただけ」「やっつけ感」。細部まで見られている。</p></div>
+  </div>
+
+  <div class="fig-title">心構えと進め方</div>
+  <div class="common">
+    <div><b>動機は自分の言葉で</b><ul><li>憧れた作品、作る楽しさ、喜ばせたい気持ち</li><li>その動機を、作品と志望職種に結びつける</li></ul></div>
+    <div><b>入ってからも学ぶ</b><ul><li>学校で学ぶ内容と、会社が求める水準に差がある</li><li>大手の新卒研修は半年から数年かかる</li></ul></div>
+    <div><b>面接で作品を語る</b><ul><li>面接は1〜4回。適性検査を置く会社もある</li><li>作った理由と工夫を、自分の言葉で話す</li></ul></div>
+    <div><b>入口も締切も一つではない</b><ul><li>随時募集や、年に何度も締切がある</li><li>別の業界で働いてから入った人もいる</li></ul></div>
+  </div>
+
+  <div class="v9"><b class="v9-k">+9 の視点</b><p>大手（数百人）は担当が細かく決まり、狭く深く。教育制度も整うが、「ゲーム全体を作っている」実感は薄くなりがち。<br>中小（数十人）は兼任が多く、幅広く。若手のうちから重要な仕事を任されるが、自分で学ぶ主体性が要る。<br>どちらが上でもない。一つを極めたいか、全体を知りたいか。</p></div>
+
+  <p class="point"><span>作品は「何を作ったか」より「どう作ったか」が伝わるように。<br>入口も締切も一つではない。挑める回数は自分で増やせる。</span></p>
+</section>
+
+<!-- 出典 -->
+<section class="ch" id="src">
+  <h2>出典</h2>
+  <p class="sub">以下のリンクや企業の公表資料を参考にまとめています。</p>
+  <details class="more">
+    <summary>出典の一覧を開く</summary>
+  <ul class="srcs">
+    <li><a href="https://www.capcom.co.jp/ir/english/data/oar/2025/cho-cfo.html" target="_blank" rel="noopener">カプコン ／ 統合報告書2025 CHO &amp; CFO対談</a><span class="d">開発投資は過去10年で1.9倍・開発人員 2,285→2,846人（2021→2025年3月期末）・新卒初任給を2025年から月30万円に・人材確保が課題・開発規模の拡大と期間の長期化。一社の事例。</span></li>
+    <li><a href="https://www.meti.go.jp/shingikai/mono_info_service/entertainment_creative/pdf/012_09_00.pdf" target="_blank" rel="noopener">CESA ／ ゲーム産業の課題・提言について（経産省 エンタメ・クリエイティブ産業政策研究会 資料9）</a><span class="d">2026年2月4日。大型タイトル（AAA）の目安：家庭用は開発費40億円〜・48か月〜・〜300人／月、モバイルは40億円〜・〜32か月・〜200人／月、運営費 1億円〜／月・50人〜。海外向け大型は制作期間3〜5年・300名以上が珍しくない。「中規模タイトルの数が減り…トリプルＡへシフト。グローバル作品では100億円以上を投じる製作規模が標準」。4頁：「ゲーム開発は制作スタッフの人数（人件費）と期間により製作費が決まる」。大型開発作品（300〜500人規模）。AAA の約300名規模の一例（プランナー職25・ゲームデザイン職40・プログラマー職90・アート職130・サウンド職12 など、QA・PR 等は除く）、開発コスト 100億円〜1,000億円。「小中規模タイトルであっても、新規IPを創るには海外での成功も必要条件」。「主要産業で約20万人の雇用創出と平均賃金700万円を超える」。課題：高度開発人材の不足・開発コスト高騰・海外展開・AI。3頁：「高度開発人材の不足」。「企業として求めるクリエイターのスキルセットと、学校で教える教育内容で技術レベルの差がある」「大手ゲーム会社の新卒研修は短くて半年、長くて数年かかるケースがあり」。スキル調査の結果は「１～２年で陳腐化する」。</span></li>
+    <li><a href="https://www.nintendo.co.jp/ir/pdf/2025/250508_4.pdf" target="_blank" rel="noopener">任天堂 ／ 2025年3月期 決算説明資料</a><span class="d">2025年5月8日。海外売上高比率 76.4%（4頁）。デジタル売上高比率 53.5%（5頁）。</span></li>
+    <li><a href="https://www.capcom.co.jp/ir/data/pdf/explanation/2025/full/explanation_2025_full_02.pdf" target="_blank" rel="noopener">カプコン ／ 2025年3月期 決算補足資料</a><span class="d">6頁。コンシューマの売上高：パッケージ 180億円・デジタル販売 1,036億円（2025年3月期）＝デジタルが約85%。</span></li>
+    <li><a href="https://www.capcom.co.jp/recruit/chart/" target="_blank" rel="noopener">カプコン ／ 仕事相関図（リクルートサイト）</a><span class="d">プロデューサー・ディレクター・プランナー／各種デザイナー（キャラクター・背景・アニメーター・リガー・UI・エフェクト・テクニカルアーティスト）／サウンド／各種プログラマー／プロモーション・マーケティング・ライセンス。新卒 FAQ：デザイナーは実技試験・作品選考・面接。</span></li>
+    <li><a href="https://www.jp.square-enix.com/recruit/career/index.html" target="_blank" rel="noopener">スクウェア・エニックス ／ 中途採用 職種一覧</a><span class="d">ゲームデザイナー・アーティスト・エンジニア・サウンド・ローカライズ・プロデューサー・プロジェクトマネージャー・プロデュース／運営／制作進行・品質管理・マーケティング・宣伝・営業・カスタマーサポート。</span></li>
+    <li><a href="https://www.meti.go.jp/shingikai/mono_info_service/entertainment_creative/pdf/002_04_03.pdf" target="_blank" rel="noopener">経済産業省 ／ エンタメ・クリエイティブ産業政策研究会 事務局資料③ ゲーム</a><span class="d">2024年12月19日。20頁：アプリゲームの1本あたり平均開発費 6,427万円（2013年）→ 4億6,500万円（2023年）＝約7倍（JOGA オンラインゲーム市場調査レポート）。21頁：開発費の高騰（開発人数・時間の増加、IT技術者の人件費高騰）。5頁：海外での売上（2021年）は、日本のコンソール 2兆5,162億円・PC＋モバイル 3,252億円に対し、中国の自主開発 PC＋モバイル 1兆9,220億円。「日本のPC＋モバイルは中国、韓国と比較して小さい」「中国の海外売上はモバイル中心」。12頁：日本のモバイル市場は約1兆7千億円で世界の15%、中国・米国に次ぐ（2023年）。31頁：「中国・韓国といった海外勢の日本国内市場への参入が目立っており、日本国内市場においても日本のモバイルゲームは今までとは違う苦戦を強いられている」。Steam では「年間15000タイトル近くが配信されている中で、一部のタイトルが売上シェアの多くを占める構造」。33頁：ゲームスタートアップ企業やインディーゲームクリエイターが増加。22頁：ゲームエンジンのオープン化（Unreal Engine・Unity とも2015年に無償提供を開始、一定の売上を超えるとロイヤリティ）。</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/712515/000071251523000028/ea-20230331.htm" target="_blank" rel="noopener">Electronic Arts ／ Form 10-K（2023年3月期）</a><span class="d">「live services include extra content, subscription offerings and other revenue generated outside of the sale of our base games」。ライブサービス等が売上の74%。</span></li>
+    <li><a href="https://www.bunka.go.jp/seisaku/bunkashingikai/chosakuken/pdf/94057901_01.pdf" target="_blank" rel="noopener">文化庁 ／ 「AIと著作権に関する考え方について」概要</a><span class="d">2024年4月（本体は2024年3月15日）。「AI開発・学習段階」と「生成・利用段階」を分けて整理。法的な拘束力はない。</span></li>
+    <li><a href="https://www.sagaftra.org/sag-aftra-members-who-work-video-games-go-strike" target="_blank" rel="noopener">SAG-AFTRA ／ Members Who Work on Video Games Go on Strike</a><span class="d">2024年7月25日。米国の俳優・声優組合が、ゲーム向け契約で7月26日からストライキ。争点は AI 利用の同意・対価・透明性。</span></li>
+    <li><a href="https://www.hd.square-enix.com/jpn/news/pdf/20240430_01.pdf" target="_blank" rel="noopener">スクウェア・エニックス・ホールディングス ／ 特別損失の計上に関するお知らせ</a><span class="d">2024年4月30日。HD ゲームの開発方針の見直しにより「コンテンツ廃棄損として、約221 億円を計上する見込み」。</span></li>
+    <li><a href="https://steamcommunity.com/games/593110/announcements/detail/1265922321514182595" target="_blank" rel="noopener">Steam ／ Greenlight、本日終了。6 月 13 日より Steam Direct 導入へ</a><span class="d">2017年6月。Steam Direct は「1 作品につき 100 ドルの回収可能な料金」と審査で、世界中の開発者がゲームを出せる仕組み。</span></li>
+    <li><a href="https://bitsummit.org/about/" target="_blank" rel="noopener">BitSummit ／ 京都ビットサミットについて</a><span class="d">「2012年後半に発足」「毎年京都で開催」「日本最大級のインディーゲームの祭典」。</span></li>
+    <li><a href="https://www.cesa.or.jp/uploads/2026/info20260106-2.pdf" target="_blank" rel="noopener">CESA ／ ゲーム開発者の就業とキャリア形成2025</a><span class="d">2025年6〜8月調査・有効回答 339。2024年1〜12月の個人年収は平均 674.21万円。分布：300万円未満 7.4%・300〜399万円 11.5%・400〜499万円 13.6%・500〜599万円 13.9%・600〜699万円 13.0%…（回答しない 6.2%）。中央値は600万円台の前半（分布からの概算）。回答者の年齢：18〜24歳 11.5%・25〜29歳 20.9%・30〜34歳 20.9%・35〜39歳 18.0%・40〜44歳 12.4%・45歳以上 16.3%（25〜44歳で72.2%）。労働時間は「通常期の労働時間は週平均44時間、繁忙期は52時間を超え」。勤務地は関東地方78.8%・近畿地方17.4%（両者で9割超）。就労形態は正社員87.0%・フリーランス2.4%。</span></li>
+    <li><a href="https://forbesjapan.com/articles/detail/73453" target="_blank" rel="noopener">Forbes JAPAN ／ 「パルワールド」誕生秘話</a><span class="d">ポケットペア 溝部拓郎 社長への取材。「3年かけてパルワールドを完成させた。10億円あった会社の銀行口座の残高はほぼゼロになった」「40人近い社員を追加で採用した」。</span></li>
+    <li><a href="https://automaton-media.com/articles/interviewsjp/20240119-279536/" target="_blank" rel="noopener">AUTOMATON ／ 『パルワールド』開発者インタビュー</a><span class="d">2024年1月19日。着手時の開発メンバーは「3人とか4人ぐらい」、1年後に約10人、2年後に20〜30人、3年目にさらに10〜20人。アート系が最も多い。</span></li>
+    <li><a href="https://www.kotakecreate.com/profile" target="_blank" rel="noopener">KOTAKE CREATE ／ プロフィール</a><span class="d">「個人ゲーム開発者。「８番出口」「８番のりば」をSteamでリリース」。</span></li>
+    <li><a href="https://www.4gamer.net/games/751/G075133/20241203035/" target="_blank" rel="noopener">4Gamer ／ 「8番出口」の作者コタケ氏が開発を振り返るセッションをレポート［IDC2024］</a><span class="d">2024年12月3日。「構想に6か月，実作業に3か月を要した」。Unreal Engine 5 を使用、アセットを使えるところは使う方針。</span></li>
+    <li><a href="https://creatorslab.kodansha.co.jp/topics/1460/" target="_blank" rel="noopener">講談社 ゲームクリエイターズラボ ／ 常時募集開始</a><span class="d">2023年5月1日。インディーゲームのクリエイターに「半年ごとに税抜500万円を支給」（年間最大1000万円）。</span></li>
+    <li><a href="https://www.famitsu.com/article/202408/15119" target="_blank" rel="noopener">ファミ通.com ／ 2023年の国内ゲーム市場規模（ファミ通ゲーム白書2024）</a><span class="d">2024年8月22日。「ゲームアプリ市場は1兆2351億円と3年連続のマイナスになりましたが、減少幅は前年比0.7%減と縮小し、ほぼ横ばいの推移に」。</span></li>
+    <li><a href="https://sensortower.com/ja/blog/state-of-mobile-games-in-japan-2024-JP" target="_blank" rel="noopener">Sensor Tower ／ 2024年日本のモバイルゲーム市場インサイト</a><span class="d">2024年9月。2024年上半期に好成績だった新作6本について「このうち5タイトルが海外パブリッシャーによるもの」。収益上位4本は「依然として日本発のタイトル」。</span></li>
+    <li><a href="https://www.hd.square-enix.com/jpn/ir/library/pdf/20240513_01.pdf" target="_blank" rel="noopener">スクウェア・エニックス・ホールディングス ／ 新中期経営計画（2025年3月期〜2027年3月期）</a><span class="d">2024年5月13日。「『確かな面白さ』をお届けする『量から質』への転換」「ポテンシャルの高いタイトルに人材と開発投資を重点的に配分」。「SDタイトル（スマートデバイス）は…ヒットレシオ向上を目指す」。</span></li>
+    <li><a href="https://newzoo.com/articles/global-games-market-2025" target="_blank" rel="noopener">Newzoo ／ Global games revenue cracked $200 billion in 2025</a><span class="d">2026年6月18日。世界のゲーム市場は2,016億ドル（9.1%増）。モバイルは1,133億ドル（10.7%増）、ダウンロード数は減少。2025〜2028年は年平均5.1%の成長予測。</span></li>
+    <li><a href="https://www.unrealengine.com/en-US/blog/ue4-is-free" target="_blank" rel="noopener">Epic Games ／ If You Love Something, Set It Free</a><span class="d">2015年3月2日（Tim Sweeney）。「Unreal Engine 4 is now available to everyone for free, and all future updates will be free!」。出荷時は「5% royalty on gross revenue after the first $3,000 per product, per quarter」。2014年初めは月19ドルの購読だった。</span></li>
+    <li><a href="https://unity.com/news/unity-5-here" target="_blank" rel="noopener">Unity ／ UNITY 5 IS HERE</a><span class="d">2015年3月3日。「Unity 5 Personal Edition is a free solution empowering hobbyists, sole developers, and studios just getting started with all the powerful features found in the Unity engine and editor」。</span></li>
+    <li><a href="https://www.capcom.co.jp/recruit/graduate/" target="_blank" rel="noopener">カプコン ／ 新卒採用 募集要項</a><span class="d">2027年卒。応募資格は「大学院・大学・短大・高専・専門学校の卒業者」「学科・学部不問」。基準報酬 月額30万円以上（大学院〜専門学校卒で共通・時間外勤務手当は別）。賞与 年2回（初年度の夏季賞与は寸志）。年次有給休暇は初年度より15日。健康保険・厚生年金保険・雇用保険・労災保険。</span></li>
+    <li><a href="https://www.sega.co.jp/release/251112_1.html" target="_blank" rel="noopener">セガ ／ 従業員に関する報酬制度改定のお知らせ</a><span class="d">2025年11月12日。2026年4月1日より「大卒初任給は30万円から10%アップの33万円」。</span></li>
+    <li><a href="https://www.konami.com/news/ja/release/2025/0219/" target="_blank" rel="noopener">コナミグループ ／ 4期連続となる基本給ベースアップを実施</a><span class="d">2025年2月19日。「新卒初任給を従来の30万円から30万5千円に引き上げ」。</span></li>
+    <li><a href="https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf" target="_blank" rel="noopener">カプコン ／ 有価証券報告書（2026年3月期）</a><span class="d">平均年間給与（単体・正社員）9,852千円、平均年齢38.1歳。2022年3月期は7,127千円。</span></li>
+    <li><a href="https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf" target="_blank" rel="noopener">任天堂 ／ 有価証券報告書（2026年3月期）</a><span class="d">提出会社 3,084人・平均年齢40.5歳・平均勤続14.6年・平均年間給与 9,824,708円（賞与・基準外賃金を含む）。</span></li>
+    <li><a href="https://www.jp.square-enix.com/recruit/fresh/recruitment/" target="_blank" rel="noopener">スクウェア・エニックス ／ 新卒採用 募集要項</a><span class="d">初任給：専門・高専・短大 27.8万円以上／4年制大学 28.8万円以上／大学院（修士）29.8万円以上（確定拠出年金拠出可能額を含む）。賞与 年2回（初年度は12月の1回）。選考：エンジニア系はプログラミングテスト、アーティスト・テクニカルアーティスト・サウンドは作品提出、ゲームデザイナー・総合は企画書提出。その後 書類選考・面接2〜4回。「テスト結果、作品、企画書の返却は行なっておりません」。FAQ：作品・ポートフォリオへの個別アドバイスは不可。</span></li>
+    <li><a href="https://www.koeitecmo.co.jp/recruit/environment/treatment/" target="_blank" rel="noopener">コーエーテクモ ／ 待遇（給与・賞与など）</a><span class="d">新卒（KTホールディングス・KTゲームス・KTクオリティアシュアランス）：院了 315,000円・大卒 305,000円・専門卒 294,000円（基本給）。</span></li>
+    <li><a href="https://nippon1.co.jp/recruit/newgrads2027.html" target="_blank" rel="noopener">日本一ソフトウェア ／ 2027年度 新卒採用 募集要項</a><span class="d">四大・大学院卒 月給20万円、高専・短大・専門卒 月給18万円。賞与 年2回（2024年度は決算賞与を含め3回）。年間休日122日（初年度の有給休暇10日を含む）。提出物は履歴書・住民票記載事項証明書・作文（「働くこととは」800字以内）・作品（プログラマは Windows 環境で動作するプログラムとソースコード、説明文書に「使用したツール、環境／上記を使用した理由／制作期間、担当箇所／作品でアピールしたいポイント」）。2Dデザイナーは紙媒体の自作作品（デッサン必須）。選考は書類・作品選考→適性検査→面接1〜2回。募集は2か月ごとに随時。FAQ：「過去の作品ばかりをまとめていないか」「ファイルへ丁寧に入れる、CDが割れないよう梱包するなど、ポートフォリオを見る側へ配慮も大切」。</span></li>
+    <li><a href="https://nippon1.co.jp/news/pdf/2026/20260626_01.pdf" target="_blank" rel="noopener">日本一ソフトウェア ／ 有価証券報告書（2026年3月期）</a><span class="d">提出会社 110人・平均年齢35.70歳・平均年間給与 3,971,810円。</span></li>
+    <li><a href="https://www.tose.co.jp/recruit/fresh/game_programmer.html" target="_blank" rel="noopener">トーセ ／ 新卒採用 募集要項（ゲームプログラマー）</a><span class="d">基本給 月給210,500円〜320,000円（能力に応じて変動。アーティスト等も同じ）。時間外手当は全額を別に支給。賞与 年2回（初年度の7月は支給なし）。</span></li>
+    <li><a href="https://contents.xj-storage.jp/xcontents/AS05083/64381562/f7a5/4463/8a3f/d507226c02f8/S100X5JM.pdf" target="_blank" rel="noopener">トーセ ／ 有価証券報告書（2025年8月期）</a><span class="d">提出会社 561人・平均年齢34.8歳・平均年間給与 4,463千円（賞与・基準外賃金を含む）。</span></li>
+    <li><a href="https://www.cc2.co.jp/recruit/?p=3541" target="_blank" rel="noopener">サイバーコネクトツー ／ 新卒採用（ゲームデザイナー）</a><span class="d">ジュニア 月給231,000円〜（うち固定残業代 25,000円＝15時間分）。賞与 年1回（冬）。学歴・国籍不問、既卒・第二新卒も歓迎。提出物は履歴書・応募アンケート・作品（アピールポイントと担当箇所を記載）。望ましい作品の例は「企画書（書式自由）…3作品以上」「仕様書またはゲーム作品、もしくはその両方…1作品以上」、シナリオ志望は「オリジナルのシナリオまたは小説など…1作品以上」。推奨容量はPDF 約20MB以内・動画 約30MB以内。応募書類・作品は返却なし。</span></li>
+    <li><a href="https://hrmos.co/pages/siliconstudiohr/jobs/5879704989029097494" target="_blank" rel="noopener">シリコンスタジオ ／ 2027年度新卒採用【エンジニア】</a><span class="d">月給：専門学校（2年制）230,000円・大学 250,000円〜・大学院 270,000円〜。賞与 年2回。</span></li>
+    <li><a href="https://ssl4.eir-parts.net/doc/3907/yuho_pdf/S100XNL3/00.pdf" target="_blank" rel="noopener">シリコンスタジオ ／ 有価証券報告書（2025年11月期）</a><span class="d">260人・平均年齢40.1歳・平均年間給与 6,350千円（賞与・基準外賃金を含む）。</span></li>
+    <li><a href="https://contents.xj-storage.jp/xcontents/37600/2f7945eb/148f/47d8/b629/5ee29d4aa1b3/S100YXXZ.pdf" target="_blank" rel="noopener">ケイブ ／ 有価証券報告書（2026年5月期）</a><span class="d">提出会社 46人・平均年齢39.9歳・平均年間給与 4,944千円（賞与・基準外賃金を含む）。</span></li>
+    <li><a href="https://ssl4.eir-parts.net/doc/3935/yuho_pdf/S100Y6A9/00.pdf" target="_blank" rel="noopener">エディア ／ 有価証券報告書（2026年2月期）</a><span class="d">提出会社 88人・平均年齢36.2歳・平均年間給与 4,792千円（正社員・賞与・基準外賃金を含む）。</span></li>
+    <li><a href="https://creator.levtech.jp/project/occ-4/" target="_blank" rel="noopener">レバテッククリエイター ／ モーションデザイナーのフリーランス求人・案件一覧</a><span class="d">2026年9月23日に掲載中の105件（業務委託73件・派遣32件）。ゲームの業務委託56件の月額（「〜65万円」のような上限額の表示）：55万円以下 15件・60万円 25件・65万円以上 16件（最高95万円）。</span></li>
+    <li><a href="https://creator.levtech.jp/jobguide/detail/18/" target="_blank" rel="noopener">レバテッククリエイター ／ モーションデザイナーとは？（職種図鑑）</a><span class="d">フリーランスとして活動するには「少なくとも企業や制作会社で3〜5年ほどの経験は必要」。コンシューマーゲームの映像演出の案件で「月収60万円の単価が設定されている」例。</span></li>
+    <li><a href="https://creator.levtech.jp/project/search/" target="_blank" rel="noopener">レバテッククリエイター ／ 職種ごとの求人・案件一覧</a><span class="d">2026年9月23日時点の掲載案件で、募集要項の「ツール・言語」を数えた。3Dモーションデザイナー98件：Unity 23・Maya 16・Photoshop 13・MotionBuilder 10・3ds Max 7。エフェクトデザイナー85件：Maya 23・Photoshop 17・After Effects 14・Unity 10・Houdini 3（Unreal Engine の指定も多い）。UI・UX 102件：Photoshop 33・Unity 19・Illustrator 18・After Effects 11・Figma。ゲームプランナー179件：Unity 11（道具の指定は少ない）。3Dキャラクターモデラー54件：Maya 21・Unity 17・Photoshop 13・ZBrush 11・Substance Painter 4。3D背景モデラー52件：Maya 20・Unity 11・ZBrush 8・Photoshop 8・Blender 6・Substance Painter 5。</span></li>
+    <li><a href="https://hrmos.co/pages/siliconstudiohr/jobs?category=1753361851177451520" target="_blank" rel="noopener">シリコンスタジオ ／ 経験者採用（ツール・エンジン開発）</a><span class="d">必須・歓迎スキルに C++・C#、Unity・Unreal Engine、Python、HLSL、Maya・3ds Max。</span></li>
+    <li><a href="https://www.jp.square-enix.com/recruit/career/job/technicalartist/index.html" target="_blank" rel="noopener">スクウェア・エニックス ／ テクニカルアーティスト（中途採用の職種紹介）</a><span class="d">「大量のアセットを効率的に制作する手法を見いだしてツールやワークフローの整備をして貢献している方もいますし、リグ制作に特化して活躍し」。「必要なのはコミュニケーション能力と様々な知識・スキル」。</span></li>
+    <li><a href="https://freelance-hub.jp/project/job/25/" target="_blank" rel="noopener">フリーランスHub ／ モーションデザイナーのフリーランス案件・求人一覧</a><span class="d">複数の仲介会社の掲載案件の集計（2026年9月）。業界別の平均単価：ゲーム 61.9万円・コンシューマーゲーム 61.3万円（月額）。掲載元はレバテッククリエイターが最多（751件）。</span></li>
+    <li><a href="https://www.nta.go.jp/publication/pamph/gensen/2026kaisei.pdf" target="_blank" rel="noopener">国税庁 ／ 令和8年4月 源泉所得税の改正のあらまし</a><span class="d">令和8・9年分の基礎控除：合計所得489万円以下 104万円・489万円超655万円以下 67万円・655万円超 62万円。給与所得控除の最低保障額 74万円。</span></li>
+    <li><a href="https://www.hokeniryo.metro.tokyo.lg.jp/documents/d/hokeniryo/tokubetuku202605-pdf" target="_blank" rel="noopener">東京都 ／ 区市町村の国民健康保険料（令和8年4月1日現在）</a><span class="d">特別区（多くの区）：基礎分 所得割7.51%・均等割47,600円／支援金分 2.80%・17,600円／子ども・子育て支援金分 0.27%・1,800円。</span></li>
+    <li><a href="https://www.athome.co.jp/corporate/wp-content/themes/news/pdf/chintai-yachin-202607/chintai-yachin-202607.pdf" target="_blank" rel="noopener">アットホーム ／ 全国主要都市の「賃貸マンション・アパート」募集家賃動向（2026年7月）</a><span class="d">2026年8月27日。家賃＝賃料＋管理費等。30㎡以下（シングル向き）の平均：東京23区 マンション 114,147円・アパート 76,812円、大阪市 マンション 73,363円・アパート 66,800円。</span></li>
+    <li><a href="https://www.e-stat.go.jp/stat-search/files?tclass=000000330014&amp;cycle=7&amp;year=20250" target="_blank" rel="noopener">総務省 ／ 家計調査（家計収支編）単身世帯 詳細結果表 2025年</a><span class="d">第2表：単身の勤労者世帯・34歳以下（平均27.2歳）の1か月の消費支出 179,225円、うち住居 34,489円＝家賃以外 144,736円。</span></li>
+    <li><a href="https://www.nenkin.go.jp/service/kokunen/hokenryo/hokenryo.html" target="_blank" rel="noopener">日本年金機構 ／ 国民年金保険料</a><span class="d">「1カ月あたり17,920円です（令和8年度）」。</span></li>
+    <li><a href="https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf" target="_blank" rel="noopener">協会けんぽ ／ 令和8年3月分からの保険料額表（東京支部）</a><span class="d">健康保険料率 9.85%、厚生年金保険料率 18.3%（いずれも会社と本人で折半）。子ども・子育て支援金率 0.23%（令和8年4月分から）。</span></li>
+    <li><a href="https://www.kyoukaikenpo.or.jp/g3/sb3040/r139/" target="_blank" rel="noopener">協会けんぽ ／ 病気やケガで会社を休んだとき（傷病手当金）</a><span class="d">1日あたり、標準報酬月額の平均の30分の1の3分の2。支給は通算1年6か月まで。</span></li>
+    <li><a href="https://www.mhlw.go.jp/content/001692566.pdf" target="_blank" rel="noopener">厚生労働省 ／ 令和8年度の雇用保険料率について</a><span class="d">一般の事業：労働者負担 5/1,000・事業主負担 8.5/1,000。</span></li>
+    <li><a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/rousai/kanyu_r3.4.1_00010.html" target="_blank" rel="noopener">厚生労働省 ／ フリーランスが労災保険の「特別加入」の対象に</a><span class="d">2024年11月1日から、業務委託を受けるフリーランスは業種を問わず特別加入できる（保険料は自己負担）。</span></li>
+    <li><a href="https://www.jftc.go.jp/file/flreaflet.pdf" target="_blank" rel="noopener">公正取引委員会・中小企業庁・厚生労働省 ／ フリーランスの取引に関する新しい法律（リーフレット）</a><span class="d">「フリーランス・事業者間取引適正化等法」は2024年11月1日に施行。発注側の義務：①書面等による取引条件の明示（業務の内容・報酬の額・支払期日など）を直ちに行う、②「発注した物品等を受け取った日から数えて60日以内のできる限り早い日」に報酬を支払う、③1か月以上の委託では受領拒否・報酬の減額・買いたたきなど7つの禁止行為、⑦6か月以上の委託を中途解除する場合は原則30日前までに予告。</span></li>
+    <li><a href="https://www.mhlw.go.jp/toukei/itiran/roudou/jikan/syurou/23/dl/gaikyou.pdf" target="_blank" rel="noopener">厚生労働省 ／ 令和5年就労条件総合調査の概況</a><span class="d">退職給付制度がある企業：1,000人以上 90.1%・30〜99人 70.1%。</span></li>
+    <li><a href="https://www.mhlw.go.jp/toukei/itiran/roudou/jikan/syurou/25/dl/gaikyou.pdf" target="_blank" rel="noopener">厚生労働省 ／ 令和7年就労条件総合調査の概況</a><span class="d">年次有給休暇（2024年）：1,000人以上 付与18.5日・取得12.8日、30〜99人 17.4日・11.3日。</span></li>
+    <li><a href="https://www.check-roudou.mhlw.go.jp/study/roudousya_yukyu.html" target="_blank" rel="noopener">厚生労働省 ／ 確かめよう労働条件：年次有給休暇</a><span class="d">雇い入れから6か月継続勤務し、8割以上出勤すると10日の年次有給休暇。</span></li>
+  </ul>
+  </details>
+</section>
+
+</div>
+
+<script>
+(function(){
+  // 03章：都市部で一人暮らしの簡易試算。表の「実質手取り」と同じ式（東京・独身・40歳未満、2026年の料率と税の概算。単位：万円）
+  var sim=document.getElementById('sim'); if(!sim)return;
+  // 生活費の内訳の既定値：家計調査2025 単身・勤労者・34歳以下（食料41,938／光熱・水道8,147／通信6,511／交通8,164＋自動車6,496／家具・家事5,806／被服6,360／保健医療6,956／教養娯楽24,659／交際費12,742／諸雑費など16,955＝計144,734円）
+  var EMP=0.0985/2+0.0023/2+0.183/2+0.005; // 健保＋子ども・子育て支援金＋厚年（本人負担）＋雇用保険
+  function kojo(g){return g<=190?74:g<=360?g*0.3+8:g<=660?g*0.2+44:g<=850?g*0.1+110:195;}
+  function kiso(x){return x<=489?104:x<=655?67:62;}
+  function itax(k){k=Math.max(0,Math.floor(k*10)/10);var t=[[195,.05,0],[330,.10,9.75],[695,.20,42.75],[900,.23,63.6],[1800,.33,153.6],[4000,.40,279.6],[1e9,.45,479.6]];for(var i=0;i<t.length;i++){if(k<=t[i][0])return (k*t[i][1]-t[i][2])*1.021;}return 0;}
+  function jtax(k){return k>0?k*0.1-0.25+0.5:0.5;}
+  function kokuho(x){var v=Math.max(0,x-43);return Math.min(v*0.0751+4.76,67)+Math.min(v*0.028+1.76,26)+Math.min(v*0.0027+0.18,3);}
+  function netEmp(m){var g=m*12,sha=g*EMP,sho=g-kojo(g);return (g-sha-itax(sho-sha-kiso(sho))-jtax(sho-sha-43))/12;}
+  function netFl(m){var y=m*12,ex=y*0.1,sho=Math.max(0,y-ex-65),sha=kokuho(sho)+1.792*12;return (y-ex-sha-itax(sho-sha-kiso(sho))-jtax(sho-sha-43))/12;}
+  var MODE={
+    emp:{lab:'月給（額面）',min:15,max:60,step:1,ref:'表の目安：新卒 中小 約22万・大手 約31万',note:'手取り＝月給から税・社会保険料を引いた額（賞与なし・住民税ありで計算）。賞与があれば、その分が上乗せになる。'},
+    fl:{lab:'人月単価（1か月の契約額）',min:20,max:100,step:5,ref:'表の目安：梅 45〜55万・竹 60万・松 65万〜',note:'手取り＝人月単価×12から、経費1割・税・国民健康保険・国民年金を引いて12で割った額（青色申告）。仕事が途切れた月は収入ゼロ。'}
+  };
+  var mode='emp',keep={emp:30,fl:60};
+  function $(id){return document.getElementById(id);}
+  var inc=$('inc'),rent=$('rent'),btns=sim.querySelectorAll('.sim-mode button'),costs=sim.querySelectorAll('.sim-cost-grid input');
+  function live(){var t=0;for(var i=0;i<costs.length;i++){t+=+costs[i].value;}return Math.round(t*10)/10;}
+  function man(v){var r=Math.round(v*10)/10;return (r%1===0?r.toFixed(0):r.toFixed(1))+'万円';}
+  function draw(){
+    var m=+inc.value,r=+rent.value,LIVE=live(),n=mode==='emp'?netEmp(m):netFl(m),left=n-r-LIVE;
+    for(var i=0;i<costs.length;i++){costs[i].parentNode.querySelector('b').textContent=(Math.round(costs[i].value*10)/10)+'万';}
+    $('liveSum').textContent=man(LIVE);
+    $('incOut').textContent=m+'万円';$('rentOut').textContent=man(r);
+    $('oNet').textContent=man(n);$('oRent').textContent=man(r);$('oLive').textContent=man(LIVE);
+    var o=$('oLeft');o.textContent=left<0?'−'+man(-left)+'（赤字）':man(left);o.classList.toggle('minus',left<0);
+    var base=left>=0?n:r+LIVE;
+    $('bR').style.width=(r/base*100)+'%';$('bL').style.width=(LIVE/base*100)+'%';$('bK').style.width=(left>0?left/base*100:0)+'%';
+    var d=$('bD'),k=$('bM');
+    if(left<0){var q=n/base*100;k.style.left=q+'%';d.style.left=q+'%';d.style.width=(100-q)+'%';k.hidden=false;d.hidden=false;}
+    else{k.hidden=true;d.hidden=true;}
+  }
+  function setMode(x){
+    keep[mode]=+inc.value;mode=x;var c=MODE[x];
+    inc.min=c.min;inc.max=c.max;inc.step=c.step;inc.value=keep[x];
+    $('incLab').textContent=c.lab;$('incRef').textContent=c.ref;$('simNote').textContent=c.note;
+    for(var i=0;i<btns.length;i++){var on=btns[i].getAttribute('data-mode')===x;btns[i].classList.toggle('on',on);btns[i].setAttribute('aria-pressed',on?'true':'false');}
+    draw();
+  }
+  for(var i=0;i<btns.length;i++){btns[i].addEventListener('click',function(){var x=this.getAttribute('data-mode');if(x!==mode)setMode(x);});}
+  inc.addEventListener('input',draw);rent.addEventListener('input',draw);
+  for(var j=0;j<costs.length;j++){costs[j].addEventListener('input',draw);}
+  $('costReset').addEventListener('click',function(){for(var i=0;i<costs.length;i++){costs[i].value=costs[i].defaultValue;}draw();});
+  draw();
+})();
+</script>
+<script src="common.js"></script>
+</body>
+</html>

@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<!-- 運用ルールと宿題は CLAUDE.md。事実の原本は「出典」のリンク先（数字を直す時は原典を開いて確かめる） -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ゲーム業界 +9 メモ</title>
+<meta name="description" content="ゲーム産業の仕組みや歴史などのメモ。流れ・仕事・お金・売り方・歴史・日本と世界・課題。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ゲーム業界 +9 メモ">
+<meta property="og:description" content="ゲーム産業の仕組みや歴史などのメモ。流れ・仕事・お金・売り方・歴史・日本と世界・課題。">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230b6e6e' stroke-width='1.8' stroke-linecap='round'><style>@media (prefers-color-scheme:dark){svg{stroke:%236fd3cc}}</style><circle cx='5' cy='12' r='2.2'/><circle cx='19' cy='6' r='2.2'/><circle cx='19' cy='18' r='2.2'/><path d='M7.1 11.1l9.8-4.2M7.1 12.9l9.8 4.2'/></svg>">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d1d1f" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- アイコン置き場（線画・24px 方眼。<use href="#i-…"> で呼ぶ） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-net" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M7.1 11.1l9.8-4.2M7.1 12.9l9.8 4.2"/></symbol>
+    <symbol id="i-loop" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 01-13.3 4.7M4.5 12a7.5 7.5 0 0113.3-4.7"/><path d="M18.5 3.5v4h-4M5.5 20.5v-4h4"/></symbol>
+    <symbol id="i-yen" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9 7.5l3 4.5 3-4.5M12 12v5M9.5 12.5h5M9.5 15h5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.8 2.6 14.2 0 17M12 3.5c-2.6 2.8-2.6 14.2 0 17"/></symbol>
+    <symbol id="i-dev" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></symbol>
+    <symbol id="i-pub" viewBox="0 0 24 24"><path d="M4 10v4h3l8 4.5v-13L7 10H4zM18 9.5a3.5 3.5 0 010 5M8 14.5l1.2 4.5h2.3"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="M4.5 10v9.5h15V10M3.5 9.5l2-5h13l2 5M3.5 9.5a2.83 2.83 0 005.67 0 2.83 2.83 0 005.66 0 2.83 2.83 0 005.67 0M10 19.5v-5h4v5"/></symbol>
+    <symbol id="i-player" viewBox="0 0 24 24"><rect x="2.5" y="7.5" width="19" height="10" rx="5"/><path d="M8 10.5v4M6 12.5h4"/><circle cx="15.2" cy="11.3" r=".9" fill="currentColor" stroke="none"/><circle cx="17.6" cy="13.7" r=".9" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19a5.5 5.5 0 0111 0"/><circle cx="17" cy="9.5" r="2.3"/><path d="M16.2 14.2a4.6 4.6 0 014.3 4.8"/></symbol>
+    <symbol id="i-ip" viewBox="0 0 24 24"><path d="M12 3.8l2.5 5.1 5.7.8-4.1 4 1 5.6-5.1-2.7-5.1 2.7 1-5.6-4.1-4 5.7-.8z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9.5 18.5h5M10.5 21h3M12 3a6 6 0 00-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0012 3z"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9.5 3h5M10.5 3v6.5L5.2 18.3A1.8 1.8 0 006.8 21h10.4a1.8 1.8 0 001.6-2.7L13.5 9.5V3M8 15h8"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3.5l9 4.5-9 4.5-9-4.5 9-4.5zM3 12.5l9 4.5 9-4.5M3 16.5l9 4.5 9-4.5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 2.8v5.2c0 4.3-2.9 8-7 9.5-4.1-1.5-7-5.2-7-9.5V5.8L12 3z"/><path d="M9 12l2.2 2.2 3.8-4.2"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16M7.5 15.5l3.5-4 3 2.5 4.5-6"/></symbol>
+    <symbol id="i-in" viewBox="0 0 24 24"><path d="M12 4v10.5M8 10.5l4 4 4-4M4.5 16.5v3h15v-3"/></symbol>
+    <symbol id="i-client" viewBox="0 0 24 24"><path d="M4 20.5h16M6 20.5v-15l7-2v17M13 9.5h5v11M9 8.5h1.5M9 12h1.5M9 15.5h1.5"/></symbol>
+    <symbol id="i-pie" viewBox="0 0 24 24"><path d="M11 5a8 8 0 108 8h-8V5z"/><path d="M14 3.3A8 8 0 0120.7 10H14V3.3z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-10.5a6.5 6.5 0 0113 0C18.5 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.3"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 17a8 8 0 0116 0"/><path d="M12 17l4-5.5"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-handheld" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="8.5" rx="1.5"/><rect x="5" y="12.5" width="14" height="8.5" rx="1.5"/><rect x="7.5" y="5" width="9" height="4.5" rx=".5"/><path d="M8.5 15.5v3M7 17h3"/><circle cx="15" cy="16" r=".7" fill="currentColor" stroke="none"/><circle cx="17" cy="18" r=".7" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-support" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0116 0v5a2 2 0 01-2 2h-1v-6h3M4 12v5a2 2 0 002 2h1v-6H4"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0114 0"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8.5h14l-1 11.5H6L5 8.5z"/><path d="M9 8.5V7a3 3 0 016 0v1.5"/></symbol>
+    <symbol id="i-media" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M10.2 8l4.3 2.5-4.3 2.5V8zM8 20h8"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 12.5v-8h8l9 9-8 8-9-9z"/><circle cx="8" cy="9" r="1.3"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 15.5H3L12 4z"/><path d="M12 10v4.5M12 17v.4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4.5h11a3 3 0 013 3v12H8a3 3 0 01-3-3v-12zM5 16.5a3 3 0 013-3h11"/></symbol>
+    <symbol id="i-bars" viewBox="0 0 24 24"><path d="M5 20v-5M10 20V11M15 20V7M20 20V3.5"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="16" height="6.5" rx="1.5"/><path d="M7.5 7.25h.5M7.5 16.75h.5"/></symbol>
+  </defs>
+</svg>
+
+<nav class="toc" aria-label="目次">
+  <ul>
+    <li><a href="#c1"><span class="n">01</span>流れ</a></li>
+    <li><a href="#c2"><span class="n">02</span>仕事</a></li>
+    <li><a href="#c3"><span class="n">03</span>お金</a></li>
+    <li><a href="#c4"><span class="n">04</span>売り方</a></li>
+    <li><a href="#c5"><span class="n">05</span>歴史</a></li>
+    <li><a href="#c6"><span class="n">06</span>日本と世界</a></li>
+    <li><a href="#c7"><span class="n">07</span>課題</a></li>
+    <li><a href="#src">出典</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="crumb"><a href="index.html">+9 メモ</a></p>
+  <h1>ゲーム業界 +9 メモ</h1>
+  <p class="lead">産業の仕組みや歴史などのメモをまとめています。</p>
+  <a class="xlink" href="dev.html">作る側から見た「ゲーム開発の現場 +9 メモ」 →</a>
+
+  <ul class="chapters" id="chapters">
+    <li><a href="#c1"><span class="ico"><svg class="ic"><use href="#i-net"/></svg></span><span class="tt"><span class="n">01</span><b>流れ</b></span></a></li>
+    <li><a href="#c2"><span class="ico"><svg class="ic"><use href="#i-loop"/></svg></span><span class="tt"><span class="n">02</span><b>仕事</b></span></a></li>
+    <li><a href="#c3"><span class="ico"><svg class="ic"><use href="#i-yen"/></svg></span><span class="tt"><span class="n">03</span><b>お金</b></span></a></li>
+    <li><a href="#c4"><span class="ico"><svg class="ic"><use href="#i-tag"/></svg></span><span class="tt"><span class="n">04</span><b>売り方</b></span></a></li>
+    <li><a href="#c5"><span class="ico"><svg class="ic"><use href="#i-clock"/></svg></span><span class="tt"><span class="n">05</span><b>歴史</b></span></a></li>
+    <li><a href="#c6"><span class="ico"><svg class="ic"><use href="#i-globe"/></svg></span><span class="tt"><span class="n">06</span><b>日本と世界</b></span></a></li>
+    <li><a href="#c7"><span class="ico"><svg class="ic"><use href="#i-alert"/></svg></span><span class="tt"><span class="n">07</span><b>課題</b></span></a></li>
+  </ul>
+
+</header>
+
+<!-- 01 流れ -->
+<section class="ch" id="c1">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-net"/></svg></span><span class="ch-no">01 ／ 流れ</span></div>
+  <h2>ゲームが作られて、ユーザーに届くまで</h2>
+
+  <div class="fig">
+    <div class="types-row">
+      <ul class="types" id="types" aria-label="会社のタイプで塗り分ける">
+        <li><button type="button" data-type="base" aria-pressed="true">基本の形</button></li>
+        <li><button type="button" data-type="all" aria-pressed="false">一社で一貫</button></li>
+        <li><button type="button" data-type="indie" aria-pressed="false">インディー</button></li>
+        <li><button type="button" data-type="work" aria-pressed="false">受託開発</button></li>
+        <li><button type="button" data-type="ip" aria-pressed="false">IPを借りる</button></li>
+      </ul>
+    </div>
+    <p class="type-cap" id="typeCap" aria-live="polite">外部のパブリッシャーとデベロッパーが組み、デジタル販売する場合。契約や出資の形は、案件ごとに違う。</p>
+    <div class="chain" id="map">
+      <div class="rail" aria-hidden="true"><span><svg class="ic"><use href="#i-yen"/></svg>お金は下から上へ</span></div>
+      <div class="stages">
+        <div class="stage">
+          <div class="stage-k">企画・出資</div>
+          <button type="button" class="node" data-role="pub" data-note="資金を出し、完成したゲームを宣伝して売る会社。ストアへの販売登録も行う。&#10;企画は、パブリッシャーが立てて制作を依頼する場合と、デベロッパーが持ち込む場合がある。&#10;資金も、いつもパブリッシャーが出すとは限らない（自社資金や外部からの投資もある）。"><span class="ico"><svg class="ic"><use href="#i-pub"/></svg></span><span class="tx"><span class="nt">パブリッシャー<small>（販売会社）</small></span><span class="nd">企画・資金・宣伝・販売</span></span><span class="more" aria-hidden="true">＋</span></button>
+          <div class="link" aria-hidden="true"></div>
+          <div class="helpers">
+            <button type="button" class="node sub" data-role="ip" data-note="原作やキャラクターの利用を許諾し、対価を受け取る。&#10;IPを持つ会社と、実際に制作する会社が同じとは限らない。"><span class="ico"><svg class="ic"><use href="#i-ip"/></svg></span><span class="tx"><span class="nt">IP権利者</span><span class="nd">作品・キャラクターの権利</span><span class="rel">← 利用を許諾する</span></span><span class="more" aria-hidden="true">＋</span></button>
+            <button type="button" class="node sub" data-note="ゲームの存在をユーザーに知らせる。&#10;広告、記事、動画配信など。"><span class="ico"><svg class="ic"><use href="#i-media"/></svg></span><span class="tx"><span class="nt">広告・メディア</span><span class="nd">広告会社・ゲームメディア・配信者</span><span class="rel">→ 存在を知らせる</span></span><span class="more" aria-hidden="true">＋</span></button>
+          </div>
+        </div>
+        <div class="down"><div class="arr-v">資金・依頼</div></div>
+        <div class="stage">
+          <div class="stage-k">作る</div>
+          <button type="button" class="node" data-role="dev" data-note="ゲームを実際に作る会社・チーム。&#10;パブリッシャーの資金と依頼で作る場合と、自分の資金で作る場合がある。"><span class="ico"><svg class="ic"><use href="#i-dev"/></svg></span><span class="tx"><span class="nt">デベロッパー<small>（開発会社）</small></span><span class="nd">企画・設計・実装</span></span><span class="more" aria-hidden="true">＋</span></button>
+          <div class="link" aria-hidden="true"></div>
+          <div class="helpers">
+            <button type="button" class="node sub" data-note="制作の一部を分担する外部の会社。&#10;デベロッパーから仕事を受けて、素材や作業を納める。&#10;翻訳や QA は、パブリッシャーが手配することも多い。"><span class="ico"><svg class="ic"><use href="#i-team"/></svg></span><span class="tx"><span class="nt">制作協力会社</span><span class="nd">CG・音響・翻訳・QA</span><span class="rel">← 制作を支える</span></span><span class="more" aria-hidden="true">＋</span></button>
+            <button type="button" class="node sub" data-note="ゲームエンジンやサーバーなど、開発と運営の土台を提供する会社。"><span class="ico"><svg class="ic"><use href="#i-grid"/></svg></span><span class="tx"><span class="nt">エンジン・クラウド</span><span class="nd">開発の道具と設備</span><span class="rel">← 土台を提供する</span></span><span class="more" aria-hidden="true">＋</span></button>
+          </div>
+        </div>
+        <div class="down"><div class="arr-v"><span>完成したゲーム<small>宣伝と販売登録はパブリッシャー</small></span></div></div>
+        <div class="stage">
+          <div class="stage-k">届ける</div>
+          <button type="button" class="node" data-role="store" data-note="ゲームを配信し、支払いを受け付ける場。&#10;Steam、各ゲーム機のストア、スマホのアプリストアなど。&#10;たとえば Steam では、発売の前にストアページとゲーム本体の審査がある。&#10;ゲーム機やスマホのストアにも、それぞれの審査がある。"><span class="ico"><svg class="ic"><use href="#i-store"/></svg></span><span class="tx"><span class="nt">配信ストア</span><span class="nd">配信・決済・販売管理</span></span><span class="more" aria-hidden="true">＋</span></button>
+          <div class="link" aria-hidden="true"></div>
+          <div class="helpers">
+            <button type="button" class="node sub" data-note="パッケージ版の場合は、製造・卸・店舗という登場者が増える。"><span class="ico"><svg class="ic"><use href="#i-bag"/></svg></span><span class="tx"><span class="nt">小売店</span><span class="nd">パッケージ版を売る</span><span class="rel">→ もう一つの届け方</span></span><span class="more" aria-hidden="true">＋</span></button>
+          </div>
+        </div>
+        <div class="down"><div class="arr-v">配信</div></div>
+        <div class="stage">
+          <div class="stage-k">遊ぶ</div>
+          <button type="button" class="node" data-note="買って、遊んで、評価する人。&#10;支払ったお金は、ストアを通って上流へ戻る（03 お金）。&#10;評価や遊ばれ方も、次の開発や運営に返っていく。"><span class="ico"><svg class="ic"><use href="#i-player"/></svg></span><span class="tx"><span class="nt">ユーザー</span><span class="nd">購入・課金・遊ぶ・評価</span></span><span class="more" aria-hidden="true">＋</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="people">
+    <div class="people-h"><b>国内のゲーム産業で働く人は、約20万人</b><span class="of-pop" id="popShare" data-workers="200000" data-pop="122680000">日本の人口の約0.16%（およそ600人に1人）</span><small>推定・出典：CESA ゲーム産業レポート2025／人口は <span id="popNum">1億2,268万人</span>（2026年8月1日現在の概算値）</small></div>
+    <div class="crowd">
+      <div class="grp a">
+        <div class="ppl" aria-hidden="true"><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg></div>
+        <b>ゲームを作る・売る会社</b><em>約5.8万〜8.3万人（全体の3〜4割）</em>
+        <small>ハードメーカー・開発兼パブリッシャー・開発スタジオ<br>CESA の区分では「ゲーム基幹企業」</small>
+      </div>
+      <div class="grp b">
+        <div class="ppl" aria-hidden="true"><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg><svg class="ic"><use href="#i-person"/></svg></div>
+        <b>そのまわりで支える会社</b><em>約13万人（全体の6〜7割）</em>
+        <small>開発サポート・周辺機器・流通・小売り・アミューズメント・玩具・情報発信メディア など<br>CESA の区分では「その他関連企業」</small>
+      </div>
+    </div>
+    <details class="more">
+      <summary>番外：ほかの仕事とくらべると？</summary>
+      <div class="jobbars" id="jobBars">
+        <div data-count="1363142"><span>看護師</span><u><i style="width:100.0%"></i></u><em>1.11%・約90人に1人</em></div>
+        <div data-count="893912"><span>小・中・高校の先生</span><u><i style="width:65.6%"></i></u><em>0.73%・約140人に1人</em></div>
+        <div data-count="347772"><span>医師</span><u><i style="width:25.5%"></i></u><em>0.28%・約350人に1人</em></div>
+        <div data-count="262811"><span>警察官</span><u><i style="width:19.3%"></i></u><em>0.21%・約470人に1人</em></div>
+        <div data-count="220252"><span>自衛官</span><u><i style="width:16.2%"></i></u><em>0.18%・約560人に1人</em></div>
+        <div class="me" data-count="200000" data-rough="1"><span>ゲーム産業</span><u><i style="width:14.7%"></i></u><em>0.16%・約600人に1人</em></div>
+        <div data-count="168898"><span>消防職員</span><u><i style="width:12.4%"></i></u><em>0.14%・約730人に1人</em></div>
+        <div data-count="48057"><span>弁護士</span><u><i style="width:3.5%"></i></u><em>0.04%・約2,600人に1人</em></div>
+      </div>
+      <p class="fig-note">日本の人口に対する割合。ゲームは産業全体で働く人の数、ほかは職業ごとの人数なので、目安として。</p>
+    </details>
+  </div>
+
+</section>
+
+<!-- 02 仕事 -->
+<section class="ch" id="c2">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-loop"/></svg></span><span class="ch-no">02 ／ 仕事</span></div>
+  <h2>ゲーム制作の工程</h2>
+  <p class="sub">一般化した工程。職種名や担当範囲は、会社や規模で変わる。</p>
+
+  <div class="fig">
+    <div class="flow steps">
+      <div class="node"><span class="ico"><svg class="ic"><use href="#i-bulb"/></svg></span><h3><span class="n">01</span>企画・検証</h3><p class="q">誰に何を届けるか</p><p class="out">企画書・市場調査</p></div>
+      <div class="arr"></div>
+      <div class="node"><span class="ico"><svg class="ic"><use href="#i-flask"/></svg></span><h3><span class="n">02</span>試作</h3><p class="q">面白さと実現性</p><p class="out">試遊版・制作見積り</p></div>
+      <div class="arr"></div>
+      <div class="node"><span class="ico"><svg class="ic"><use href="#i-layers"/></svg></span><h3><span class="n">03</span>本制作</h3><p class="q">素材と機能を統合</p><p class="out">実装・CG・音響</p></div>
+      <div class="arr"></div>
+      <div class="node"><span class="ico"><svg class="ic"><use href="#i-shield"/></svg></span><h3><span class="n">04</span>品質・発売</h3><p class="q">遊べる商品にする</p><p class="out">QA・翻訳・審査</p></div>
+      <div class="arr"></div>
+      <div class="node"><span class="ico"><svg class="ic"><use href="#i-chart"/></svg></span><h3><span class="n">05</span>運営・改善</h3><p class="q">遊ばれ方を知る</p><p class="out">修正・分析・更新</p></div>
+    </div>
+
+    <div class="gantt-h" aria-hidden="true"><i>01</i><i>02</i><i>03</i><i>04</i><i>05</i></div>
+    <div class="gantt">
+      <div class="bar g-plan" style="--s:1;--e:15;--sm:1;--em:11;--r:1">プロデューサー・ディレクター・プランナー（ゲームデザイン）</div>
+      <div class="bar g-plan" style="--s:1;--e:15;--sm:1;--em:11;--r:2">プロジェクトマネージャー・制作進行</div>
+      <div class="bar g-art" style="--s:1;--e:8;--sm:1;--em:6;--r:3">コンセプトアート</div>
+      <div class="bar g-qa" style="--s:8;--e:12;--sm:6;--em:9;--r:3">QA・デバッグ</div>
+      <div class="bar g-ops" style="--s:13;--e:15;--sm:9;--em:11;--r:3">運営・分析</div>
+      <div class="bar g-tech" style="--s:4;--e:15;--sm:3;--em:11;--r:4">エンジニア・プログラマー</div>
+      <div class="bar g-art" style="--s:4;--e:9;--sm:3;--em:7;--r:5">モデラー・アニメーター・VFX・UI・サウンド</div>
+      <div class="bar g-qa" style="--s:10;--e:15;--sm:7;--em:11;--r:5">宣伝・営業・コミュニティ対応</div>
+      <div class="bar g-qa" style="--s:4;--e:12;--sm:3;--em:9;--r:6">ユーザーテスト</div>
+      <div class="bar g-ops" style="--s:13;--e:15;--sm:9;--em:11;--r:6">追加開発</div>
+      <div class="bar g-qa" style="--s:7;--e:12;--sm:5;--em:9;--r:7">ローカライズ・レーティング申請</div>
+    </div>
+  </div>
+
+  <p class="point">予算・時間・人員を調整して、チームで完成させる。</p>
+
+  <p class="srcline">職種の名前は各社の求人の区分にならった。各工程との対応は、現場経験にもとづく整理。</p>
+</section>
+
+<!-- 03 お金 -->
+<section class="ch" id="c3">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-yen"/></svg></span><span class="ch-no">03 ／ お金</span></div>
+  <h2>お金（売上・開発費・利益）の話</h2>
+
+  <div class="fig-title">デベロッパーにお金が入る道は、2つ</div>
+  <div class="ways">
+    <div class="way">
+      <div class="way-h"><b>① 売って稼ぐ</b><small>自社販売・販売委託</small></div>
+      <ol class="mini">
+        <li><span class="ico"><svg class="ic"><use href="#i-player"/></svg></span><span>ユーザーが払う<small>購入代金・ゲーム内課金</small></span></li>
+        <li><span class="ico"><svg class="ic"><use href="#i-store"/></svg></span><span>ストアで精算<small>税・返金の調整、契約に基づく分配</small></span></li>
+        <li><span class="ico"><svg class="ic"><use href="#i-in"/></svg></span><span>販売主体に入る<small>自社販売なら開発者自身、委託なら契約先</small></span></li>
+      </ol>
+      <p class="way-p">売れた分だけ入る。売れなければ入らない。</p>
+    </div>
+    <div class="way">
+      <div class="way-h"><b>② 作って受け取る</b><small>受託開発</small></div>
+      <ol class="mini">
+        <li><span class="ico"><svg class="ic"><use href="#i-client"/></svg></span><span>発注者が頼む<small>作ってほしい会社。多くはパブリッシャー</small></span></li>
+        <li><span class="ico"><svg class="ic"><use href="#i-yen"/></svg></span><span>工程・検収ごとに開発費を払う</span></li>
+        <li><span class="ico"><svg class="ic"><use href="#i-dev"/></svg></span><span>デベロッパーが受け取る<small>売上ではなく、開発代金</small></span></li>
+      </ol>
+      <p class="way-p">売れても売れなくても、決めた開発費が入る。<br>売上に応じた報酬が付くかは、契約による。</p>
+    </div>
+  </div>
+  <details class="more">
+    <summary>契約の形いろいろ（誰がお金を出し、どう受け取るか）</summary>
+    <div class="deals">
+      <div><b>自社開発・自社販売</b>自分で作り、自分で売る。リスクも利益も自社。</div>
+      <div><b>パブリッシャー出資</b>パブリッシャーが開発費を出す。回収した後に利益を分ける形が多い。</div>
+      <div><b>受託開発</b>頼まれて作り、開発代金を受け取る。</div>
+      <div><b>共同開発</b>複数の会社で、費用と作業を分担する。</div>
+      <div><b>IPライセンス</b>原作やキャラクターを借り、利用料を払う。</div>
+      <div><b>レベニューシェア</b>売上を、決めた割合で分け合う。</div>
+      <div><b>自己資金・クラウドファンディング</b>自分の資金や、支援者から集めた資金で作る。</div>
+    </div>
+  </details>
+
+  <div class="grp-h">①「売って稼ぐ」を、もう少し細かく見る</div>
+  <p class="grp-p">以下の3つは、自分たちで作って売る場合の話。<br>②の受託開発では開発費が工程ごとに入るので、ここに出てくる「回収」は発注者側の話になる。</p>
+  <div class="fig-title">売れた金額の内訳</div>
+  <div class="price" style="--cols:10fr 28fr 12fr 35fr 15fr">
+    <p class="plabel">ユーザーが支払う金額に対して、以下のような内訳で分配される（幅はイメージ・実際の比率ではない）。<br>比率は、契約・機器・販売地域・パッケージ版かデジタル版かで変わり、契約内容は通常は非公開。一つの固定値では教えない。</p>
+    <div class="pbar" aria-hidden="true"><i class="tax"><b>消費税</b></i><i class="dist"><b>届ける途中で引かれる</b></i><i class="promo"><b>売るために使う</b></i><i class="dev"><b>作る・続けるために使った</b></i><i class="profit"><b>利益</b></i></div>
+    <div class="pcap"><div class="tax"><b>消費税</b></div><div class="dist"><b>届ける途中で引かれる</b><small>小売・流通マージン、プラットフォーム手数料、製造費</small></div><div class="promo"><b>売るために使う</b><small>宣伝費、IP使用料</small></div><div class="dev"><b>作る・続けるために使った</b><small>開発費、外注費、サーバー・運営費、会社の管理費</small></div><div class="profit"><b>利益</b><small>契約に応じて分配される</small></div></div>
+  </div>
+
+  <div class="duo">
+  <div class="duo-col">
+  <div class="fig-title">発売までは、お金は出ていくだけ <small>形はイメージ・実測値ではない</small></div>
+  <div class="jc" role="img" aria-label="累計の収支の模式図。開発中は下がり続け、発売の前後で最も低くなり、その後の売上で上がって回収点を越えると利益になる。">
+    <svg viewBox="0 0 600 240" preserveAspectRatio="none" aria-hidden="true">
+      <path class="neg" d="M20,100 C150,102 260,150 340,205 C380,230 420,150 470,100 Z"/>
+      <path class="pos" d="M470,100 C520,50 560,38 585,30 L585,100 Z"/>
+      <line class="zero" x1="0" y1="100" x2="600" y2="100"/>
+      <line class="launch" x1="340" y1="34" x2="340" y2="240"/>
+      <path class="curve" d="M20,100 C150,102 260,150 340,205 C380,230 420,150 470,100 C520,50 560,38 585,30"/>
+    </svg>
+    <span class="lb s" style="left:2%;top:31%">収支 0</span>
+    <span class="lb c" style="left:27%;top:24%"><b>開発中</b>：給与・外注費が出ていく</span>
+    <span class="lb c" style="left:56.7%;top:8%"><span class="chip">発売</span></span>
+    <span class="dot" style="left:59.3%;top:87.4%"></span>
+    <span class="lb" style="right:47%;top:87%"><b>いちばん資金が要る時</b></span>
+    <span class="dot" style="left:78.3%;top:41.7%"></span>
+    <span class="lb" style="left:80.5%;top:47%"><b>回収点</b></span>
+    <span class="lb c s" style="left:92%;top:30%">利益</span>
+    <span class="lb s" style="right:2%;bottom:3%">時間 →</span>
+  </div>
+  </div>
+  <div class="duo-col">
+  <div class="fig-title">回収に必要な本数を動かしてみる</div>
+  <div class="calc">
+    <div class="calc-grid">
+      <div>
+        <label for="inv">回収したい固定投資</label>
+        <output id="invOut">10億円</output>
+        <input id="inv" type="range" min="1" max="50" step="1" value="10">
+      </div>
+      <div>
+        <label for="unit">1本あたり回収に使える額</label>
+        <output id="unitOut">4,000円</output>
+        <input id="unit" type="range" min="1000" max="8000" step="100" value="4000">
+      </div>
+    </div>
+    <div class="result"><span class="eq" id="eq">10億円 ÷ 4,000円 ＝</span><span class="ans" id="ans">約25万本</span></div>
+    <div class="meter" aria-hidden="true"><i id="mfill"></i></div>
+    <div class="meter-scale" aria-hidden="true"><span>0</span><span>50万本</span><span id="mmax">100万本</span></div>
+    <p class="note">「1本あたり回収に使える額」は、値引き・返金・手数料などを引いた後の仮定。定価ではない。</p>
+  </div>
+  </div>
+  </div>
+
+  <details class="more">
+    <summary>実際、いくらかかる？（固定費の概算）</summary>
+    <div class="cost" id="cost" data-salary="6742100" data-fringe="0.15285" data-rent="23647" data-tsubo="3" data-people="20" data-months="24" data-maya="345400" data-mayan="10">
+      <div>
+        <h4>単価（公開されている数字）</h4>
+        <ul>
+          <li><b>ゲーム開発者の平均年収 674万円</b><small>2024年の個人年収・CESA の調査（339人）</small></li>
+          <li><b>会社が別に払う保険料など 給与の約15%</b><small>健康保険 9.85% と厚生年金 18.3% の半分、雇用保険 0.85%、子ども・子育て拠出金 0.36%（東京・2026年度）</small></li>
+          <li><b>東京都心のオフィス賃料 23,647円／坪・月</b><small>都心5区の平均募集賃料・2026年8月</small></li>
+          <li><b>Maya（3DCGソフト）345,400円／年</b><small>1ユーザー・公式販売代理店の価格</small></li>
+          <li><b>Unreal Engine（ゲームエンジン）総収益100万ドルまで無料</b><small>超えた分に 5% のロイヤリティ</small></li>
+          <li><b>Steam の登録料 1タイトル 100ドル</b><small>Steam Direct</small></li>
+        </ul>
+      </div>
+      <div>
+        <h4>概算：20人で2年作ると <small>人数・期間・広さ・本数は仮定</small></h4>
+        <ul>
+          <li><b>人件費 <span id="cLabor">約3.1億円</span></b><small>674万円 × 1.15 × 20人 × 2年</small></li>
+          <li><b>オフィス <span id="cRent">約3,400万円</span></b><small>60坪（1人3坪）× 23,647円 × 24か月</small></li>
+          <li><b>Maya <span id="cMaya">約690万円</span></b><small>10本 × 2年</small></li>
+        </ul>
+        <p class="cost-sum">合計 <span id="cTotal">約3.5億円</span>。何も売れなくても、毎月 <span id="cMonth">約1,460万円</span>が出ていく。</p>
+        <p class="cost-note">PC・開発機材・外注・宣伝・QA・ローカライズは、この外。<br>固定費の9割は、人の給料と会社負担分。</p>
+      </div>
+    </div>
+  </details>
+
+  <p class="point"><span>最終的に黒字でも、発売前の資金は必要になる。<br>黒字にならなければ、会社は続かず、次の作品も作れない。利益があってこそ、産業は成長する。</span></p>
+
+  <p class="srcline">計算は単純化した採算モデル。全ストア共通の手数料率・会計上の利益を示すものではない。「契約の形いろいろ」の用語は、文化庁のライセンス契約の説明を参考にした。</p>
+</section>
+
+<!-- 04 売り方 -->
+<section class="ch" id="c4">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-tag"/></svg></span><span class="ch-no">04 ／ 売り方</span></div>
+  <h2>いろいろな売り方</h2>
+  <p class="sub">まず言葉を4つの軸に分ける。混ぜて話すと、議論がかみ合わなくなる。</p>
+
+  <div class="axes">
+    <div class="axis">
+      <div class="axis-k"><span class="ico"><svg class="ic"><use href="#i-player"/></svg></span>何で遊ぶか</div>
+      <ul class="chips"><li>コンソール<small>家庭用ゲーム機</small></li><li>PC</li><li>モバイル</li></ul>
+      <p class="axis-w">同じゲームが複数の機器で出ることがある。</p>
+    </div>
+    <div class="axis">
+      <div class="axis-k"><span class="ico"><svg class="ic"><use href="#i-yen"/></svg></span>どう支払うか</div>
+      <ul class="chips"><li>買い切り</li><li>F2P<small>基本無料</small></li><li>月額課金</li><li>広告収益</li></ul>
+      <p class="axis-w">F2Pでも、開発と運営には費用がかかる。</p>
+    </div>
+    <div class="axis">
+      <div class="axis-k"><span class="ico"><svg class="ic"><use href="#i-loop"/></svg></span>どう続けるか</div>
+      <ul class="chips"><li>ライブサービス<small>更新・イベントを続ける運営</small></li></ul>
+      <p class="axis-w">有料作品にもある。F2Pの同義語ではない。</p>
+    </div>
+    <div class="axis">
+      <div class="axis-k"><span class="ico"><svg class="ic"><use href="#i-bars"/></svg></span>規模の呼び方</div>
+      <ul class="chips"><li>AAA<small>大規模・高予算の作品</small></li></ul>
+      <p class="axis-w">世界共通の基準はない。目安は開発費40億円〜・300人規模・3〜5年。</p>
+    </div>
+  </div>
+
+  <div class="fig-title">売り方ごとの「お金が入るタイミング」 <small>横＝時間・縦＝入ってくるお金。形はイメージ</small></div>
+  <div class="models">
+    <div class="model"><h3>買い切り</h3>
+      <svg viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true"><path class="area" d="M14 40L20 6C30 22 40 32 60 36S100 39 116 39.5V40Z"/><line class="base" x1="4" y1="40" x2="116" y2="40"/><line class="rel" x1="14" y1="2" x2="14" y2="40"/><path class="ln" d="M4 40H14L20 6C30 22 40 32 60 36S100 39 116 39.5"/></svg>
+      <div class="m">本編の販売</div><p>発売時に売上が集中する。</p></div>
+    <div class="model"><h3>DLC<small>（追加コンテンツ）</small></h3>
+      <svg viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true"><path class="area" d="M14 40L20 8C28 24 36 32 48 34L52 20C58 30 66 34 80 35L84 24C90 32 100 36 116 37V40Z"/><line class="base" x1="4" y1="40" x2="116" y2="40"/><line class="rel" x1="14" y1="2" x2="14" y2="40"/><path class="ln" d="M4 40H14L20 8C28 24 36 32 48 34L52 20C58 30 66 34 80 35L84 24C90 32 100 36 116 37"/></svg>
+      <div class="m">追加分の販売</div><p>本編の後にも山を作る。</p></div>
+    <div class="model"><h3>F2P<small>（基本無料）</small></h3>
+      <svg viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true"><path class="area" d="M14 40C30 38 40 18 60 16S100 18 116 17V40Z"/><line class="base" x1="4" y1="40" x2="116" y2="40"/><line class="rel" x1="14" y1="2" x2="14" y2="40"/><path class="ln" d="M4 40H14C30 38 40 18 60 16S100 18 116 17"/></svg>
+      <div class="m">アイテム・キャラ課金</div><p>無料で人を集め、<br>課金で稼ぐ。</p></div>
+    <div class="model"><h3>ライブサービス</h3>
+      <svg viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true"><path class="area" d="M14 40C22 30 26 18 34 18S44 28 50 28S58 14 66 14S76 26 82 26S92 12 100 12S110 22 116 22V40Z"/><line class="base" x1="4" y1="40" x2="116" y2="40"/><line class="rel" x1="14" y1="2" x2="14" y2="40"/><path class="ln" d="M4 40H14C22 30 26 18 34 18S44 28 50 28S58 14 66 14S76 26 82 26S92 12 100 12S110 22 116 22"/></svg>
+      <div class="m">シーズン・課金・追加要素</div><p>長く運営する前提。<br>更新のたびに波が来る。</p></div>
+    <div class="model"><h3>サブスクリプション</h3>
+      <svg viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true"><path class="area" d="M14 40C20 40 22 24 30 24L116 22V40Z"/><line class="base" x1="4" y1="40" x2="116" y2="40"/><line class="rel" x1="14" y1="2" x2="14" y2="40"/><path class="ln" d="M4 40H14C20 40 22 24 30 24L116 22"/></svg>
+      <div class="m">月額などの利用料</div><p>遊び放題の定額制。<br>収益は契約条件しだい。</p></div>
+    <div class="model"><h3>広告型</h3>
+      <svg viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true"><path class="area" d="M14 40C34 38 44 20 64 20S100 26 116 30V40Z"/><line class="base" x1="4" y1="40" x2="116" y2="40"/><line class="rel" x1="14" y1="2" x2="14" y2="40"/><path class="ln" d="M4 40H14C34 38 44 20 64 20S100 26 116 30"/></svg>
+      <div class="m">広告収入</div><p>主にモバイル。<br>遊ぶ人の数に連動する。</p></div>
+    <div class="model"><h3>UGC<small>（ユーザーが作る中身）</small></h3>
+      <svg viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true"><path class="area" d="M14 40C60 40 90 30 116 10V40Z"/><line class="base" x1="4" y1="40" x2="116" y2="40"/><line class="rel" x1="14" y1="2" x2="14" y2="40"/><path class="ln" d="M4 40H14C60 40 90 30 116 10"/></svg>
+      <div class="m">作った人と運営で分配</div><p>ユーザーが中身を作る。</p></div>
+    <div class="model key"><b>図の読み方</b>点線＝発売の時点。<br>山の形＝稼ぎ方のクセ。</div>
+  </div>
+
+  <div class="fig-title">「基本無料」の仕組み</div>
+  <div class="f2p">
+    <div class="step"><span class="n">1</span><b>「無料」は、ただではない</b>
+      <p>ユーザーは、払わずに始められる。<br>作る側には、毎月の支払いが続く。</p></div>
+    <div class="arr"></div>
+    <div class="step"><span class="n">2</span><b>毎月かかる支出</b>
+      <ul class="chips"><li>人件費<small>開発・運営の人</small></li><li>サーバーの維持</li><li>顧客対応</li><li>追加コンテンツの開発</li><li>広告<small>人を集め続ける</small></li></ul>
+      <p>人件費は、発売後も続く。</p></div>
+    <div class="arr"></div>
+    <div class="step"><span class="n">3</span><b>続けるための工夫</b>
+      <ul class="chips"><li>一部のユーザーの課金<small>アイテム・キャラ</small></li><li>広告収入</li><li>定期的な更新・イベント<small>また遊びに来てもらう</small></li><li>データを見て直す<small>遊ばれ方に合わせる</small></li></ul>
+      <p>払う人は一部でも、<br>遊ぶ人が多ければ成り立つ。<br>だから、集めて、飽きさせない。</p></div>
+  </div>
+  <p class="free-p">利益が出て初めて、運営は続き、次の作品が作れる。「無料で遊べる」の裏では、稼ぐ工夫が毎日回っている。</p>
+
+  <p class="point">買い切りが消えたわけではない。複数の売り方が、同時に存在している。</p>
+
+  <p class="srcline">支払い方の分け方は Apple のストアの区分。ライブサービスの意味は EA の年次報告、UGC の分配は Roblox の説明による。<br>スマホゲームでお金を使う人は33%（CESA ゲーム白書）。1日あたりの課金率が4.4%の会社の例もある（米 Playtika）。</p>
+</section>
+
+<!-- 05 歴史 -->
+<section class="ch" id="c5">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-clock"/></svg></span><span class="ch-no">05 ／ 歴史</span></div>
+  <h2>ゲーム業界のざっくり年表</h2>
+  <p class="sub">帯の左端は、その遊び場が加わった代表的な節目（厳密な始まりの年ではない）。どの帯も今まで続いている。<br>いちばん上の帯は、ゲーム業界に影響した社会の出来事。<br>印の色は衝撃の大きさ <span class="lg i3"></span>大 <span class="lg i2"></span>中 <span class="lg i1"></span>小 ／ <span class="lg warn"></span>注意</p>
+
+  <div class="fig">
+    <div class="bands">
+      <span class="tick" style="left:0"><i>1970</i></span>
+      <span class="tick" style="left:17.9%"><i>1980</i></span>
+      <span class="tick" style="left:35.7%"><i>1990</i></span>
+      <span class="tick" style="left:53.6%"><i>2000</i></span>
+      <span class="tick" style="left:71.4%"><i>2010</i></span>
+      <span class="tick" style="left:89.3%"><i>2020</i></span>
+      <span class="now">現在</span>
+
+      <div class="band-row"><div class="band l0" style="left:0"><b>社会の流れ</b><button type="button" class="ev at i2" style="left:44.6%" data-title="1995 Windows 95" data-note="米国で8月24日に発売。&#10;家庭にパソコンとインターネットが広まっていく。" aria-label="1995 Windows 95"></button><button type="button" class="ev at i2" style="left:51.8%" data-title="1999 iモード" data-note="NTTドコモが2月に開始。&#10;携帯電話がネットにつながり、ケータイのゲームが生まれる。" aria-label="1999 iモード"></button><button type="button" class="ev at i2" style="left:62.5%" data-title="2005 YouTube" data-note="動画共有サイトが始まる（5月）。&#10;ゲーム実況・配信文化の土台になる。" aria-label="2005 YouTube"></button><button type="button" class="ev at i3" style="left:66.1%" data-title="2007 iPhone／YouTube の収益化" data-note="iPhone：Apple が1月に発表。スマホの時代へ。翌年の App Store で、ゲームの遊び場になる。&#10;YouTube：5月、人気の投稿者が広告収入を得られる仕組み（パートナープログラム）を開始。動画で稼ぐ人が生まれる。" aria-label="2007 iPhone／YouTube の収益化"></button><button type="button" class="ev at i1" style="left:73.2%" data-title="2011 Twitch／LINE" data-note="Twitch：6月、ゲーム配信に特化したライブ配信サイトが始まる。実況・eスポーツ観戦の場になる。&#10;LINE：6月23日にサービス開始。日本で SNS・メッセージアプリが日常になる。" aria-label="2011 Twitch／LINE"></button><button type="button" class="ev at i3" style="left:75%" data-title="2012 YouTube 収益化が誰でも（日本）" data-note="4月、日本を含む20か国で、動画を投稿する誰もが広告収入を得られるように。&#10;米国・カナダでは2007年12月から。&#10;実況・配信で稼ぐ道が、日本でも開く。" aria-label="2012 YouTube 収益化が誰でも（日本）"></button><button type="button" class="ev at i1" style="left:85.7%" data-title="2018 eスポーツ" data-note="2月、日本eスポーツ連合（JeSU）が活動開始。ゲームの対戦が競技として扱われるようになる。9月のアジア競技大会では参考競技に。" aria-label="2018 eスポーツ"></button><button type="button" class="ev at i3" style="left:89.3%" data-title="2020 新型コロナ" data-note="4月7日、初の緊急事態宣言。&#10;家で過ごす時間が増え、ゲームや動画配信の需要が伸びたと言われる。" aria-label="2020 新型コロナ"></button><button type="button" class="ev at i2" style="left:92.9%" data-title="2022 ChatGPT" data-note="OpenAI が11月30日に公開。&#10;生成AIが一般に広まり、開発の道具にもなり始める。" aria-label="2022 ChatGPT"></button></div></div>
+      <div class="band-row"><div class="band l1" style="left:3.6%"><button type="button" class="ev i3" data-title="1972 Pong" data-note="米国で登場。&#10;店舗で繰り返し遊ぶ体験が、事業になる。" aria-label="1972 Pong"></button><b>アーケード</b></div></div>
+      <div class="band-row"><div class="band l2" style="left:23.2%"><button type="button" class="ev i3" data-title="1983 ファミコン" data-note="任天堂が発売。&#10;家庭のテレビが、遊ぶ場所になる。" aria-label="1983 ファミコン"></button><b>家庭用</b><button type="button" class="ev at i3" style="left:25.6%" data-title="1994 PlayStation" data-note="ソニーが日本で発売（12月3日）。&#10;CD-ROM と 3D 表現で、作り方が変わる。" aria-label="1994 PlayStation"></button><button type="button" class="ev at i2" style="left:41.9%" data-title="2001 Xbox" data-note="Microsoft が家庭用ゲーム機に参入。北米で11月15日に発売、日本は翌年2月22日。&#10;2002年11月、ネット対戦サービス Xbox Live が始まる。家庭用機のオンライン化が進む。" aria-label="2001 Xbox"></button><button type="button" class="ev at i2" style="left:53.5%" data-title="2006 Wii" data-note="任天堂が発売。&#10;体を動かす操作で、遊ぶ人の層が広がる。" aria-label="2006 Wii"></button><button type="button" class="ev at bar i2" style="left:79.1%" data-title="2017 Nintendo Switch" data-note="任天堂が発売。&#10;据置でも携帯でも遊べる。据置と携帯の境目を越える。" aria-label="2017 Nintendo Switch"></button><button type="button" class="ev at i2" style="left:95.4%" data-title="2024 DL が半分超" data-note="パッケージからダウンロードへ。&#10;任天堂の家庭用ソフト売上に占めるデジタルの割合は、2024年3月期に 50.2% と初めて半分を超え、翌期は 53.5%。&#10;カプコンは、家庭用ソフト売上の約85%がデジタル（2025年3月期）。&#10;国内の家庭用ソフト市場も、2022年にはダウンロード版が57%。" aria-label="2024 DL が半分超"></button></div></div>
+      <div class="band-row"><div class="band l3" style="left:33.9%"><button type="button" class="ev i2" data-title="1989 ゲームボーイ" data-note="任天堂が発売。&#10;持ち運べる場所が、遊ぶ場所になる。" aria-label="1989 ゲームボーイ"></button><b>携帯機</b><button type="button" class="ev at i2" style="left:40.6%" data-title="2004 ニンテンドーDS" data-note="任天堂が発売。&#10;2画面とタッチ操作。携帯機の遊び方が広がる。" aria-label="2004 ニンテンドーDS"></button></div></div>
+      <div class="band-row">
+        <div class="band l5" style="left:58.9%"><button type="button" class="ev i2" data-title="2003 Steam" data-note="Valve が PC ゲームのデジタル配信を開始。&#10;PC ゲームはそれ以前からあるが、ダウンロードで買って遊ぶ場として広がっていく。" aria-label="2003 Steam"></button><button type="button" class="ev at i2" style="left:21.8%" data-title="2008〜 インディーの広がり" data-note="少人数・自己資金で作るゲーム（インディー）が、デジタル配信で直接ユーザーに届くようになる。&#10;2008 Braid：個人開発（Number None）のゲームが、Xbox 360 向けに配信される。" aria-label="2008〜 インディーの広がり"></button><button type="button" class="ev at i3" style="left:39.2%" data-title="2012 Steam Greenlight／BitSummit" data-note="Steam Greenlight：ユーザー投票で Steam に出すゲームを決める仕組み（8月30日開始）。2017年に Steam Direct（審査と手数料で誰でも出せる）へ。&#10;BitSummit：2012年後半に発足。京都で毎年開く、日本最大級のインディーゲームの祭典。" aria-label="2012 Steam Greenlight／BitSummit"></button><b>PC</b></div>
+      </div>
+      <div class="band-row">
+        <div class="band l4" style="left:67.9%"><button type="button" class="ev i3" data-title="2008 App Store" data-note="Apple が開始（7月10日）。&#10;スマホが、いちばん大きな遊ぶ場所になっていく。" aria-label="2008 App Store"></button><b>モバイル</b><button type="button" class="ev at warn" style="left:72.2%" data-title="2021〜 スマホゲームが頭打ちに" data-note="スマホゲームの伸びが止まり、横ばいの時期に入る。&#10;日本：ゲームアプリ市場は2021年から3年続けて減少。2023年は1兆2,351億円（前年比0.7%減）で、ほぼ横ばい。&#10;世界：2023年の課金額は前年より2%減。その後は持ち直し、2025年は10.7%増。&#10;ただしダウンロード数は減り続けている（2024年は前年比7%減）。伸びは、1人あたりの課金が支えている。" aria-label="2021〜 スマホゲームが頭打ちに"></button></div>
+      </div>
+      <div class="band-row me">
+        <div class="pre" style="width:57.1%"><b>+9の現場歴</b><span>2002〜</span></div>
+        <div class="band lme" style="left:57.1%"></div>
+        <button type="button" class="mk" style="left:57.1%" data-title="2002年" data-note="ゲーム業界へ。&#10;3DCGデザイナーとして、下積みから。" aria-label="2002年"></button>
+        <button type="button" class="mk" style="left:69.6%" data-title="2009年" data-note="モデラーから、モーションデザイナーへ。" aria-label="2009年"></button>
+        <button type="button" class="mk" style="left:87.5%" data-title="2019年" data-note="フリーランスとして独立（屋号 +9）。" aria-label="2019年"></button>
+        <button type="button" class="mk" style="left:98.2%" data-title="2025年" data-note="専門学校の講師を兼任。&#10;本業は、フリーランスのモーションデザイナーのまま。" aria-label="2025年"></button>
+      </div>
+      <div class="kw">
+        <div style="left:0%;width:17.9%"><b>1970s</b><span>アーケード</span><span>初期の家庭用</span></div>
+        <div style="left:17.9%;width:17.8%"><b>1980s</b><span>ファミコン</span><span>家庭用市場の確立</span></div>
+        <div style="left:35.7%;width:17.9%"><b>1990s</b><span>16bit・3D</span><span>CD-ROM</span><span>PlayStation</span></div>
+        <div style="left:53.6%;width:17.8%"><b>2000s</b><span>オンライン化</span><span>Xbox 参入</span></div>
+        <div style="left:71.4%;width:17.9%"><b>2010s</b><span>スマホ・Steam</span><span>F2P</span><span>配信文化</span><span>インディー</span><span>DL 販売へ移行</span></div>
+        <div style="left:89.3%;width:10.7%"><b>2020s</b><span>ライブサービス</span><span>サブスク・UGC</span><span>クロスプレイ</span><span>生成AI</span></div>
+      </div>
+      <div class="band-row heat-row"><div class="band heat" style="left:3.6%"><b>日本の勢い</b><span class="hl" style="left:26%">世界市場の中心の一つ</span><span class="hl" style="left:56%">存在感が下がる</span><span class="hl" style="left:80%">再適応</span></div></div>
+    </div>
+
+  </div>
+
+  <details class="more">
+    <summary>年表を文字で読む</summary>
+    <div class="tbl">
+      <div class="row head"><div>時期</div><div>確認できる出来事</div><div>産業の変化を考える視点</div></div>
+      <div class="row"><div class="era">1970年代</div><div>1972年：米国で Pong が登場</div><div class="view">店舗で繰り返し遊ぶ体験が事業になる。</div></div>
+      <div class="row"><div class="era">1980年代</div><div>1983年：ファミコン発売<br>1989年：ゲームボーイ発売</div><div class="view">家庭と持ち運び先へ、遊ぶ場所が広がる。</div></div>
+      <div class="row"><div class="era">1990年代</div><div>1994年：日本で PlayStation 発売</div><div class="view">3D・CD-ROM を活用した制作を考える。</div></div>
+      <div class="row"><div class="era">2000年代</div><div>2004年：DS、2006年：Wii 発売<br>2008年：App Store 開始</div><div class="view">操作方法と流通の入口が多様化する。</div></div>
+      <div class="row"><div class="era">2010年代</div><div>2017年：Nintendo Switch 発売</div><div class="view">据置・携帯の境界を越える設計が現れる。</div></div>
+      <div class="row"><div class="era">2020年代</div><div>2024年：世界コンテンツ市場でモバイルが約6割</div><div class="view">複数の機器・売り方を前提に市場を見る。</div></div>
+    </div>
+  </details>
+
+  <p class="point"><span>「アーケードが消え、家庭用が消えた」という交代劇ではなく、遊ぶ場所の層が増えた。<br>一本を売って終わりの世の中から、遊ぶ人と長くつながる世の中へ。</span></p>
+
+  <p class="srcline">代表的な節目を選んだ導入年表。</p>
+</section>
+
+<!-- 06 日本と世界 -->
+<section class="ch" id="c6">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-globe"/></svg></span><span class="ch-no">06 ／ 日本と世界</span></div>
+  <h2>市場を見る</h2>
+
+  <div class="duo mk">
+  <div class="bigstat">
+    <div class="stat-k">世界の需要</div><div class="stat-what">2024年の世界ゲームコンテンツ市場</div><div class="stat-num">31兆42億円</div><div class="stat-src">前年比 5.0%増・4年間で約5割増<br>出典：CESA ゲーム産業レポート2025</div>
+    <div class="hbars" role="img" aria-label="機器別の世界市場。モバイル18.4兆円・約59%、PC6.8兆円・22%、家庭用5.8兆円・19%。">
+      <div class="hb-mob"><span>モバイル</span><u><i style="width:59%"></i></u><em>18.4兆円</em><b class="pct">59%</b></div>
+      <div class="hb-pc"><span>PC</span><u><i style="width:22%"></i></u><em>6.8兆円</em><b class="pct">22%</b></div>
+      <div class="hb-con"><span>家庭用</span><u><i style="width:19%"></i></u><em>5.8兆円</em><b class="pct">19%</b></div>
+    </div>
+    <p class="fig-note">％は世界市場に占める割合。PC は4年間で 59.7%増と最も伸び、家庭用を上回った。</p>
+    <div class="rank-h">国別の市場規模（2021年・主要6か国）</div>
+    <div class="hbars rank" role="img" aria-label="国別のゲーム市場規模（2021年）。中国6.07兆円、アメリカ3.61兆円、日本1.93兆円、韓国1.62兆円、イギリス0.85兆円、ドイツ0.78兆円。">
+      <div><span>中国</span><u><i style="width:100%"></i></u><em>6.07兆円</em></div>
+      <div><span>アメリカ</span><u><i style="width:59.4%"></i></u><em>3.61兆円</em></div>
+      <div class="jp"><span>日本</span><u><i style="width:31.8%"></i></u><em>1.93兆円</em></div>
+      <div><span>韓国</span><u><i style="width:26.6%"></i></u><em>1.62兆円</em></div>
+      <div><span>イギリス</span><u><i style="width:13.9%"></i></u><em>0.85兆円</em></div>
+      <div><span>ドイツ</span><u><i style="width:12.8%"></i></u><em>0.78兆円</em></div>
+    </div>
+    <p class="fig-note">この6か国で世界の62.6%。<br>伸びが大きいのは新興国（2021→2026年の年平均、予測）。<br>東南アジア +17%・南米 +13%・中東・アフリカ +8%。<br>米国 +8%・中国 +2%・日本 0%。<br>東南アジアと南米は、2026年に日本市場に迫る見込み。</p>
+  </div>
+  <div class="bigstat">
+    <div class="stat-k">日本の市場</div><div class="stat-what">2024年の国内ゲーム人口</div><div class="stat-num">5,475万人</div><div class="stat-src"><span data-pct="54750000" data-pre="日本の人口の約">日本の人口の約45%</span><br>出典：CESA ゲーム産業レポート2025・人口は総務省</div>
+    <div class="hbars" role="img" aria-label="機器別の国内ゲーム人口。モバイル4,278万人・人口の約35%、家庭用2,951万人・約24%、PC1,452万人・約12%。">
+      <div class="hb-mob"><span>モバイル</span><u><i style="width:35%"></i></u><em>4,278万人</em><b class="pct" data-pct="42780000">35%</b></div>
+      <div class="hb-con"><span>家庭用</span><u><i style="width:24%"></i></u><em>2,951万人</em><b class="pct" data-pct="29510000">24%</b></div>
+      <div class="hb-pc"><span>PC</span><u><i style="width:12%"></i></u><em>1,452万人</em><b class="pct" data-pct="14520000">12%</b></div>
+    </div>
+    <p class="fig-note">％は日本の人口に対する割合。複数の機器で遊ぶ人がいるため、3つを足すと全体を超える。</p>
+    <div class="extra"><div class="extra-h">目安</div>
+      <div class="row"><span class="pic" aria-hidden="true"><svg class="ic"><use href="#i-handheld"/></svg></span><div><div class="stat-what">家庭用の基盤：Nintendo DS 世界累計販売</div><div class="stat-num">1億5,402万台</div><div class="stat-src">任天堂公表・ハード台数</div></div></div>
+      <div class="row"><div class="growth" aria-hidden="true"><div class="g1"><i></i>10年前</div><div class="g2"><i></i>直近</div></div><div><div class="stat-what">制作側の負担：カプコンの開発投資</div><div class="stat-num">10年間で約1.9倍</div><div class="stat-src">2025年 統合報告・一社の事例</div></div></div>
+    </div>
+  </div>
+  </div>
+
+  <details class="more">
+    <summary>数字を語る時の注意</summary>
+    <ul class="notes">
+      <li>31兆42億円は、2024年が対象の CESA 推計。2026年の実績でも、世界ゲーム産業の全取引額でもない。</li>
+      <li>円換算の増加には、為替と物価も関係する。実質的な需要増と言うには、換算方法や元の通貨での確認が要る。</li>
+      <li>カプコンの開発投資は一社の事例。日本全体・1作品あたりの予算・日米の費用差の証明には使わない。</li>
+      <li>多国籍企業の売上を、そのまま「国内開発の実力」とはしない。</li>
+    </ul>
+  </details>
+
+  <div class="fig-title">日本の立ち位置は、3つの時期で語られることが多い</div>
+  <div class="phases">
+    <div class="phase"><b>1980〜90年代</b><span>世界市場の中心の一つ</span></div>
+    <div class="phase"><b>2000年代</b><span>相対的に存在感が下がる</span></div>
+    <div class="phase now"><b>2010年代後半〜</b><span>世界市場へ再び適応</span></div>
+  </div>
+  <div class="board">
+    <div class="side"><h3>日本が強いと言われる領域</h3>
+      <ul class="chips"><li>家庭用ゲーム機</li><li>世界的なゲームIP</li><li>家庭用向けの開発力</li></ul>
+      <p>企業の例：<span class="nw">任天堂・</span><span class="nw">ソニー・</span><span class="nw">カプコン・</span><span class="nw">バンダイナムコ・</span><span class="nw">スクウェア・エニックス</span></p></div>
+    <div class="side other"><h3>米国・中国が強いと言われる領域</h3>
+      <ul class="chips"><li>PCプラットフォーム</li><li>モバイル</li><li>巨大ライブサービス</li><li>UGCプラットフォーム</li></ul>
+      <p>日本企業も、海外売上・PC・世界同時発売を重視するようになった。</p></div>
+  </div>
+  <p class="point"><span>日本は「ゲーム産業全体を支配している国」ではなく、「世界のゲーム産業で、代わりのきかない地位を持つ国」。<br>強さは、地域・機器・事業の役割ごとに評価する。</span></p>
+
+  <p class="srcline">異なる期間・指標の数字を、棒グラフ等で直接比較しない。<br>「日本の強み」「家庭用の日本市場は世界の9.4%」は経産省の解説、海外展開・中国市場の伸びは CESA の提言による。3つの時期の区切りは、よく語られる整理で、出典はない。</p>
+</section>
+
+<!-- 07 課題 -->
+<section class="ch" id="c7">
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-alert"/></svg></span><span class="ch-no">07 ／ 課題</span></div>
+  <h2>市場は大きくなったが、作る側は楽になっていない</h2>
+  <p class="sub">遊ぶ人を新しく増やす段階から、すでに遊んでいる人の「時間とお金」を取り合う段階へ。</p>
+
+  <div class="fig">
+    <div class="versus">
+      <span class="when">以前</span>
+      <div class="line"><span class="vs-chip me">自分たちの新作</span><span class="x">VS</span><span class="vs-chip">他社の新作</span></div>
+      <hr>
+      <span class="when">いま</span>
+      <div class="line now"><span class="vs-chip me">自分たちの新作</span><span class="x">VS</span><div class="rival"><span class="vs-chip">他社の新作</span><div class="adds"><span class="vs-chip add">＋ 過去の名作</span><span class="vs-chip add">＋ 基本無料のゲーム</span><span class="vs-chip add">＋ 何年も続くライブサービス</span><span class="vs-chip add">＋ UGC</span><span class="vs-chip add">＋ 動画配信</span></div></div></div>
+    </div>
+
+    <div class="issues">
+      <h3>様々な課題</h3>
+      <div class="grp g1"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-yen"/></svg></span><b>作るコストが上がる</b></div>
+        <ul><li>開発の人数と期間は年々増え、一本あたりの費用がふくらむ</li><li>人件費や宣伝費も上がり続けている（初任給の引き上げ、宣伝の大型化）</li><li>途中で開発を止めるだけでも、二百億円を超える損失が出た例がある</li></ul>
+        <p class="gnote">一社の例：カプコンは「開発投資は過去10年で1.9倍。<br>開発の規模は年々大きくなり、期間も長くなっている」と説明している。</p></div>
+      <div class="grp g2"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-clock"/></svg></span><b>競争の形が変わる</b></div>
+        <ul><li>ユーザーの時間は、他社のゲームだけでなく動画サービスとも奪い合う</li><li>過去の名作が長く売れ続け、新作はその中で選ばれなければならない</li><li>遊ぶ人と長くつながり続ける、運営の力が要る</li></ul></div>
+      <div class="grp g3"><div class="gl"><span class="ico"><svg class="ic"><use href="#i-team"/></svg></span><b>人・技術・権利</b></div>
+        <ul><li>人材の確保が、会社の内外で課題になっている</li><li>海外市場を前提にした開発（任天堂は売上の76%が海外）</li><li>AI の利用をめぐって、権利と雇用のルール作りが進んでいる</li><li>IP をゲーム以外（映画・グッズ・ロケーション）へ広げる動きが強まっている</li></ul></div>
+    </div>
+  </div>
+
+  <p class="point">市場全体は巨大化している。しかし、デベロッパーが成功しやすくなったわけではない。</p>
+
+  <p class="srcline">各項目は企業の公表資料・公的資料の例で確認したもの。業界全体の統計ではない。</p>
+</section>
+
+<!-- まとめ -->
+
+<!-- 用語集 -->
+<!-- 用語集：表示はしない（本人判断・2026-09-22）。点線の用語を押した時の説明文の元データとして残す -->
+<section class="ch" id="terms" hidden>
+  <div class="ch-head"><span class="ico"><svg class="ic"><use href="#i-book"/></svg></span><span class="ch-no">Glossary ／ 用語集</span></div>
+  <h2>用語集</h2>
+  <p class="sub">このページで使う意味での、一言の説明。</p>
+  <dl class="terms">
+    <div><dt>コンソール</dt><dd>家庭用ゲーム機のこと。Switch・PlayStation・Xbox など。</dd></div>
+    <div><dt>プラットフォーム</dt><dd>ゲームを届ける土台。ゲーム機、PC の Steam、スマホのストアなど。</dd></div>
+    <div><dt>デベロッパー<small>開発会社</small></dt><dd>ゲームを実際に作る会社・チーム。</dd></div>
+    <div><dt>パブリッシャー<small>販売会社</small></dt><dd>資金を出し、商品として販売する会社。</dd></div>
+    <div><dt>受託開発</dt><dd>他社から頼まれて作り、開発代金を受け取る形。</dd></div>
+    <div><dt>インディー</dt><dd>独立系の小規模な開発者。自分で販売することも多い。</dd></div>
+    <div><dt>IP<small>知的財産</small></dt><dd>作品・キャラクターなどの権利。</dd></div>
+    <div><dt>AAA<small>トリプルエー</small></dt><dd>大規模・高予算の作品を指す業界用語。決まった基準はない。</dd></div>
+    <div><dt>買い切り</dt><dd>本編を一度買えば遊べる売り方。</dd></div>
+    <div><dt>DLC</dt><dd>追加コンテンツ。本編の発売後に売る追加要素。</dd></div>
+    <div><dt>F2P<small>基本無料</small></dt><dd>遊ぶのは無料で、アイテムなどに課金してもらう売り方。</dd></div>
+    <div><dt>ライブサービス</dt><dd>発売後も更新やイベントを続け、長く運営する形。</dd></div>
+    <div><dt>サブスクリプション</dt><dd>月額などの定額で遊べる仕組み。</dd></div>
+    <div><dt>UGC</dt><dd>ユーザー制作コンテンツ。遊ぶ人自身が作る中身。</dd></div>
+    <div><dt>QA<small>品質保証</small></dt><dd>不具合を見つけ、遊べる品質にする仕事。</dd></div>
+    <div><dt>ローカライズ</dt><dd>翻訳など、他の国・地域に向けて調整すること。</dd></div>
+  </dl>
+</section>
+
+<!-- 出典 -->
+<section class="ch" id="src">
+  <h2>出典</h2>
+  <p class="sub">以下のリンクや企業の公表資料を参考にまとめています。</p>
+  <details class="more">
+    <summary>出典の一覧を開く</summary>
+  <ul class="srcs">
+    <li><a href="https://www.cesa.or.jp/uploads/2025/release_game_industry_report2025.pdf" target="_blank" rel="noopener">CESA ゲーム産業レポート2025 発刊リリース</a><span class="d">2025-12-15／PDF 2〜3頁。2024年の市場規模と内訳・国内の就業人口・国内ゲーム人口。報告書本体は未入手で、公開リリースの範囲を利用。</span></li>
+    <li><a href="https://partner.steamgames.com/doc/finance/payments_salesreporting" target="_blank" rel="noopener">Valve ／ Reporting and Payments</a><span class="d">Steamworks 公式文書。売上報告と返金・税等の控除。</span></li>
+    <li><a href="https://partner.steamgames.com/doc/store/releasing" target="_blank" rel="noopener">Valve ／ Release Process</a><span class="d">Steamworks 公式文書。ストアページ・ビルドの審査と発売。</span></li>
+    <li><a href="https://www.computerhistory.org/timeline/1972/" target="_blank" rel="noopener">Computer History Museum ／ Timeline 1972</a><span class="d">博物館の歴史解説「Pong is released」。1972年の節目。</span></li>
+    <li><a href="https://www.nintendo.co.jp/corporate/history/index.html" target="_blank" rel="noopener">任天堂 ／ 会社の沿革</a><span class="d">1983・1989・2004・2006・2017年の製品発売。</span></li>
+    <li><a href="https://www.playstation.com/en-us/playstation-history/1994-ps-one/" target="_blank" rel="noopener">PlayStation ／ PlayStation 1994</a><span class="d">公式製品史。日本発売・CD-ROM・3D表現。</span></li>
+    <li><a href="https://www.apple.com/newsroom/2018/07/app-store-turns-10/" target="_blank" rel="noopener">Apple ／ The App Store turns 10</a><span class="d">2018-07-05。2008-07-10 のサービス開始を確認。</span></li>
+    <li><a href="https://www.capcom.co.jp/ir/english/data/oar/2025/cho-cfo.html" target="_blank" rel="noopener">カプコン ／ 統合報告書2025 CHO &amp; CFO対談</a><span class="d">開発規模・期間、開発投資の増加、案件承認。開発人員 2,285→2,846人（2021→2025年3月期末）・新卒初任給の引き上げ・人材確保が課題・旧作の長期販売・IP の映画/ライセンス活用。一社の事例。</span></li>
+    <li><a href="https://careereducation.cesa.or.jp/" target="_blank" rel="noopener">CESA ／ ゲーム業界学習講座</a><span class="d">産業・組織・制作を扱う学生向け教材。全体構成の参考。</span></li>
+    <li><a href="https://www.nintendo.co.jp/ir/en/finance/hard_soft/index.html" target="_blank" rel="noopener">任天堂 ／ Dedicated Video Game Sales Units</a><span class="d">2026-06-30 時点のページ。DS の世界累計ハード販売台数。</span></li>
+    <li><a href="https://www.stat.go.jp/data/jinsui/new.html" target="_blank" rel="noopener">総務省統計局 ／ 人口推計</a><span class="d">2026-08-20 公表。総人口 1億2268万人（2026年8月1日現在・概算値）。毎月更新されるページ。2026-09-22 に確認。</span></li>
+    <li><a href="https://www.mhlw.go.jp/toukei/saikin/hw/eisei/24/index.html" target="_blank" rel="noopener">厚生労働省 ／ 令和6年 衛生行政報告例（就業医療関係者）の概況</a><span class="d">就業看護師 1,363,142人（令和6年末現在）。</span></li>
+    <li><a href="https://www.mext.go.jp/content/20260327-mxt_chousa01-000048552_10.pdf" target="_blank" rel="noopener">文部科学省 ／ 令和7年度 学校基本調査（確定値）</a><span class="d">本務教員：小学校 424,894人・中学校 247,305人・高等学校 221,713人（令和7年5月1日現在）。</span></li>
+    <li><a href="https://www.mhlw.go.jp/toukei/saikin/hw/ishi/24/index.html" target="_blank" rel="noopener">厚生労働省 ／ 令和6年 医師・歯科医師・薬剤師統計の概況</a><span class="d">届出医師数 347,772人（令和6年12月31日現在）。</span></li>
+    <li><a href="https://www.npa.go.jp/hakusyo/r07/honbun/html/bb7711000.html" target="_blank" rel="noopener">警察庁 ／ 令和7年版 警察白書 第7章「警察の体制」</a><span class="d">警察官の定員 262,811人（警察庁 2,389人＋都道府県警察 260,422人）。</span></li>
+    <li><a href="https://www.mod.go.jp/j/profile/mod_sdf/kousei/index.html" target="_blank" rel="noopener">防衛省 ／ 防衛省・自衛隊の人員構成</a><span class="d">自衛官の現員 220,252人（2025年3月31日現在）。</span></li>
+    <li><a href="https://www.fdma.go.jp/publication/hakusho/r6/chapter2/section1/67992.html" target="_blank" rel="noopener">総務省消防庁 ／ 令和6年版 消防白書「消防組織」</a><span class="d">消防職員 168,898人（令和6年4月1日現在）。</span></li>
+    <li><a href="https://www.nichibenren.or.jp/jfba_info/membership/about.html" target="_blank" rel="noopener">日本弁護士連合会 ／ 日弁連の会員</a><span class="d">弁護士 48,057人（2026年9月1日現在）。</span></li>
+    <li><a href="https://www.cesa.or.jp/uploads/2026/info20260106-2.pdf" target="_blank" rel="noopener">CESA ／ ゲーム開発者の就業とキャリア形成2025</a><span class="d">2025年6〜8月調査・有効回答 339。2024年1〜12月の個人年収は平均 674.21万円。</span></li>
+    <li><a href="https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf" target="_blank" rel="noopener">協会けんぽ ／ 令和8年3月分からの保険料額表（東京支部）</a><span class="d">健康保険料率 9.85%、厚生年金保険料率 18.3%（労使折半）、子ども・子育て拠出金率 0.36%（事業主負担）。</span></li>
+    <li><a href="https://www.mhlw.go.jp/content/001692566.pdf" target="_blank" rel="noopener">厚生労働省 ／ 令和8年度の雇用保険料率について</a><span class="d">一般の事業：労働者負担 5/1,000・事業主負担 8.5/1,000。</span></li>
+    <li><a href="https://www.e-miki.com/rent/tokyo.html" target="_blank" rel="noopener">三鬼商事 ／ 東京の賃貸オフィスの賃料相場・空室率</a><span class="d">東京ビジネス地区（都心5区）2026年8月時点の平均募集賃料 23,647円／坪、空室率 1.87%。</span></li>
+    <li><a href="https://cgin.jp/products/maya-single-user-new" target="_blank" rel="noopener">ボーンデジタル CGiN ／ Maya シングルユーザー新規契約</a><span class="d">Autodesk 公式販売代理店の表示価格。1年間 345,400円（3年間 1,026,300円）。2026-09-22 時点。</span></li>
+    <li><a href="https://www.unrealengine.com/ja/release" target="_blank" rel="noopener">Epic Games ／ Unreal Engine 商用ゲーム開発のためのガイドライン</a><span class="d">標準ライセンス：世界全体での総収益が100万米ドルを超えた以降の金額に対し 5% のロイヤリティ。</span></li>
+    <li><a href="https://partner.steamgames.com/steamdirect" target="_blank" rel="noopener">Valve ／ Steam Direct</a><span class="d">1製品につき 100米ドルの登録料（調整後総収益 1,000米ドル到達後に回収可能）。</span></li>
+    <li><a href="https://blogs.windows.com/windows-insider/2020/08/24/looking-back-the-25th-anniversary-of-windows-95/" target="_blank" rel="noopener">Microsoft ／ Looking back—The 25th Anniversary of Windows 95</a><span class="d">Windows 95 は 1995年8月24日に発売（米国）。</span></li>
+    <li><a href="https://www.docomo.ne.jp/corporate/about/outline/history/" target="_blank" rel="noopener">NTTドコモ ／ 会社の沿革</a><span class="d">平成11年（1999年）2月「iモード」サービスの開始。</span></li>
+    <li><a href="https://blog.youtube/news-and-events/happy-birthday-youtube-20/" target="_blank" rel="noopener">YouTube 公式ブログ ／ 20 ways we’re celebrating two decades of YouTube</a><span class="d">最初の動画は 2005年4月23日、サイトの公開は 2005年5月。</span></li>
+    <li><a href="https://www.apple.com/newsroom/2007/01/09Apple-Reinvents-the-Phone-with-iPhone/" target="_blank" rel="noopener">Apple ／ Apple Reinvents the Phone with iPhone</a><span class="d">2007年1月9日の発表。米国での発売は同年6月。</span></li>
+    <li><a href="https://hakusyo1.moj.go.jp/jp/69/nfm/n69_2_7_2_0_3.html" target="_blank" rel="noopener">法務省 ／ 令和4年版 犯罪白書「緊急事態宣言期間等の推移」</a><span class="d">令和2年4月7日、7都府県を対象に最初の緊急事態宣言。</span></li>
+    <li><a href="https://openai.com/index/chatgpt/" target="_blank" rel="noopener">OpenAI ／ Introducing ChatGPT</a><span class="d">2022年11月30日に公開。</span></li>
+    <li><a href="https://blog.youtube/news-and-events/youtube-elevates-most-popular-users-to/" target="_blank" rel="noopener">YouTube 公式ブログ ／ YouTube Elevates Most Popular Users to Partners</a><span class="d">2007年5月3日。人気の投稿者を「パートナー」として、動画の広告収入を分配する仕組みを開始。</span></li>
+    <li><a href="https://press.aboutamazon.com/2014/8/amazon-com-to-acquire-twitch" target="_blank" rel="noopener">Amazon ／ Amazon.com to Acquire Twitch（2014年8月25日）</a><span class="d">Twitch は 2011年6月にゲームのライブ配信に特化して開始、と記載。</span></li>
+    <li><a href="https://www.lycorp.co.jp/ja/news/release/020542/" target="_blank" rel="noopener">LINEヤフー ／ 「LINE」誕生から15周年</a><span class="d">2011年6月23日にサービス開始。</span></li>
+    <li><a href="https://jesu.or.jp/contents/union-history/" target="_blank" rel="noopener">日本eスポーツ連合（JeSU）／ 沿革</a><span class="d">2018年2月1日 活動開始。2018年9月 第18回アジア競技大会の参考競技で日本代表が優勝。</span></li>
+    <li><a href="https://www.valvesoftware.com/en/about" target="_blank" rel="noopener">Valve ／ About</a><span class="d">「We created Steam in 2003 to serve as a digital content distribution channel」。</span></li>
+    <li><a href="https://blog.youtube/news-and-events/partner-program-expands/" target="_blank" rel="noopener">YouTube 公式ブログ ／ Partner Program Expands</a><span class="d">2007年12月10日。米国・カナダの誰でもパートナーに申請できるように（一定の視聴者数などが条件）。</span></li>
+    <li><a href="https://blog.youtube/news-and-events/being-youtube-creator-just-got-even/" target="_blank" rel="noopener">YouTube 公式ブログ ／ Being a YouTube Creator Just Got Even More Rewarding</a><span class="d">2012年4月12日。日本を含む20か国で、動画を投稿する誰もがパートナーになれるように。</span></li>
+    <li><a href="https://news.xbox.com/en-us/2016/11/15/celebrating-15-years-xbox/" target="_blank" rel="noopener">Xbox Wire ／ Celebrating 15 Years of Xbox</a><span class="d">2016年11月15日。「the November 15, 2001 release of the Xbox in North America」「the first gaming console produced by Microsoft」。</span></li>
+    <li><a href="https://news.microsoft.com/source/2002/01/11/microsoft-announces-details-of-japanese-xbox-launch-on-feb-22/" target="_blank" rel="noopener">Microsoft ／ Microsoft Announces Details of Japanese Xbox Launch on Feb. 22</a><span class="d">2002年1月11日。「will go on sale at retail outlets throughout Japan Feb. 22」。</span></li>
+    <li><a href="https://news.microsoft.com/source/2002/08/13/xbox-live-to-launch-on-one-year-anniversary-of-console-launch/" target="_blank" rel="noopener">Microsoft ／ Xbox Live to Launch on One-Year Anniversary of Console Launch</a><span class="d">2002年8月13日。「On Friday, Nov. 15, ... Microsoft Corp. will launch its Xbox Live online game service」。</span></li>
+    <li><a href="https://www.xbox.com/en-US/games/store/braid/BZGPBRQ3LZ7G" target="_blank" rel="noopener">Xbox ／ Braid（ストアページ）</a><span class="d">発売日 8/6/2008。開発 Number None, Inc.、発売 Microsoft Studios。</span></li>
+    <li><a href="https://store.steampowered.com/oldnews/8761" target="_blank" rel="noopener">Steam ／ Valve Launches Steam Greenlight</a><span class="d">2012年8月30日。「the community's help in selecting some of the next games to be released on Steam」。</span></li>
+    <li><a href="https://steamcommunity.com/games/593110/announcements/detail/1265922321514182595" target="_blank" rel="noopener">Steam ／ Greenlight、本日終了。6 月 13 日より Steam Direct 導入へ</a><span class="d">2017年6月7日（日本時間）。「Steam Greenlight を立ち上げたのは 2012 年 8 月 30 日」「6 月 13 日より Steam Direct の導入を開始」「1 作品につき 100 ドルの回収可能な料金」。</span></li>
+    <li><a href="https://bitsummit.org/about/" target="_blank" rel="noopener">BitSummit ／ 京都ビットサミットについて</a><span class="d">「2012年後半に発足」「毎年京都で開催」「日本最大級のインディーゲームの祭典」。主催は日本インディペンデント・ゲーム協会（JIGA）。</span></li>
+    <li><a href="https://www.hd.square-enix.com/jpn/news/pdf/20240430_01.pdf" target="_blank" rel="noopener">スクウェア・エニックス・ホールディングス ／ 特別損失の計上に関するお知らせ</a><span class="d">2024年4月30日。「HD ゲームタイトルの開発方針の見直し」により、パイプラインを精査し「コンテンツ廃棄損として、約221 億円を計上する見込み」。</span></li>
+    <li><a href="https://s22.q4cdn.com/959853165/files/doc_financials/quarterly_reports/2018/q4/01/FINAL-Q4-18-Shareholder-Letter.pdf" target="_blank" rel="noopener">Netflix ／ Q4 2018 Shareholder Letter</a><span class="d">2019年1月17日。「We compete with (and lose to) Fortnite more than HBO.」（画面時間の取り合いの相手はゲームでもある）。</span></li>
+    <li><a href="https://www.nintendo.co.jp/ir/management/message.html" target="_blank" rel="noopener">任天堂 ／ 経営方針 社長メッセージ</a><span class="d">「任天堂IPのファン拡大」「長期間にわたるお客様との関係づくり」の2つの指針。「映画・映像コンテンツ、モバイルアプリ、キャラクターグッズ、ロケーションなど、ゲーム専用機の外においても」提供。</span></li>
+    <li><a href="https://www.nintendo.co.jp/ir/pdf/2025/250508_4.pdf" target="_blank" rel="noopener">任天堂 ／ 2025年3月期 決算説明資料</a><span class="d">2025年5月8日・4頁。海外売上高比率 76.4%（国内 23.6%・米大陸 44.2%・欧州 24.5%・その他 7.7%）。5頁：デジタル売上高比率 53.5%（前期 50.2%）。</span></li>
+    <li><a href="https://www.bunka.go.jp/seisaku/bunkashingikai/chosakuken/pdf/94057901_01.pdf" target="_blank" rel="noopener">文化庁 ／ 「AIと著作権に関する考え方について」概要</a><span class="d">2024年4月（本体は2024年3月15日、文化審議会著作権分科会法制度小委員会）。「AI開発・学習段階」と「生成・利用段階」を分けて整理。法的な拘束力はない。</span></li>
+    <li><a href="https://www.sagaftra.org/sag-aftra-members-who-work-video-games-go-strike" target="_blank" rel="noopener">SAG-AFTRA ／ Members Who Work on Video Games Go on Strike</a><span class="d">2024年7月25日。米国の俳優・声優組合が、ゲーム向け契約で7月26日からストライキ。「A.I. Protections Remain the Sticking Point」（AI 利用の同意・対価・透明性）。</span></li>
+    <li><a href="https://www.capcom.co.jp/recruit/chart/" target="_blank" rel="noopener">カプコン ／ 仕事相関図（リクルートサイト）</a><span class="d">プロデューサー・ディレクター・プランナー／キャラクター・背景・アニメーター・UI・エフェクト・テクニカルアーティスト／コンポーザー・サウンドデザイナー／エンジン・アプリ・サーバープログラマー／プロモーション・マーケティング・データ分析・ライセンス。</span></li>
+    <li><a href="https://www.jp.square-enix.com/recruit/career/index.html" target="_blank" rel="noopener">スクウェア・エニックス ／ 中途採用 職種一覧</a><span class="d">ゲームデザイナー・アーティスト・エンジニア・サウンド・ローカライズ・プロデューサー・プロジェクトマネージャー・プロデュース・運営・制作進行・品質管理・マーケティング・宣伝・営業・カスタマーサポート。</span></li>
+    <li><a href="https://developer.apple.com/app-store/business-models/" target="_blank" rel="noopener">Apple ／ App Store Business models</a><span class="d">Free／Freemium（無料で入手し、追加の機能・コンテンツ・サブスクリプションをアプリ内課金で）／Paid／Paymium／Subscription。Free with display advertising（広告で収入）。</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/712515/000071251523000028/ea-20230331.htm" target="_blank" rel="noopener">Electronic Arts ／ Form 10-K（2023年3月期）</a><span class="d">「live services include extra content, subscription offerings and other revenue generated outside of the sale of our base games」。ライブサービス等が売上の74%。</span></li>
+    <li><a href="https://news.xbox.com/en-us/2017/05/24/xbox-game-pass-available-june-1/" target="_blank" rel="noopener">Xbox Wire ／ Xbox Game Pass Launches June 1 with 100+ Games</a><span class="d">2017年5月24日。6月1日開始、月額 9.99 ドルで100本以上が遊び放題。</span></li>
+    <li><a href="https://create.roblox.com/docs/production/earning-on-roblox" target="_blank" rel="noopener">Roblox ／ Earning on Roblox（Creator Hub）</a><span class="d">作った人はゲーム内で売った分の70%を受け取る。DevEx で Robux を現金に（10,000 Robux＝38 ドル）。</span></li>
+    <li><a href="https://www.meti.go.jp/statistics/toppage/report/minikaisetsu/hitokoto_kako/20231006hitokoto.html" target="_blank" rel="noopener">経済産業省 経済解析室 ／ ゲーム産業は依然高水準！</a><span class="d">2023年10月6日。「日本の強みと呼ばれるゲーム産業」。2023 CESA ゲーム白書より、基本無料＋ゲーム内課金が延べ71.7%、お金を使って遊ぶ人は33%、家庭用ソフトの世界市場に占める日本市場は9.4%。</span></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1828016/000182801626000010/playtika-20251231.htm" target="_blank" rel="noopener">Playtika ／ Form 10-K（2025年12月期）</a><span class="d">Daily Payer Conversion（1日の課金者数÷利用者数）は 2025年 4.4%、2024年 3.8%。</span></li>
+    <li><a href="https://www.meti.go.jp/shingikai/mono_info_service/entertainment_creative/pdf/012_09_00.pdf" target="_blank" rel="noopener">CESA ／ ゲーム産業の課題・提言について（経産省 エンタメ・クリエイティブ産業政策研究会 資料9）</a><span class="d">2026年2月4日。大型タイトル（AAA）の目安：家庭用は開発費40億円〜・48か月〜・〜300人／月、モバイルは40億円〜・〜32か月・〜200人／月、運営費 1億円〜／月・50人〜。海外向け大型は制作期間3〜5年・300名以上が珍しくない。課題：高度開発人材の不足・開発コスト高騰・海外展開・インディ支援・AI・eスポーツ。中国市場の大きさ。</span></li>
+    <li><a href="https://www.epicgames.com/fortnite/en-US/news/fortnite-cross-platform-play-on-playstation-4" target="_blank" rel="noopener">Epic Games ／ Fortnite Cross-Platform Play on PlayStation 4</a><span class="d">2018年3月15日。PS4・PC・Mac のクロスプレイは2017年9月から、iOS も追加。</span></li>
+    <li><a href="https://www.bunka.go.jp/seisaku/chosakuken/kaizoku/assets/pdf/93753201_02.pdf" target="_blank" rel="noopener">文化庁 ／ コンテンツの海外展開事例集 〜ライセンス契約上のポイントを中心に〜</a><span class="d">ライセンス契約の基礎知識（ライセンス許諾・ライセンス料・収益分配・サブライセンス）。</span></li>
+    <li><a href="https://www.meti.go.jp/shingikai/mono_info_service/entertainment_creative/pdf/002_04_03.pdf" target="_blank" rel="noopener">経済産業省 ／ エンタメ・クリエイティブ産業政策研究会 事務局資料③ ゲーム（業界の現状及びアクションプラン案）</a><span class="d">2024年12月19日・4頁「主要6か国のゲーム市場規模」（2021年）。世界 19兆7,970億円（角川アスキー総研）。中国 6兆746億円・アメリカ 3兆6,113億円・日本 1兆9,320億円・韓国 1兆6,167億円・イギリス 8,473億円・ドイツ 7,760億円（ヒューマンメディア、PwC を基に作成）。「主要6か国の市場が世界全体の62.6%」。6頁「新興市場の登場」：2021→2026年の CAGR（Euromonitor データより PwC 分析）は米国 +8%・中国 +2%・日本 0%・東南アジア +17%・南米 +13%・中東・アフリカ +8%。「東南アジア、南米市場は2026年には日本市場に迫る勢い」。</span></li>
+    <li><a href="https://www.nintendo.co.jp/ir/pdf/2024/240507_3.pdf" target="_blank" rel="noopener">任天堂 ／ 2024年3月期 決算説明資料</a><span class="d">2024年5月7日・5頁・13頁。デジタル売上高比率 48.2%（2023年3月期）→ 50.2%（2024年3月期）。ゲーム専用機のソフト売上高に占める、ダウンロード版・ダウンロード専用ソフト・追加コンテンツ・Nintendo Switch Online 等の割合。</span></li>
+    <li><a href="https://www.capcom.co.jp/ir/data/pdf/explanation/2025/full/explanation_2025_full_02.pdf" target="_blank" rel="noopener">カプコン ／ 2025年3月期 決算補足資料</a><span class="d">6頁。コンシューマの売上高：パッケージ 180億円・デジタル販売（デジタルライセンス含む）1,036億円（2025年3月期）＝デジタルが約85%。</span></li>
+    <li><a href="https://www.famitsu.com/article/202408/15119" target="_blank" rel="noopener">ファミ通.com ／ 2023年の国内ゲーム市場規模（ファミ通ゲーム白書2024）</a><span class="d">2024年8月22日。「ゲームアプリ市場は1兆2351億円と3年連続のマイナスになりましたが、減少幅は前年比0.7%減と縮小し、ほぼ横ばいの推移に」。国内市場全体は2兆1255億円（4.6%増）。</span></li>
+    <li><a href="https://sensortower.com/ja/state-of-mobile-gaming-2024" target="_blank" rel="noopener">Sensor Tower ／ モバイルゲーム市場年鑑2024</a><span class="d">2023年のモバイルゲームの消費者支出は「2%減少して1,073億ドル」。</span></li>
+    <li><a href="https://sensortower.com/blog/state-of-mobile-gaming-2025" target="_blank" rel="noopener">Sensor Tower ／ State of Mobile Gaming 2025</a><span class="d">2025年3月。2024年のアプリ内課金は820億ドル（4%増）。ダウンロード数は490億回で「a 7% decline from 2023」。</span></li>
+    <li><a href="https://newzoo.com/articles/global-games-market-2025" target="_blank" rel="noopener">Newzoo ／ Global games revenue cracked $200 billion in 2025</a><span class="d">2026年6月18日。モバイルは1,133億ドル（10.7%増）。「even as global download volumes declined」＝遊ぶ人の広がりではなく、課金の深まりで伸びている。2026年は6.8%増の予測。</span></li>
+  </ul>
+  <ul class="rules">
+    <li>市場規模には「対象地域・年・通貨・集計範囲」を必ず添える。</li>
+    <li>定義の違う数字（CESA と Newzoo 等）をそのままつながない。</li>
+    <li>非公開の契約料率を、業界共通の数字として断定しない。</li>
+  </ul>
+  </details>
+</section>
+
+
+</div>
+<script>
+(function(){
+  // 架空の計算例：固定投資（億円）÷ 1本あたり回収額（円）＝ 必要本数
+  var inv=document.getElementById('inv'),unit=document.getElementById('unit');
+  function draw(){
+    var i=+inv.value,u=+unit.value,man=i*1e8/u/1e4;
+    var shown=man>=100?Math.round(man):Math.round(man*10)/10;
+    document.getElementById('invOut').textContent=i+'億円';
+    document.getElementById('unitOut').textContent=u.toLocaleString('ja-JP')+'円';
+    document.getElementById('eq').textContent=i+'億円 ÷ '+u.toLocaleString('ja-JP')+'円 ＝';
+    document.getElementById('ans').textContent='約'+shown.toLocaleString('ja-JP')+'万本';
+    document.getElementById('mfill').style.width=Math.min(man,100)+'%';
+    document.getElementById('mmax').textContent=man>100?'100万本を超える':'100万本';
+  }
+  inv.addEventListener('input',draw);unit.addEventListener('input',draw);draw();
+
+  // 01章：会社のタイプで相関図を塗り分ける（on＝その会社が担う役割）
+  var TYPES={
+    base:{on:[],badge:'',cap:'外部のパブリッシャーとデベロッパーが組み、デジタル販売する場合。契約や出資の形は、案件ごとに違う。'},
+    all:{on:['dev','pub','store'],badge:'同じ会社',cap:'企画・出資から、作る、届ける場（プラットフォーム）まで、一社で兼ねる。例：任天堂。'},
+    indie:{on:['dev','pub'],badge:'開発者自身',cap:'開発者が自分で資金を集め、自分で販売する形。インディーでも、パブリッシャーと組むことはある。'},
+    work:{on:['dev'],badge:'開発費を受け取る',cap:'デベロッパーは、発注者から開発費を受け取る。売上に応じた報酬が付くかどうかは、契約による（03章の B）。'},
+    ip:{on:['ip','pub'],badge:'利用料のやりとり',cap:'原作やキャラクターの権利者に、利用の対価を支払う。'}
+  };
+  var map=document.getElementById('map'),cap=document.getElementById('typeCap'),
+      btns=document.querySelectorAll('#types button');
+  function setType(k){
+    var t=TYPES[k];
+    map.classList.toggle('typed',t.on.length>0);
+    map.style.setProperty('--badge',JSON.stringify(t.badge));
+    map.querySelectorAll('.node').forEach(function(n){n.classList.toggle('on',t.on.indexOf(n.getAttribute('data-role'))>=0);});
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-type')===k?'true':'false');});
+    cap.textContent=t.cap;
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){setType(b.getAttribute('data-type'));});});
+
+  // 01章：働く人が日本の人口の何％か。数字は #popShare の data- 属性（人口を書き換えれば、％も人数比も変わる）
+  var ps=document.getElementById('popShare');
+  if(ps){
+    var wk=+ps.getAttribute('data-workers'),pp=+ps.getAttribute('data-pop'),ratio=wk/pp;
+    ps.textContent='日本の人口の約'+(ratio*100).toFixed(2)+'%（およそ'+(Math.round(1/ratio/100)*100).toLocaleString('ja-JP')+'人に1人）';
+    document.getElementById('popNum').textContent=Math.floor(pp/1e8)+'億'+Math.round(pp%1e8/1e4).toLocaleString('ja-JP')+'万人';
+    // 06章：国内ゲーム人口も同じ人口で割る（data-pct＝人数）。棒の幅も同じ％にする
+    [].slice.call(document.querySelectorAll('[data-pct]')).forEach(function(e){
+      var r=+e.getAttribute('data-pct')/pp*100; e.textContent=(e.getAttribute('data-pre')||'')+Math.round(r)+'%';
+      var row=e.closest('.hbars > div'); if(row){row.querySelector('i').style.width=r.toFixed(1)+'%';}
+    });
+    // 番外：ほかの仕事も同じ人口で割る（data-rough＝元の人数が概数なので、100人単位に丸める）
+    var jrows=[].slice.call(document.querySelectorAll('#jobBars > div')),jmax=0;
+    jrows.forEach(function(r){jmax=Math.max(jmax,+r.getAttribute('data-count'));});
+    jrows.forEach(function(r){
+      var c=+r.getAttribute('data-count'),per=pp/c,
+          rn=(r.hasAttribute('data-rough')||per>=1000)?Math.round(per/100)*100:Math.round(per/10)*10;
+      r.querySelector('i').style.width=(c/jmax*100).toFixed(1)+'%';
+      r.querySelector('em').textContent=(c/pp*100).toFixed(2)+'%・約'+rn.toLocaleString('ja-JP')+'人に1人';
+    });
+  }
+
+  // 03章：固定費の概算。単価（data-*）を直せば、右の計算と合計も変わる
+  var co=document.getElementById('cost');
+  if(co){
+    var g=function(k){return +co.getAttribute('data-'+k);},
+        yen=function(v){return v>=1e8?'約'+(Math.round(v/1e7)/10).toLocaleString('ja-JP')+'億円':'約'+Math.round(v/1e4).toLocaleString('ja-JP')+'万円';},
+        labor=g('salary')*(1+g('fringe'))*g('people')*g('months')/12,
+        rent=g('tsubo')*g('people')*g('rent')*g('months'),
+        maya=g('maya')*g('mayan')*g('months')/12,
+        total=labor+rent+maya;
+    document.getElementById('cLabor').textContent=yen(labor);
+    document.getElementById('cRent').textContent=yen(rent);
+    document.getElementById('cMaya').textContent=yen(maya);
+    document.getElementById('cTotal').textContent=yen(total);
+    document.getElementById('cMonth').textContent=yen(total/g('months'));
+  }
+
+})();
+</script>
+<script src="common.js"></script>
+</body>
+</html>
