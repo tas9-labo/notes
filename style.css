@@ -32,7 +32,7 @@
 section.ch,.chapters li{--ac:var(--accent);--ac-soft:color-mix(in srgb,var(--ac) 13%,var(--card))}
 #terms,#src{--ac:var(--sub)}
 #terms{display:none}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scrollbar-gutter:stable}
 body{margin:0;background:var(--bg);color:var(--ink);
   font-family:"Inter","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Helvetica Neue",
     "Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif;
