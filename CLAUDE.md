@@ -513,5 +513,5 @@
   （上げ忘れると古い見た目のまま表示され、壊れて見える）。HTML は GitHub Pages が10分キャッシュするので、
   直後の確認は `?c=1` のような問い合わせを付けた URL か Ctrl+Shift+R を使う。
 - **検索向け**：`robots.txt`・`sitemap.xml`・各ページに JSON-LD（著者は「+9」・リンク先は www.tas9.net）。
-  **Google Search Console への登録はまだ**（https が有効になったのでこれから）。
+  **Google Search Console は 2026-09-24 に登録済み**（URL プレフィックス `https://notes.tas9.net/`・所有権は Workspace のドメインとして自動確認・`sitemap.xml` 送信済み）。タブの題名には検索語（ゲーム産業／ゲーム開発／ゲーム業界）を入れてある。名刺サイトの Links からもリンクを1本置いた。
 
