@@ -679,7 +679,7 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 
 /* 入口ページ（notes のハブ）：テーマごとのカードを並べる */
 /* 入口ページ：中央に +9 の印、その下にテーマ2枚 */
-.hub-hero{padding:10px 8px 0;text-align:center}
+.hub-hero{padding:6px 8px 0;text-align:center}
 .hub-hero .logo-wrap{position:relative;display:inline-block;padding-bottom:26px}
 .hub-hero .mark{display:block;width:auto;height:58px;color:var(--ink)}
 .hub-hero .mark-mirror{position:absolute;left:0;top:0;transform:translateY(100%) scaleY(-1);opacity:.27;pointer-events:none;
@@ -690,11 +690,11 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 .hub-hero .title-row{justify-content:center;margin-top:20px}
 .hub-hero .chara{width:38px;height:38px}
 .hub-hero h1{margin:0;text-wrap:balance}
-.hub-hero .lead{margin:14px auto 0;width:fit-content;max-width:100%;font-size:16px;line-height:1.8;text-align:left;text-wrap:pretty}
+.hub-hero .lead{margin:14px auto 0;width:fit-content;max-width:34em;font-size:16px;line-height:1.75;text-align:left;text-wrap:pretty}
 .hub-hero .lead .tag{display:block;margin-bottom:6px;font-size:19px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
-.hub{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
+.hub{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:12px}
 .hub>a,.hub>.soon{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);
-  border-radius:18px;padding:20px 20px 18px;text-decoration:none;color:inherit}
+  border-radius:18px;padding:18px 20px 16px;text-decoration:none;color:inherit}
 .hub>a{transition:border-color .2s,transform .2s,box-shadow .2s}
 .hub>a:hover{border-color:var(--ac);transform:translateY(-3px);box-shadow:var(--shadow)}
 .hub>.soon{color:var(--sub)}
@@ -720,7 +720,7 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 .pages .home svg{display:block;width:auto;height:19px;fill:currentColor}
 
 /* まとめた人（名刺サイトへ） */
-.by{margin:10px 8px 0;padding-top:10px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent);
+.by{margin:6px 8px 0;padding-top:10px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent);
   color:var(--sub);text-align:right}
 .by p{margin:0}
 .by .who{display:flex;justify-content:flex-end;align-items:baseline;gap:14px;
