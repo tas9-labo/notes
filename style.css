@@ -38,7 +38,7 @@ body{margin:0;background:var(--bg);color:var(--ink);
     "Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif;
   font-size:16px;line-height:1.75;padding:16px;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-.wrap{max-width:960px;margin:12px auto 8px}
+.wrap{max-width:960px;margin:12px auto 4px}
 p{margin:0;text-wrap:pretty}
 a{color:inherit}
 .nw{white-space:nowrap}
@@ -681,13 +681,13 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 /* 入口ページ：中央に +9 の印、その下にテーマ2枚 */
 .hub-hero{padding:6px 8px 0;text-align:center}
 .hub-hero .logo-wrap{position:relative;display:inline-block;padding-bottom:26px}
-.hub-hero .mark{display:block;width:auto;height:58px;color:var(--ink)}
+.hub-hero .mark{display:block;width:auto;height:54px;color:var(--ink)}
 .hub-hero .mark-mirror{position:absolute;left:0;top:0;transform:translateY(100%) scaleY(-1);opacity:.27;pointer-events:none;
   -webkit-mask-image:linear-gradient(to top,#000 0%,transparent 60%);mask-image:linear-gradient(to top,#000 0%,transparent 60%)}
 .title-row{display:flex;align-items:center;gap:12px;margin-top:12px}
 .title-row h1{margin:0}
 .title-row .chara{width:34px;height:34px;flex:none;color:var(--ink)}
-.hub-hero .title-row{justify-content:center;margin-top:20px}
+.hub-hero .title-row{justify-content:center;margin-top:18px}
 .hub-hero .chara{width:38px;height:38px}
 .hub-hero h1{margin:0;text-wrap:balance}
 .hub-hero .lead{margin:14px auto 0;width:fit-content;max-width:37em;font-size:16px;line-height:1.75;text-align:left;text-wrap:pretty}
@@ -720,13 +720,12 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 .pages .home svg{display:block;width:auto;height:19px;fill:currentColor}
 
 /* まとめた人（名刺サイトへ） */
-.by{margin:6px 8px 0;padding-top:10px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent);
+.by{margin:6px 8px 0;padding-top:8px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent);
   color:var(--sub);text-align:right}
 .by p{margin:0}
-.by .who{display:flex;justify-content:flex-end;align-items:baseline;gap:14px;
-  font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--ink)}
-.by .who a{font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.06em;color:var(--sub)}
-.by .bio{margin-top:3px;font-size:12px;line-height:1.7}
+.by .who{font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--ink)}
+.by .bio{margin-top:2px;font-size:12px;line-height:1.6}
+.by .site{margin-top:6px;font-family:var(--mono);font-size:12px;letter-spacing:.06em}
 .by .bio:first-of-type{margin-top:6px}
 .by a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}
 .by a:hover{color:var(--ink);border-color:var(--sub)}
