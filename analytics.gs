@@ -76,3 +76,11 @@ function refOf(r) {
   if (/notes\.tas9\.net/.test(h)) return 'サイト内';
   return h;
 }
+
+// 毎日の自動集計を登録する（エディタでこの関数を1回だけ実行する。二重登録はしない）
+function setupDailyTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'summarize') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('summarize').timeBased().everyDays(1).atHour(5).inTimezone('Asia/Tokyo').create();
+}
