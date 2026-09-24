@@ -97,7 +97,7 @@
 /* アクセス記録（自前・analytics.gs の受け口へ送る）。送るのは ページ・参照元・訪問者の印（乱数）・タイムゾーン・言語・画面幅・UA だけ。
    自分の端末を数えない：一度だけ ?nocount=1 を付けて開くと、そのブラウザは以後送らない（localStorage に印を持つ）。 */
 (function(){
-  var ANALYTICS_URL='';
+  var ANALYTICS_URL='https://script.google.com/macros/s/AKfycbyrriOrZ1XQ2C_1pVEC_ZGCIMeq3WuaVU0kEOyMHKk85mn8_2MOEKpXg-6ArPrK2Gx4/exec';
   try{
     if(!ANALYTICS_URL)return;
     if(location.protocol==='file:')return;
