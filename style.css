@@ -530,6 +530,24 @@ details.more .notes{margin:10px 0 0;padding:0 0 0 1.2em;font-size:13px;color:var
 .jobbars .me i{background:var(--ac)}
 .jobbars .me em{color:var(--ink);font-weight:600}
 .people details.more{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+/* 番外「ほかの業界とくらべると？」（06章末・畳み）。ゲームだけ章の色、ほかは灰色。長さと数字で読む */
+.cmp-duo{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+.cmp-duo>div{min-width:0}
+.cmp-duo .fig-title{margin-top:14px}
+.hbars.cmp{margin-top:6px}
+.hbars.cmp div{grid-template-columns:96px minmax(0,1fr) 62px;gap:10px}
+.hbars.cmp span{line-height:1.25}
+.hbars.cmp span small{display:block;font-size:10px;font-weight:400;color:var(--sub);white-space:nowrap}
+.hbars.cmp i{min-width:3px;background:var(--c-slate)}
+.hbars.cmp .me span{color:var(--ac)}.hbars.cmp .me i{background:var(--ac)}
+.percap{display:grid;gap:0;margin-top:6px;font-size:13px}
+.percap>div{display:grid;grid-template-columns:64px 1fr 1fr 72px;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--line)}
+.percap .pc-h{font-size:11px;color:var(--sub)}
+.percap .pc-h b{font-weight:600}
+.percap span{font-weight:600}
+.percap em{font-style:normal;font-variant-numeric:tabular-nums}
+.percap>div>b:last-child{font-weight:600;color:var(--sub);font-variant-numeric:tabular-nums;text-align:right}
+.percap .me span{color:var(--ac)}.percap .me em,.percap .me b:last-child{color:var(--ink);font-weight:700}
 
 /* まとめ */
 
@@ -643,6 +661,9 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   .jobbars u{grid-column:1 / -1;grid-row:2}
   .hbars div{grid-template-columns:48px minmax(0,1fr) 62px 40px;gap:6px}
   .hbars.rank div{grid-template-columns:48px minmax(0,1fr) 62px}
+  .cmp-duo{grid-template-columns:1fr}
+  .hbars.cmp div{grid-template-columns:88px minmax(0,1fr) 58px;gap:8px}
+  .percap>div{grid-template-columns:52px 1fr 1fr 64px;gap:6px}
   footer{padding:24px 20px 0}
 }
 
