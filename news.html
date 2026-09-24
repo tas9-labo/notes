@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=20260924m">
+<link rel="stylesheet" href="style.css?v=20260924o">
 <style>
 /* このページだけの見た目：絞り込みの札と、縦型の年表 */
 .filter{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:30px}
@@ -33,7 +33,7 @@
 .filter button:hover{color:var(--ink)}
 .filter button[aria-pressed="true"]{background:var(--accent);color:var(--on-color);border-color:transparent;font-weight:500}
 .filter .count{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--sub)}
-.yr{display:flex;align-items:center;gap:12px;margin:34px 0 4px}
+.yr{display:flex;align-items:center;gap:12px;margin:34px 0 4px;list-style:none}
 .yr b{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--sub)}
 .yr i{flex:1;height:1px;background:var(--line)}
 .items{list-style:none;margin:0;padding:0}
@@ -54,6 +54,7 @@
 .it .ft .rel{color:var(--accent)}
 .sub small{display:inline-block;margin-top:5px;font-size:12px;line-height:1.7}
 .empty{margin-top:30px;font-size:14px;color:var(--sub)}
+.it[hidden],.yr[hidden]{display:none}
 @media (max-width:720px){
   .it{grid-template-columns:14px minmax(0,1fr);padding:14px 0 16px}
   .it .dt{grid-column:2;padding:0 0 0 16px}
@@ -127,7 +128,230 @@
   <p class="sub">一次資料（公式の発表・公表資料）を読んで、要点だけを書いています。<br><small>※この欄は AI が毎月、自動で追記しています。正確な内容は出典のリンク先で確かめてください。</small></p>
 
   <div class="filter" id="filter" role="group" aria-label="タグで絞り込む"></div>
-  <div id="list"></div>
+  <ul class="items" id="newsList">
+<!-- ▼ 新しい記事はこの行の直後に足す（新しい順。書式は下の項目と同じ。タグは data-tags に「|」区切り） -->
+    <li class="it" data-d="2026-09-22" data-tags="会社の動き|海外">
+      <div class="dt">09/22</div><div class="rail"></div>
+      <div class="bd">
+        <h3>Xbox がスタジオ再編の第2弾を公表。268人を削減</h3>
+        <p>『Halo』次回作は Activision に新設される専任チームが開発し、Obsidian は Bethesda の傘下へ。</p>
+        <p>Playground Games と Turn 10 を1つの組織に統合。7月から進める再編計画の約4分の3にあたる。</p>
+        <ul class="tg"><li>会社の動き</li><li>海外</li></ul>
+        <p class="ft">出典：<a href="https://news.denfaminicogamer.jp/news/260922v" target="_blank" rel="noopener">電ファミニコゲーマー</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-09-21" data-tags="イベント">
+      <div class="dt">09/21</div><div class="rail"></div>
+      <div class="bd">
+        <h3>東京ゲームショウ2026 閉幕。出展1138社で過去最多</h3>
+        <p>53の国・地域から1138社が出展し、4日間で25万7642人が来場。</p>
+        <p>最終日（9月21日）は会場での開催をやめ、オンラインでの配信に切り替えた。</p>
+        <ul class="tg"><li>イベント</li></ul>
+        <p class="ft">出典：<a href="https://www.4gamer.net/games/991/G999110/20260917019/" target="_blank" rel="noopener">4Gamer</a>・<a href="https://news.denfaminicogamer.jp/news/2609203w" target="_blank" rel="noopener">電ファミニコゲーマー</a>　<span class="rel">→ 産業のしくみ ／ 売り方</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-09-20" data-tags="イベント">
+      <div class="dt">09/20</div><div class="rail"></div>
+      <div class="bd">
+        <h3>次回の東京ゲームショウは2027年9月16〜20日</h3>
+        <p>会場は幕張メッセ。</p>
+        <ul class="tg"><li>イベント</li></ul>
+        <p class="ft">出典：<a href="https://news.denfaminicogamer.jp/news/2609203w" target="_blank" rel="noopener">電ファミニコゲーマー</a></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-09-17" data-tags="技術・道具|市場・お金">
+      <div class="dt">09/17</div><div class="rail"></div>
+      <div class="bd">
+        <h3>CESA ゲーム産業レポート2026 プレビュー版：開発者の生成AI活用は85.8%</h3>
+        <p>会員企業がいちばん期待する効果は「業務効率化・生産性向上」。</p>
+        <p>運用でいちばん多い回答は「人による確認・修正・監修を行っている」。本編は12月上旬の発刊予定。</p>
+        <ul class="tg"><li>技術・道具</li><li>市場・お金</li></ul>
+        <p class="ft">出典：<a href="https://www.cesa.or.jp/information/info6/001290/cesa_2026.html" target="_blank" rel="noopener">CESA</a>　<span class="rel">→ 開発の現場 ／ 変化</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-09-15" data-tags="就職・採用">
+      <div class="dt">09/15</div><div class="rail"></div>
+      <div class="bd">
+        <h3>CESA が「ゲームクリエイタースキル実証プロジェクト」の推進を発表</h3>
+        <p>ゲーム制作に必要な力を実証していく取り組み。くわしくは公式の資料（PDF）。</p>
+        <ul class="tg"><li>就職・採用</li></ul>
+        <p class="ft">出典：<a href="https://www.cesa.or.jp/assets/pdf/information/game_creator_skill_project.pdf" target="_blank" rel="noopener">CESA（PDF）</a>　<span class="rel">→ 開発の現場 ／ スキル</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-09-02" data-tags="市場・お金|海外">
+      <div class="dt">09/02</div><div class="rail"></div>
+      <div class="bd">
+        <h3>日本のアプリ内課金は過去12か月で1.56兆円。アジア2位を維持</h3>
+        <p>モバイルの課金額をまとめた「2026年日本ゲーム市場レポート」より。</p>
+        <ul class="tg"><li>市場・お金</li><li>海外</li></ul>
+        <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/09/02/27859.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-08-06" data-tags="市場・お金">
+      <div class="dt">08/06</div><div class="rail"></div>
+      <div class="bd">
+        <h3>任天堂：Nintendo Switch 2 が累計2368万台（2026年6月末）</h3>
+        <p>4〜6月の3か月で382万台、ソフトは946万本。</p>
+        <p>売上は前年同期より減ったが、営業利益は150.5%増の1425億円。</p>
+        <ul class="tg"><li>市場・お金</li></ul>
+        <p class="ft">出典：<a href="https://www.nintendo.co.jp/ir/finance/hard_soft/index.html" target="_blank" rel="noopener">任天堂 IR</a>・<a href="https://www.4gamer.net/games/999/G999905/20260806046/" target="_blank" rel="noopener">4Gamer</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-08-06" data-tags="市場・お金">
+      <div class="dt">08/06</div><div class="rail"></div>
+      <div class="bd">
+        <h3>ファミ通ゲーム白書2026：2025年の世界市場は32兆1024億円、国内は2兆5885億円</h3>
+        <p>世界は前年比3.5%増、国内は同8.0%増。</p>
+        <p>Switch 2 の発売後の国内家庭用と、PC・モバイルの動きを収録。</p>
+        <ul class="tg"><li>市場・お金</li></ul>
+        <p class="ft">出典：<a href="https://prtimes.jp/main/html/rd/p/000000257.000017610.html" target="_blank" rel="noopener">角川アスキー総合研究所（PR TIMES）</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-08-01" data-tags="会社の動き|海外">
+      <div class="dt">08/01</div><div class="rail"></div>
+      <div class="bd">
+        <h3>EA、550億ドルでの非公開化に必要な承認をすべて取得</h3>
+        <p>サウジアラビアの政府系ファンド PIF などによる買収で、8月に取引が完了。</p>
+        <p>約9兆円規模で、株式市場からは退く。</p>
+        <ul class="tg"><li>会社の動き</li><li>海外</li></ul>
+        <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/08/01/27601.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-07-22" data-tags="イベント|技術・道具">
+      <div class="dt">07/22</div><div class="rail"></div>
+      <div class="bd">
+        <h3>CEDEC2026 開催（7月22〜24日・パシフィコ横浜ノース）</h3>
+        <p>国内最大級のゲーム開発者向けカンファレンス。約200のセッション。</p>
+        <p>現地とオンラインの併用。</p>
+        <ul class="tg"><li>イベント</li><li>技術・道具</li></ul>
+        <p class="ft">出典：<a href="https://cedec.cesa.or.jp/2026/outline/" target="_blank" rel="noopener">CEDEC2026 公式</a>　<span class="rel">→ 開発の現場 ／ スキル</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-07-22" data-tags="就職・採用">
+      <div class="dt">07/22</div><div class="rail"></div>
+      <div class="bd">
+        <h3>マイナビ調査：初任給を引き上げた企業は89.1%（2027年卒の採用活動）</h3>
+        <p>3年連続の増加で、平均の支給額は23万7903円。インターンシップ・仕事体験の実施率は61.0%。</p>
+        <p>6月の時点で採用予定数の半数以上が決まった企業は42.5%にとどまり、多くの企業は目標に届いていない。</p>
+        <ul class="tg"><li>就職・採用</li></ul>
+        <p class="ft">出典：<a href="https://career-research.mynavi.jp/reserch/20260722_112587/" target="_blank" rel="noopener">マイナビ キャリアリサーチLab</a>　<span class="rel">→ 開発の現場 ／ 門を叩く</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-07-11" data-tags="市場・お金|海外">
+      <div class="dt">07/11</div><div class="rail"></div>
+      <div class="bd">
+        <h3>Steam の上半期売上が過去最高の111億ドル（約1.8兆円）</h3>
+        <p>収益の8割近くを、その期に出た新作ではない旧作が占めた。</p>
+        <ul class="tg"><li>市場・お金</li><li>海外</li></ul>
+        <p class="ft">出典：<a href="https://www.gamespark.jp/article/2026/07/11/169133.html" target="_blank" rel="noopener">Game*Spark</a>　<span class="rel">→ 産業のしくみ ／ 売り方</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-07-07" data-tags="会社の動き|海外">
+      <div class="dt">07/07</div><div class="rail"></div>
+      <div class="bd">
+        <h3>Xbox が数千人規模の人員削減と5スタジオの閉鎖（報道）</h3>
+        <p>ゲーム部門・販売・コンサルティングを対象に、ここ数年で最大規模。</p>
+        <ul class="tg"><li>会社の動き</li><li>海外</li></ul>
+        <p class="ft">出典：<a href="https://www.zaikei.co.jp/article/20260707/860080.html" target="_blank" rel="noopener">財経新聞</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-06-29" data-tags="就職・採用">
+      <div class="dt">06/29</div><div class="rail"></div>
+      <div class="bd">
+        <h3>ゲーム業界の就活イベントで学生が求めていたのは「どんな人が働いているか」</h3>
+        <p>6月13日の「第4回キャリアクエスト」を取材した記事。ネットでは得られない対面の情報を重視していた。</p>
+        <p>制度や福利厚生よりも一緒に働く人。企業が AI にどう向き合っているかにも関心が集まった。</p>
+        <ul class="tg"><li>就職・採用</li></ul>
+        <p class="ft">出典：<a href="https://news.mynavi.jp/article/20260629-4643213/" target="_blank" rel="noopener">マイナビニュース</a>　<span class="rel">→ 開発の現場 ／ 門を叩く</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-06-11" data-tags="会社の動き|海外">
+      <div class="dt">06/11</div><div class="rail"></div>
+      <div class="bd">
+        <h3>Ubisoft が2スタジオを閉鎖、約380人規模の削減（報道）</h3>
+        <p>組織再編にともなうもの。</p>
+        <ul class="tg"><li>会社の動き</li><li>海外</li></ul>
+        <p class="ft">出典：<a href="https://automaton-media.com/articles/newsjp/ubisoft-20260611-449091/" target="_blank" rel="noopener">AUTOMATON</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-05-26" data-tags="市場・お金">
+      <div class="dt">05/26</div><div class="rail"></div>
+      <div class="bd">
+        <h3>2026年3月期：家庭用ゲーム大手6社のうち4社がゲーム事業で増益</h3>
+        <p>増益はカプコン・コーエーテクモ・スクウェア・エニックス・コナミ、減益はセガサミーとバンダイナムコ。</p>
+        <p>カプコンのデジタルコンテンツ事業は売上1442億円（15.3%増）・営業利益706億円（8.4%増）。</p>
+        <ul class="tg"><li>市場・お金</li></ul>
+        <p class="ft">出典：<a href="https://gamebiz.jp/news/426480" target="_blank" rel="noopener">gamebiz</a>　<span class="rel">→ 開発の現場 ／ お金</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-04-23" data-tags="就職・採用">
+      <div class="dt">04/23</div><div class="rail"></div>
+      <div class="bd">
+        <h3>2027年卒の大卒求人倍率は1.62倍。2年連続で低下</h3>
+        <p>前の年（2026年卒）は1.66倍。求人の総数は74.8万人で、民間企業への就職希望者は46.2万人。</p>
+        <p>全体としては求人が上回る状態が続いている（業種による差は大きい）。</p>
+        <ul class="tg"><li>就職・採用</li></ul>
+        <p class="ft">出典：<a href="https://www.works-i.com/surveys/report/260423_recruitment_saiyo_ratio.html" target="_blank" rel="noopener">リクルートワークス研究所</a>　<span class="rel">→ 開発の現場 ／ 門を叩く</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-04-20" data-tags="就職・採用|海外">
+      <div class="dt">04/20</div><div class="rail"></div>
+      <div class="bd">
+        <h3>調査：レイオフを経験した人の44%が「業界外への転職を検討」</h3>
+        <p>人員削減が続くなかで、業界から離れる動きが出ていると報告された。</p>
+        <ul class="tg"><li>就職・採用</li><li>海外</li></ul>
+        <p class="ft">出典：<a href="https://automaton-media.com/articles/newsjp/20260420-438623/" target="_blank" rel="noopener">AUTOMATON</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-04-13" data-tags="就職・採用">
+      <div class="dt">04/13</div><div class="rail"></div>
+      <div class="bd">
+        <h3>マイナビ調査：2027年卒の内々定率は3月末で58.7%</h3>
+        <p>前の年の同じ月より4.1ポイント高い。就職活動を続けている学生は76.2%。</p>
+        <p>企業を選ぶときにいちばん重視するのは「給与や賞与が高い」40.9%、次が「希望する勤務地で働ける」38.3%。</p>
+        <ul class="tg"><li>就職・採用</li></ul>
+        <p class="ft">出典：<a href="https://career-research.mynavi.jp/reserch/20260413_109492/" target="_blank" rel="noopener">マイナビ キャリアリサーチLab</a>　<span class="rel">→ 開発の現場 ／ お金</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-02-27" data-tags="就職・採用">
+      <div class="dt">02/27</div><div class="rail"></div>
+      <div class="bd">
+        <h3>SIE が新卒の初任給を42万5000円へ（2026年4月1日から）</h3>
+        <p>現行から6万7000円の引き上げで、同社として過去最大の増額。</p>
+        <ul class="tg"><li>就職・採用</li></ul>
+        <p class="ft">出典：<a href="https://news.denfaminicogamer.jp/news/260227i" target="_blank" rel="noopener">電ファミニコゲーマー</a>　<span class="rel">→ 開発の現場 ／ お金</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-02-18" data-tags="就職・採用">
+      <div class="dt">02/18</div><div class="rail"></div>
+      <div class="bd">
+        <h3>2026年度の初任給、引き上げる企業は67.5%（平均9462円増）</h3>
+        <p>ゲーム業界に限らない全業種の調査。25万円超も広がっている。</p>
+        <ul class="tg"><li>就職・採用</li></ul>
+        <p class="ft">出典：<a href="https://www.tdb.co.jp/report/economic/20260218-startingsalary2026/" target="_blank" rel="noopener">帝国データバンク</a>　<span class="rel">→ 開発の現場 ／ お金</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-02-02" data-tags="就職・採用|海外">
+      <div class="dt">02/02</div><div class="rail"></div>
+      <div class="bd">
+        <h3>GDC の業界調査：AAA スタジオの6割以上が過去1年にレイオフ</h3>
+        <p>過去2年でレイオフを受けた人は業界全体の28%。</p>
+        <p>原因として、投資資金の減少・予算削減・利益不足が挙げられた。</p>
+        <ul class="tg"><li>就職・採用</li><li>海外</li></ul>
+        <p class="ft">出典：<a href="https://gamemakers.jp/article/2026_02_02_130006/" target="_blank" rel="noopener">ゲームメーカーズ</a>・<a href="https://igda.jp/2026/03/21/16481/" target="_blank" rel="noopener">IGDA 日本</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
+      </div>
+    </li>
+    <li class="it" data-d="2026-01-29" data-tags="会社の動き|海外">
+      <div class="dt">01/29</div><div class="rail"></div>
+      <div class="bd">
+        <h3>Amazon が大規模な人員削減。ゲームスタジオ責任者の退任も報じられる</h3>
+        <p>前年分と合わせて約3万人規模とされる。</p>
+        <ul class="tg"><li>会社の動き</li><li>海外</li></ul>
+        <p class="ft">出典：<a href="https://www.gamespark.jp/article/2026/01/29/162122.html" target="_blank" rel="noopener">Game*Spark</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
+      </div>
+    </li>
+  </ul>
+  <p class="empty" id="empty" hidden>この条件の記事はまだありません。</p>
 </section>
 
 <footer class="by">
@@ -141,78 +365,35 @@
 
 </div>
 
-<script src="news.js"></script>
 <script>
 (function(){
-  var sel=[], list=document.getElementById('list'), bar=document.getElementById('filter');
-  var used=window.TAGS.filter(function(t){return window.NEWS.some(function(n){return n.tg.indexOf(t)>=0;});});
-
-  function chip(label,on,fn){
-    var b=document.createElement('button');
-    b.type='button'; b.textContent=label; b.setAttribute('aria-pressed',on?'true':'false');
-    b.addEventListener('click',fn); return b;
-  }
+  var TAGS=["就職・採用", "会社の動き", "市場・お金", "技術・道具", "制度・ルール", "イベント", "海外"];
+  var list=document.getElementById('newsList'),bar=document.getElementById('filter'),empty=document.getElementById('empty');
+  var items=[].slice.call(list.querySelectorAll('li.it'));
+  items.forEach(function(li){li._tags=(li.getAttribute('data-tags')||'').split('|').filter(Boolean);li._y=(li.getAttribute('data-d')||'').slice(0,4);});
+  // 年の見出しを差し込む（静的な一覧は年で区切っていない）
+  var year=null;
+  items.forEach(function(li){
+    if(li._y!==year){year=li._y;var h=document.createElement('li');h.className='yr';h.setAttribute('data-y',year);
+      var b=document.createElement('b');b.textContent=year+' 年';h.appendChild(b);h.appendChild(document.createElement('i'));list.insertBefore(h,li);}
+  });
+  var heads=[].slice.call(list.querySelectorAll('li.yr'));
+  var used=TAGS.filter(function(t){return items.some(function(li){return li._tags.indexOf(t)>=0;});});
+  var sel=[];
+  function chip(label,on,fn){var b=document.createElement('button');b.type='button';b.textContent=label;b.setAttribute('aria-pressed',on?'true':'false');b.addEventListener('click',fn);return b;}
   function draw(){
     bar.textContent='';
     bar.appendChild(chip('すべて',sel.length===0,function(){sel=[];draw();}));
-    used.forEach(function(t){
-      bar.appendChild(chip(t,sel.indexOf(t)>=0,function(){
-        var i=sel.indexOf(t); if(i<0){sel.push(t);}else{sel.splice(i,1);} draw();
-      }));
-    });
-    var items=window.NEWS.filter(function(n){
-      return sel.length===0 || n.tg.some(function(t){return sel.indexOf(t)>=0;});
-    });
-    var c=document.createElement('span'); c.className='count'; c.textContent=items.length+' 件';
-    bar.appendChild(c);
-
-    list.textContent='';
-    if(!items.length){
-      var e=document.createElement('p'); e.className='empty'; e.textContent='この条件の記事はまだありません。';
-      list.appendChild(e); return;
-    }
-    var year=null, ul=null;
-    items.forEach(function(n){
-      var y=n.d.slice(0,4);
-      if(y!==year){
-        year=y;
-        var h=document.createElement('div'); h.className='yr';
-        var b=document.createElement('b'); b.textContent=y+' 年'; h.appendChild(b);
-        h.appendChild(document.createElement('i'));
-        list.appendChild(h);
-        ul=document.createElement('ul'); ul.className='items'; list.appendChild(ul);
-      }
-      var li=document.createElement('li'); li.className='it';
-      var dt=document.createElement('div'); dt.className='dt'; dt.textContent=n.d.slice(5).replace('-','/');
-      var rail=document.createElement('div'); rail.className='rail';
-      var bd=document.createElement('div'); bd.className='bd';
-      var h3=document.createElement('h3'); h3.textContent=n.t; bd.appendChild(h3);
-      (n.s||[]).forEach(function(line){
-        var p=document.createElement('p'); p.textContent=line; bd.appendChild(p);
-      });
-      if(n.tg && n.tg.length){
-        var tg=document.createElement('ul'); tg.className='tg';
-        n.tg.forEach(function(t){var x=document.createElement('li');x.textContent=t;tg.appendChild(x);});
-        bd.appendChild(tg);
-      }
-      var ft=document.createElement('p'); ft.className='ft';
-      ft.appendChild(document.createTextNode('出典：'));
-      (n.src||[]).forEach(function(s,i){
-        if(i){ft.appendChild(document.createTextNode('・'));}
-        var a=document.createElement('a'); a.href=s.u; a.target='_blank'; a.rel='noopener'; a.textContent=s.n;
-        ft.appendChild(a);
-      });
-      if(n.rel){
-        ft.appendChild(document.createTextNode('　'));
-        var r=document.createElement('span'); r.className='rel'; r.textContent='→ '+n.rel; ft.appendChild(r);
-      }
-      bd.appendChild(ft);
-      li.appendChild(dt); li.appendChild(rail); li.appendChild(bd); ul.appendChild(li);
-    });
+    used.forEach(function(t){bar.appendChild(chip(t,sel.indexOf(t)>=0,function(){var i=sel.indexOf(t);if(i<0){sel.push(t);}else{sel.splice(i,1);}draw();}));});
+    var n=0;
+    items.forEach(function(li){var ok=sel.length===0||li._tags.some(function(t){return sel.indexOf(t)>=0;});li.hidden=!ok;if(ok)n++;});
+    heads.forEach(function(h){var y=h.getAttribute('data-y');h.hidden=!items.some(function(li){return li._y===y&&!li.hidden;});});
+    var c=document.createElement('span');c.className='count';c.textContent=n+' 件';bar.appendChild(c);
+    empty.hidden=n>0;
   }
   draw();
 })();
 </script>
-<script src="common.js?v=20260924m"></script>
+<script src="common.js?v=20260924o"></script>
 </body>
 </html>

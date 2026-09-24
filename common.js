@@ -93,3 +93,21 @@
     }).observe(hero);
   }
 })();
+
+/* アクセス記録（自前・analytics.gs の受け口へ送る）。送るのは ページ・参照元・訪問者の印（乱数）・タイムゾーン・言語・画面幅・UA だけ。
+   自分の端末を数えない：一度だけ ?nocount=1 を付けて開くと、そのブラウザは以後送らない（localStorage に印を持つ）。 */
+(function(){
+  var ANALYTICS_URL='';
+  try{
+    if(!ANALYTICS_URL)return;
+    if(location.protocol==='file:')return;
+    if(/[?&]nocount=1/.test(location.search)){localStorage.setItem('nocount','1');}
+    if(localStorage.getItem('nocount')==='1')return;
+    var vid=localStorage.getItem('vid');
+    if(!vid){vid=Math.random().toString(36).slice(2,10)+Date.now().toString(36);localStorage.setItem('vid',vid);}
+    var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';}catch(e){}
+    var body=JSON.stringify({p:location.pathname,r:document.referrer,v:vid,tz:tz,l:navigator.language,w:screen.width,ua:navigator.userAgent});
+    if(navigator.sendBeacon){navigator.sendBeacon(ANALYTICS_URL,body);}
+    else{fetch(ANALYTICS_URL,{method:'POST',mode:'no-cors',body:body,keepalive:true});}
+  }catch(e){}
+})();
