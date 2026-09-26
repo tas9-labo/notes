@@ -1,0 +1,22 @@
+﻿id,metric,value,unit,precision,scope,channel,basis,as_of,source_name,source_url,note
+mario-kart-world,units_sold,15390000,本,exact,world,all,official,2026-06-30,任天堂 IR（ミリオンセラータイトル一覧）,https://www.nintendo.co.jp/ir/finance/software/index.html,IR の一覧は万本単位
+donkey-kong-bananza,units_sold,4780000,本,exact,world,all,official,2026-06-30,任天堂 IR（ミリオンセラータイトル一覧）,https://www.nintendo.co.jp/ir/finance/software/index.html,
+pokemon-legends-za-sw2,units_sold,3990000,本,exact,world,all,official,2026-06-30,任天堂 IR（ミリオンセラータイトル一覧）,https://www.nintendo.co.jp/ir/finance/software/index.html,Nintendo Switch 2 Edition のみ
+pokopia,units_sold,3680000,本,exact,world,all,official,2026-06-30,任天堂 IR（ミリオンセラータイトル一覧）,https://www.nintendo.co.jp/ir/finance/software/index.html,
+kirby-air-riders,units_sold,1900000,本,exact,world,all,official,2026-06-30,任天堂 IR（ミリオンセラータイトル一覧）,https://www.nintendo.co.jp/ir/finance/software/index.html,
+mario-party-jamboree-sw2,units_sold,1150000,本,exact,world,all,official,2026-06-30,任天堂 IR（ミリオンセラータイトル一覧）,https://www.nintendo.co.jp/ir/finance/software/index.html,
+mario-kart-world,units_sold,3000000,本,at_least,japan,package,press,2026-07-26,ファミ通（週間販売数 7/20〜7/26）,https://www.famitsu.com/article/202607/82960,国内累計300万本突破。パッケージ＋DL カード＋本体同梱
+tomodachi-life-wakuwaku,units_sold,1500000,本,at_least,japan,package,press,2026-07-26,ファミ通（週間販売数 7/20〜7/26）,https://www.famitsu.com/article/202607/82960,国内累計150万本突破。パッケージ＋DL カード＋本体同梱
+monster-hunter-wilds,units_sold,11800000,本,exact,world,all,official,2026-06-30,カプコン IR（ミリオンセールスタイトル）,https://www.capcom.co.jp/ir/finance/million.html,IR の一覧は万本単位
+resident-evil-requiem,units_sold,8000000,本,exact,world,all,official,2026-06-30,カプコン IR（ミリオンセールスタイトル）,https://www.capcom.co.jp/ir/finance/million.html,発売から約4か月
+pragmata,units_sold,2500000,本,exact,world,all,official,2026-06-30,カプコン IR（ミリオンセールスタイトル）,https://www.capcom.co.jp/ir/finance/million.html,発売から約2か月半
+elden-ring,units_shipped,30000000,本,at_least,world,all,official,2025-04-29,フロム・ソフトウェアの発表（GameBusiness.jp）,https://www.gamebusiness.jp/article/2025/04/29/24177.html,世界累計出荷3,000万本突破
+elden-ring-nightreign,units_shipped,2000000,本,at_least,world,all,official,2025-05-30,バンダイナムコエンターテインメント（PR TIMES）,https://prtimes.jp/main/html/rd/p/000001716.000051316.html,発売初日
+elden-ring-nightreign,units_shipped,5000000,本,at_least,world,all,official,2025-07-24,KADOKAWA ニュースリリース,https://group.kadokawa.co.jp/information/news_release/2025072401.html,
+palworld,players,25000000,人,at_least,world,all,official,2024-02-26,ポケットペアの発表（4Gamer）,https://www.4gamer.net/games/574/G057444/20240226015/,Steam 約1,500万本＋Xbox 約1,000万人。Game Pass を含む
+palworld,players,40000000,人,at_least,world,all,official,2026-07-08,ポケットペアの発表（gamebiz）,https://gamebiz.jp/news/429094,1.0 正式版（2026-07-10）の直前
+exit-8,units_sold,1000000,本,at_least,world,all,official,2024-08-08,KOTAKE CREATE の発表（AUTOMATON）,https://automaton-media.com/articles/newsjp/theexit8-20240808-305003/,Steam＋Switch
+exit-8,units_sold,2000000,本,at_least,world,all,official,2025-08-29,KOTAKE CREATE の発表（Game*Spark）,https://www.gamespark.jp/article/2025/08/29/156615.html,映画公開（8/29）の直前
+exit-8,units_sold,3000000,本,at_least,world,all,official,2026-09-07,KOTAKE CREATE の発表（GAME Watch）,https://game.watch.impress.co.jp/docs/news/2138816.html,
+dq3-hd2d,units_shipped_dl,2000000,本,at_least,world,all,official,2024-12-06,スクウェア・エニックスの発表（電ファミニコゲーマー）,https://news.denfaminicogamer.jp/news/241206n,発売から約3週間
+splatoon-raiders,units_sold,474684,本,exact,japan,package,press,2026-07-26,ファミ通（週間販売数 7/20〜7/26）,https://www.famitsu.com/article/202607/82960,初週（7/23 発売）。パッケージ＋DL カード＋本体同梱
