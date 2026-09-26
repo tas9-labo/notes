@@ -1,0 +1,135 @@
+﻿indicator_id,entity,period_end,value,unit,basis,source_name,source_url,note
+employees_consolidated,capcom,2022-03-31,3206,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,
+employees_consolidated,capcom,2023-03-31,3332,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,
+employees_consolidated,capcom,2024-03-31,3531,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,
+employees_consolidated,capcom,2025-03-31,3766,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,
+employees_consolidated,capcom,2026-03-31,3976,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,
+employees_parent,capcom,2022-03-31,2904,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,
+employees_parent,capcom,2023-03-31,3027,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,
+employees_parent,capcom,2024-03-31,3186,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,
+employees_parent,capcom,2025-03-31,3379,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,
+employees_parent,capcom,2026-03-31,3593,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,
+dev_staff,capcom,2021-03-31,2285,人,official,カプコン 統合報告書2025 CHO & CFO対談,https://www.capcom.co.jp/ir/english/data/oar/2025/cho-cfo.html,連結の開発人員
+dev_staff,capcom,2022-03-31,2369,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結従業員のうち開発職
+dev_staff,capcom,2023-03-31,2460,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結従業員のうち開発職
+dev_staff,capcom,2024-03-31,2675,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結従業員のうち開発職
+dev_staff,capcom,2025-03-31,2846,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結従業員のうち開発職
+dev_staff,capcom,2026-03-31,3011,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結従業員のうち開発職（従業員の75.7%）
+avg_salary_parent,capcom,2022-03-31,7127000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体・千円単位の公表値
+avg_salary_parent,capcom,2023-03-31,7660000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体・千円単位の公表値
+avg_salary_parent,capcom,2024-03-31,8328000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体・千円単位の公表値
+avg_salary_parent,capcom,2025-03-31,9185000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体・千円単位の公表値。特別一時金を含む
+avg_salary_parent,capcom,2026-03-31,9852000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体・千円単位の公表値。平均年齢38.1歳
+op_profit_per_employee,capcom,2022-03-31,13384000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結・千円単位の公表値
+op_profit_per_employee,capcom,2023-03-31,15249000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結・千円単位の公表値
+op_profit_per_employee,capcom,2024-03-31,16165000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結・千円単位の公表値
+op_profit_per_employee,capcom,2025-03-31,17466000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結・千円単位の公表値
+op_profit_per_employee,capcom,2026-03-31,18937000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結・千円単位の公表値
+turnover_rate,capcom,2022-03-31,5.4,%,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体
+turnover_rate,capcom,2023-03-31,3.5,%,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体
+turnover_rate,capcom,2024-03-31,2.9,%,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体
+turnover_rate,capcom,2025-03-31,2.8,%,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体
+turnover_rate,capcom,2026-03-31,2.6,%,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体
+new_grad_hires,capcom,2022-03-31,163,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体。うち開発職139
+new_grad_hires,capcom,2023-03-31,163,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体。うち開発職133
+new_grad_hires,capcom,2024-03-31,154,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体。うち開発職107
+new_grad_hires,capcom,2025-03-31,168,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体。うち開発職126
+new_grad_hires,capcom,2026-03-31,170,人,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,単体。うち開発職125
+rd_expense,capcom,2025-03-31,49496000000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結・百万円単位の公表値。コンテンツ部分を含む
+rd_expense,capcom,2026-03-31,54836000000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結・百万円単位の公表値。売上比28.1%
+game_wip,capcom,2025-03-31,49209000000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結貸借対照表「ゲームソフト仕掛品」・百万円単位
+game_wip,capcom,2026-03-31,54628000000,円,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,連結貸借対照表「ゲームソフト仕掛品」・百万円単位
+foreign_ownership_pct,capcom,2026-03-31,38.45,%,official,カプコン 有価証券報告書（2026年3月期）,https://www.capcom.co.jp/ir/data/pdf/yuuka/2026/yuuka_2026_full_01.pdf,所有者別状況：外国法人等 個人以外38.42＋個人0.03
+digital_sales_pct,capcom,2026-03-31,88.6,%,official,カプコン 2026年3月期 決算補足資料,https://www.capcom.co.jp/ir/data/pdf/explanation/2026/full/explanation_2026_full_02.pdf,計算値：デジタル1256億円÷（パッケージ162億円＋デジタル1256億円）。コンシューマ売上
+employees_consolidated,nintendo,2022-03-31,6717,人,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,常用パートタイマーを含む
+employees_consolidated,nintendo,2023-03-31,7317,人,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,常用パートタイマーを含む
+employees_consolidated,nintendo,2024-03-31,7724,人,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,常用パートタイマーを含む
+employees_consolidated,nintendo,2025-03-31,8205,人,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,常用パートタイマーを含む
+employees_consolidated,nintendo,2026-03-31,8666,人,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,常用パートタイマーを含む
+employees_parent,nintendo,2022-03-31,2634,人,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,
+employees_parent,nintendo,2023-03-31,2779,人,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,
+employees_parent,nintendo,2024-03-31,2814,人,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,
+employees_parent,nintendo,2025-03-31,2962,人,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,
+employees_parent,nintendo,2026-03-31,3084,人,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,平均年齢40.5歳・平均勤続14.6年
+avg_salary_parent,nintendo,2026-03-31,9824708,円,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,前年比+1.64%
+rd_expense,nintendo,2025-03-31,143788000000,円,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,連結・百万円単位の公表値
+rd_expense,nintendo,2026-03-31,177892000000,円,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,連結・百万円単位の公表値
+foreign_ownership_pct,nintendo,2026-03-31,51.41,%,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,所有者別状況：外国法人等 個人以外51.35＋個人0.06
+overseas_sales_pct,nintendo,2025-03-31,76.4,%,official,任天堂 2025年3月期 決算説明資料,https://www.nintendo.co.jp/ir/pdf/2025/250508_4.pdf,国内23.6・米大陸44.2・欧州24.5・その他7.7
+digital_sales_pct,nintendo,2023-03-31,48.2,%,official,任天堂 2024年3月期 決算説明資料,https://www.nintendo.co.jp/ir/pdf/2024/240507_3.pdf,ゲーム専用機のソフト売上高に占める割合
+digital_sales_pct,nintendo,2024-03-31,50.2,%,official,任天堂 2024年3月期 決算説明資料,https://www.nintendo.co.jp/ir/pdf/2024/240507_3.pdf,ゲーム専用機のソフト売上高に占める割合
+digital_sales_pct,nintendo,2025-03-31,53.5,%,official,任天堂 2025年3月期 決算説明資料,https://www.nintendo.co.jp/ir/pdf/2025/250508_4.pdf,ゲーム専用機のソフト売上高に占める割合
+digital_sales_pct,nintendo,2026-03-31,54.6,%,official,任天堂 2026年3月期 決算説明資料,https://www.nintendo.co.jp/ir/pdf/2026/260508_4.pdf,デジタル売上高4076億円
+employees_parent,nippon-ichi,2026-03-31,110,人,official,日本一ソフトウェア 有価証券報告書（2026年3月期）,https://nippon1.co.jp/news/pdf/2026/20260626_01.pdf,平均年齢35.7歳
+avg_salary_parent,nippon-ichi,2026-03-31,3971810,円,official,日本一ソフトウェア 有価証券報告書（2026年3月期）,https://nippon1.co.jp/news/pdf/2026/20260626_01.pdf,
+employees_parent,tose,2025-08-31,561,人,official,トーセ 有価証券報告書（2025年8月期）,https://contents.xj-storage.jp/xcontents/AS05083/64381562/f7a5/4463/8a3f/d507226c02f8/S100X5JM.pdf,平均年齢34.8歳
+avg_salary_parent,tose,2025-08-31,4463000,円,official,トーセ 有価証券報告書（2025年8月期）,https://contents.xj-storage.jp/xcontents/AS05083/64381562/f7a5/4463/8a3f/d507226c02f8/S100X5JM.pdf,千円単位の公表値
+employees_parent,cave,2026-05-31,46,人,official,ケイブ 有価証券報告書（2026年5月期）,https://contents.xj-storage.jp/xcontents/37600/2f7945eb/148f/47d8/b629/5ee29d4aa1b3/S100YXXZ.pdf,平均年齢39.9歳
+avg_salary_parent,cave,2026-05-31,4944000,円,official,ケイブ 有価証券報告書（2026年5月期）,https://contents.xj-storage.jp/xcontents/37600/2f7945eb/148f/47d8/b629/5ee29d4aa1b3/S100YXXZ.pdf,千円単位の公表値
+employees_parent,edia,2026-02-28,88,人,official,エディア 有価証券報告書（2026年2月期）,https://ssl4.eir-parts.net/doc/3935/yuho_pdf/S100Y6A9/00.pdf,平均年齢36.2歳
+avg_salary_parent,edia,2026-02-28,4792000,円,official,エディア 有価証券報告書（2026年2月期）,https://ssl4.eir-parts.net/doc/3935/yuho_pdf/S100Y6A9/00.pdf,千円単位の公表値・正社員
+employees_parent,silicon-studio,2025-11-30,260,人,official,シリコンスタジオ 有価証券報告書（2025年11月期）,https://ssl4.eir-parts.net/doc/3907/yuho_pdf/S100XNL3/00.pdf,平均年齢40.1歳
+avg_salary_parent,silicon-studio,2025-11-30,6350000,円,official,シリコンスタジオ 有価証券報告書（2025年11月期）,https://ssl4.eir-parts.net/doc/3907/yuho_pdf/S100XNL3/00.pdf,千円単位の公表値
+starting_salary_univ_monthly,capcom,2027-04-01,300000,円,official,カプコン 新卒採用 募集要項（2027年卒）,https://www.capcom.co.jp/recruit/graduate/,基準報酬30万円以上・学歴共通・時間外手当は別
+starting_salary_univ_monthly,sega,2026-04-01,330000,円,official,セガ 従業員に関する報酬制度改定のお知らせ（2025-11-12）,https://www.sega.co.jp/release/251112_1.html,30万円から10%アップ
+starting_salary_univ_monthly,konami,2025-04-01,305000,円,official,コナミグループ 4期連続となる基本給ベースアップを実施（2025-02-19）,https://www.konami.com/news/ja/release/2025/0219/,30万円から引き上げ
+starting_salary_univ_monthly,square-enix,2027-04-01,288000,円,official,スクウェア・エニックス 新卒採用 募集要項,https://www.jp.square-enix.com/recruit/fresh/recruitment/,4年制大学28.8万円以上・確定拠出年金の拠出可能額を含む
+starting_salary_univ_monthly,sie,2026-04-01,425000,円,press,ソニー・インタラクティブエンタテインメントの発表（電ファミニコゲーマー 2026-02-27）,https://news.denfaminicogamer.jp/news/260227i,6万7000円の引き上げ
+starting_salary_univ_monthly,nippon-ichi,2027-04-01,200000,円,official,日本一ソフトウェア 2027年度 新卒採用 募集要項,https://nippon1.co.jp/recruit/newgrads2027.html,四大・大学院卒20万円
+starting_salary_univ_monthly,tose,2027-04-01,210500,円,official,トーセ 新卒採用 募集要項（ゲームプログラマー）,https://www.tose.co.jp/recruit/fresh/game_programmer.html,基本給21.05万円〜32万円（能力で変動）・時間外手当は全額別
+market_size_world_jpy,world,2024-12-31,31004200000000,円,official,CESA ゲーム産業レポート2025 発刊リリース,https://www.cesa.or.jp/uploads/2025/release_game_industry_report2025.pdf,CESA 推計。前年比5.0%増
+market_size_world_jpy,world,2025-12-31,32102400000000,円,official,ファミ通ゲーム白書2026（角川アスキー総合研究所・PR TIMES）,https://prtimes.jp/main/html/rd/p/000000257.000017610.html,角川アスキー総研の推計。1ドル149.62円
+market_growth_world_jpy_pct,world,2025-12-31,3.5,%,official,ファミ通ゲーム白書2026（角川アスキー総合研究所・PR TIMES）,https://prtimes.jp/main/html/rd/p/000000257.000017610.html,
+market_growth_world_const_currency_pct,world,2025-12-31,5.0,%,official,ファミ通ゲーム白書2026（角川アスキー総合研究所・PR TIMES）,https://prtimes.jp/main/html/rd/p/000000257.000017610.html,同一通貨ベース
+market_size_japan_jpy,japan,2023-12-31,2125500000000,円,official,ファミ通ゲーム白書2024（ファミ通.com）,https://www.famitsu.com/article/202408/15119,前年比4.6%増
+market_size_japan_jpy,japan,2025-12-31,2588500000000,円,official,ファミ通ゲーム白書2026（角川アスキー総合研究所・PR TIMES）,https://prtimes.jp/main/html/rd/p/000000257.000017610.html,前年比8.0%増。Switch 2 発売の年
+app_market_japan_jpy,japan,2023-12-31,1235100000000,円,official,ファミ通ゲーム白書2024（ファミ通.com）,https://www.famitsu.com/article/202408/15119,3年連続の減少・前年比0.7%減
+game_population_japan,japan,2024-12-31,54750000,人,official,CESA ゲーム産業レポート2025 発刊リリース,https://www.cesa.or.jp/uploads/2025/release_game_industry_report2025.pdf,モバイル4278万・家庭用2951万・PC1452万（重複あり）
+dev_avg_income,japan,2024-12-31,6742100,円,official,CESA ゲーム開発者の就業とキャリア形成2025,https://www.cesa.or.jp/uploads/2026/info20260106-2.pdf,有効回答339・2024年1〜12月の個人年収の平均
+dev_weekly_hours_normal,japan,2024-12-31,44,時間,official,CESA ゲーム開発者の就業とキャリア形成2025,https://www.cesa.or.jp/uploads/2026/info20260106-2.pdf,通常期の週平均
+dev_weekly_hours_busy,japan,2024-12-31,52,時間,official,CESA ゲーム開発者の就業とキャリア形成2025,https://www.cesa.or.jp/uploads/2026/info20260106-2.pdf,繁忙期は52時間を超える
+bankruptcies_smartphone_game,japan,2015-12-31,12,件,press,帝国データバンク「スマホゲーム事業者」の倒産動向（2026年1-7月）,https://www.tdb.co.jp/report/economic/20260808-smartphonegames26y1-7/,年間・これまでの最多
+bankruptcies_smartphone_game,japan,2025-12-31,3,件,press,帝国データバンク「スマホゲーム事業者」の倒産動向（2026年1-7月）,https://www.tdb.co.jp/report/economic/20260808-smartphonegames26y1-7/,年間
+bankruptcies_smartphone_game,japan,2026-07-31,10,件,press,帝国データバンク「スマホゲーム事業者」の倒産動向（2026年1-7月）,https://www.tdb.co.jp/report/economic/20260808-smartphonegames26y1-7/,2026年1〜7月の累計
+population_japan,japan,2026-08-01,122680000,人,official,総務省統計局 人口推計,https://www.stat.go.jp/data/jinsui/new.html,概算値（2026-08-20 公表）
+overseas_sales_pct,nintendo,2026-03-31,76.9,%,official,任天堂 有価証券報告書（2026年3月期）,https://www.nintendo.co.jp/ir/pdf/2026/security_q2603.pdf,海外売上高1兆7781億円÷売上高2兆3130億円
+employees_consolidated,bandai-namco-hd,2022-03-31,9886,人,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,臨時雇用者は外数
+employees_consolidated,bandai-namco-hd,2023-03-31,10563,人,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,
+employees_consolidated,bandai-namco-hd,2024-03-31,11159,人,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,
+employees_consolidated,bandai-namco-hd,2025-03-31,11345,人,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,
+employees_consolidated,bandai-namco-hd,2026-03-31,11457,人,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,デジタル事業のほか玩具・アミューズメント等を含む
+employees_parent,bandai-namco-hd,2026-03-31,80,人,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,持株会社の本体のみ
+avg_salary_parent,bandai-namco-hd,2026-03-31,9838000,円,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,持株会社（80人・平均年齢44.6歳）の値。事業会社の給与ではない。前年比−19.1%
+foreign_ownership_pct,bandai-namco-hd,2026-03-31,38.54,%,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,所有者別状況：外国法人等 個人以外38.53＋個人0.01
+game_wip,bandai-namco-hd,2025-03-31,77501000000,円,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,連結の仕掛品（製品化を決めたゲームコンテンツ制作費を計上。玩具等の仕掛品も含む）
+game_wip,bandai-namco-hd,2026-03-31,64616000000,円,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,連結の仕掛品（同上）
+game_dev_spend,bandai-namco-hd,2026-03-31,62402000000,円,official,バンダイナムコHD 有価証券報告書（2026年3月期・2026-09-16 提出の訂正版）,https://www.bandainamco.co.jp/files/ir/report/20260619_Report.pdf,デジタル事業の新規ゲームコンテンツの開発等に係る支出額（研究開発費とは別枠）。アミューズメント事業は別に5791百万円
+employees_consolidated,sega-sammy-hd,2026-03-31,9237,人,official,セガサミーHD 有価証券報告書（2026年3月期）,https://www.segasammy.co.jp/cms/wp-content/uploads/pdf/ja/ir/ir_Annual_security_report_FY202603_j.pdf,うちエンタテインメントコンテンツ事業6600・遊技機1165・ゲーミング928・全社544。前年比+1090（Stakelogic・GAN の子会社化）
+employees_parent,sega-sammy-hd,2026-03-31,408,人,official,セガサミーHD 有価証券報告書（2026年3月期）,https://www.segasammy.co.jp/cms/wp-content/uploads/pdf/ja/ir/ir_Annual_security_report_FY202603_j.pdf,持株会社の本体のみ
+avg_salary_parent,sega-sammy-hd,2026-03-31,8844458,円,official,セガサミーHD 有価証券報告書（2026年3月期）,https://www.segasammy.co.jp/cms/wp-content/uploads/pdf/ja/ir/ir_Annual_security_report_FY202603_j.pdf,持株会社（408人・平均年齢43.1歳）の値。事業会社の給与ではない。前年比−5.9%
+foreign_ownership_pct,sega-sammy-hd,2026-03-31,31.57,%,official,セガサミーHD 有価証券報告書（2026年3月期）,https://www.segasammy.co.jp/cms/wp-content/uploads/pdf/ja/ir/ir_Annual_security_report_FY202603_j.pdf,所有者別状況：外国法人等 個人以外31.55＋個人0.02
+rd_expense,sega-sammy-hd,2026-03-31,75372000000,円,official,セガサミーHD 有価証券報告書（2026年3月期）,https://www.segasammy.co.jp/cms/wp-content/uploads/pdf/ja/ir/ir_Annual_security_report_FY202603_j.pdf,グループ総額。うちエンタテインメントコンテンツ事業55992百万円・遊技機14506・ゲーミング4914（セグメント間取引を含む）
+game_wip,sega-sammy-hd,2025-03-31,55334000000,円,official,セガサミーHD 有価証券報告書（2026年3月期）,https://www.segasammy.co.jp/cms/wp-content/uploads/pdf/ja/ir/ir_Annual_security_report_FY202603_j.pdf,エンタテインメントコンテンツ事業のゲームコンテンツ等の制作により計上された仕掛品（重要な会計上の見積り）
+game_wip,sega-sammy-hd,2026-03-31,74609000000,円,official,セガサミーHD 有価証券報告書（2026年3月期）,https://www.segasammy.co.jp/cms/wp-content/uploads/pdf/ja/ir/ir_Annual_security_report_FY202603_j.pdf,同上
+employees_consolidated,koei-tecmo-hd,2022-03-31,2063,人,official,コーエーテクモHD 有価証券報告書（2026年3月期）,https://www.koeitecmo.co.jp/ir/docs/ird2_20260619.pdf,臨時雇用者は外数
+employees_consolidated,koei-tecmo-hd,2023-03-31,2381,人,official,コーエーテクモHD 有価証券報告書（2026年3月期）,https://www.koeitecmo.co.jp/ir/docs/ird2_20260619.pdf,
+employees_consolidated,koei-tecmo-hd,2024-03-31,2531,人,official,コーエーテクモHD 有価証券報告書（2026年3月期）,https://www.koeitecmo.co.jp/ir/docs/ird2_20260619.pdf,
+employees_consolidated,koei-tecmo-hd,2025-03-31,2684,人,official,コーエーテクモHD 有価証券報告書（2026年3月期）,https://www.koeitecmo.co.jp/ir/docs/ird2_20260619.pdf,
+employees_consolidated,koei-tecmo-hd,2026-03-31,2835,人,official,コーエーテクモHD 有価証券報告書（2026年3月期）,https://www.koeitecmo.co.jp/ir/docs/ird2_20260619.pdf,
+employees_parent,koei-tecmo-hd,2026-03-31,121,人,official,コーエーテクモHD 有価証券報告書（2026年3月期）,https://www.koeitecmo.co.jp/ir/docs/ird2_20260619.pdf,持株会社の本体のみ
+avg_salary_parent,koei-tecmo-hd,2026-03-31,9035323,円,official,コーエーテクモHD 有価証券報告書（2026年3月期）,https://www.koeitecmo.co.jp/ir/docs/ird2_20260619.pdf,持株会社（121人・平均年齢38.8歳）の値。事業会社の給与ではない。前年比+13.8%
+foreign_ownership_pct,koei-tecmo-hd,2026-03-31,16.77,%,official,コーエーテクモHD 有価証券報告書（2026年3月期）,https://www.koeitecmo.co.jp/ir/docs/ird2_20260619.pdf,所有者別状況：外国法人等 個人以外16.74＋個人0.03。その他の法人が59.95%
+rd_expense,koei-tecmo-hd,2025-03-31,11090000000,円,official,コーエーテクモHD 有価証券報告書（2026年3月期）,https://www.koeitecmo.co.jp/ir/docs/ird2_20260619.pdf,一般管理費713＋当期製造費用10376（百万円）
+rd_expense,koei-tecmo-hd,2026-03-31,11578000000,円,official,コーエーテクモHD 有価証券報告書（2026年3月期）,https://www.koeitecmo.co.jp/ir/docs/ird2_20260619.pdf,一般管理費431＋当期製造費用11147（百万円）。開発費は費用処理で仕掛品には積まない（仕掛品は25百万円）
+employees_consolidated,square-enix-hd,2022-03-31,5637,人,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,臨時雇用者は外数
+employees_consolidated,square-enix-hd,2023-03-31,4712,人,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,
+employees_consolidated,square-enix-hd,2024-03-31,4770,人,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,
+employees_consolidated,square-enix-hd,2025-03-31,4604,人,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,
+employees_consolidated,square-enix-hd,2026-03-31,4290,人,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,4年で1347人減
+employees_parent,square-enix-hd,2026-03-31,26,人,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,持株会社の本体のみ
+avg_salary_parent,square-enix-hd,2026-03-31,13150577,円,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,持株会社（26人・平均年齢48.0歳）の値。事業会社の給与ではない。前年比−8.5%
+foreign_ownership_pct,square-enix-hd,2026-03-31,49.40,%,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,所有者別状況：外国法人等 個人以外49.39＋個人0.01
+rd_expense,square-enix-hd,2025-03-31,1782000000,円,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,一般管理費に含まれる研究開発費。ゲームの制作費はコンテンツ制作勘定に積むので小さい
+rd_expense,square-enix-hd,2026-03-31,2541000000,円,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,同上
+game_wip,square-enix-hd,2025-03-31,46936000000,円,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,連結貸借対照表「コンテンツ制作勘定」
+game_wip,square-enix-hd,2026-03-31,46258000000,円,official,スクウェア・エニックスHD 有価証券報告書（2026年3月期・EDINET 書類番号 S100YHJ4・Yahoo!ファイナンスの写し）,https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/securities-report/20260623/S100YHJ4.pdf,連結貸借対照表「コンテンツ制作勘定」。棚卸資産評価損は7762百万円（前期7487）

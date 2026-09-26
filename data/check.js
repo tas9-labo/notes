@@ -72,5 +72,35 @@ M.rows.forEach((r, i) => {
   seen.add(key);
 });
 
+// ---- 指標台帳 ----
+const DF_H = ['indicator_id', 'name_ja', 'unit', 'definition', 'default_source'];
+const I_H = ['indicator_id', 'entity', 'period_end', 'value', 'unit', 'basis', 'source_name', 'source_url', 'note'];
+const DF = readCsv('indicator_defs.csv'), I = readCsv('indicators.csv');
+if (DF.h.join() !== DF_H.join()) err('indicator_defs.csv の列が違う: ' + DF.h.join(','));
+if (I.h.join() !== I_H.join()) err('indicators.csv の列が違う: ' + I.h.join(','));
+const defUnit = {};
+DF.rows.forEach((r, i) => {
+  const n = 'indicator_defs.csv ' + (i + 2) + '行目 ' + r.indicator_id + ': ';
+  if (!/^[a-z0-9_]+$/.test(r.indicator_id)) err(n + 'indicator_id は小文字英数字とアンダースコア');
+  if (defUnit[r.indicator_id]) err(n + 'indicator_id が重複');
+  if (!r.unit) err(n + 'unit が空');
+  defUnit[r.indicator_id] = r.unit;
+});
+const seenI = new Set();
+I.rows.forEach((r, i) => {
+  const n = 'indicators.csv ' + (i + 2) + '行目 ' + r.indicator_id + '/' + r.entity + ': ';
+  if (!defUnit[r.indicator_id]) err(n + 'indicator_defs.csv に無い指標');
+  else if (defUnit[r.indicator_id] !== r.unit) err(n + 'unit が定義と違う（定義: ' + defUnit[r.indicator_id] + '）');
+  if (!/^[a-z0-9-]+$/.test(r.entity)) err(n + 'entity は小文字英数字とハイフン');
+  if (!isDate(r.period_end)) err(n + 'period_end が日付でない');
+  if (!/^-?\d+(\.\d+)?$/.test(r.value)) err(n + 'value は数字（桁区切りなし）');
+  if (!EN.basis.includes(r.basis)) err(n + 'basis は ' + EN.basis.join('/'));
+  if (!/^https?:\/\//.test(r.source_url)) err(n + 'source_url が URL でない');
+  if (!r.source_name) err(n + 'source_name が空');
+  const key = [r.indicator_id, r.entity, r.period_end, r.source_url].join('|');
+  if (seenI.has(key)) err(n + '同じ指標・主体・時点・出典の重複');
+  seenI.add(key);
+});
+
 if (E.length) { console.log('NG ' + E.length + '件'); E.forEach(e => console.log(' - ' + e)); process.exit(1); }
-console.log('ok titles ' + T.rows.length + ' / milestones ' + M.rows.length);
+console.log('ok titles ' + T.rows.length + ' / milestones ' + M.rows.length + ' / indicators ' + I.rows.length + '（定義 ' + DF.rows.length + '）');
