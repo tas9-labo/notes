@@ -405,8 +405,10 @@ details.ask .a{padding:0 0 15px 32px;font-size:14px;color:var(--sub)}
 /* いま：右側は2段（1段目＝他社の新作、2段目＝「＋」の札）。左の「自分たちの新作 VS」は右側の高さの中央に */
 .versus .line.now{align-items:center;flex-wrap:nowrap}
 .versus .line.now .me,.versus .line.now .x{flex:none}
-.versus .rival{display:flex;flex-direction:column;align-items:flex-start;gap:6px;flex:1 1 0;min-width:0}
-.versus .adds{display:flex;flex-wrap:wrap;gap:6px}
+/* いま：自分たち VS 他社 ＋ 右に追加要素（折り返す）。赤青の札は追加要素の高さに対して縦中央 */
+.versus .rival{display:flex;align-items:center;gap:8px;flex:1 1 0;min-width:0}
+.versus .rival>.vs-chip{flex:none}
+.versus .adds{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 0;min-width:0}
 /* 様々な課題：1枚の中に3分類。左＝分類名（アイコン＋名前）、右＝項目を2列。--cc＝分類の色 */
 .issues{margin-top:14px;background:var(--tonal);border-radius:16px;padding:16px 18px 14px}
 .issues h3{margin:0 0 8px;font-size:15px;font-weight:600}
@@ -568,16 +570,16 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   nav.toc a{background:var(--tonal)}
   section.ch{border-radius:0;box-shadow:none;border:0;border-bottom:1px solid var(--line);padding:38px 20px 32px;margin-top:0}
   h2{font-size:23px}
-  .flow{flex-direction:column}
-  .node{display:grid;grid-template-columns:38px 1fr;column-gap:14px;align-items:start}
-  .node>.ico{grid-row:1 / span 4}
-  .node>*:not(.ico){grid-column:2}
-  .node h3,.steps .node h3{margin-top:0}
-  .arr,.steps .arr{flex:none;width:auto;height:40px;justify-content:flex-start;padding-left:calc(50% + 12px);text-align:left}
-  .arr::before,.steps .arr::before{left:50%;right:auto;top:5px;bottom:10px;width:1.5px;height:auto}
-  .arr::after{right:auto;left:50%;top:auto;bottom:3px;transform:translateX(-3.25px);
+  /* 01章の箱（button.node）だけ：アイコン左・文字右の2列に */
+  button.node{display:grid;grid-template-columns:38px 1fr;column-gap:14px;align-items:start}
+  button.node>.ico{grid-row:1 / span 4}
+  button.node>*:not(.ico){grid-column:2}
+  /* 04章の基本無料の流れ（縦積み）の矢印だけ下向きに。02章の工程は PC と同じ横並びを横スクロール（.fig.scroll-x.wide） */
+  .f2p .arr{flex:none;width:auto;height:40px;justify-content:flex-start;padding-left:calc(50% + 12px);text-align:left}
+  .f2p .arr::before{left:50%;right:auto;top:5px;bottom:10px;width:1.5px;height:auto}
+  .f2p .arr::after{right:auto;left:50%;top:auto;bottom:3px;transform:translateX(-3.25px);
     border-top:7px solid var(--accent);border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:0}
-  .arr span{top:0}
+  .f2p .arr span{top:0}
   .chain{grid-template-columns:22px minmax(0,1fr);gap:0 10px}
   .stage,.down{grid-template-columns:minmax(0,1fr)}
   .stage-k{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
@@ -613,13 +615,14 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   .models{grid-template-columns:1fr 1fr;gap:10px}
   .ops{grid-template-columns:1fr 1fr}
   .versus{grid-template-columns:1fr;gap:8px}
-  .versus .line.now{flex-wrap:wrap}.versus .rival{flex:1 1 100%}
+  /* 07章 VS：1行目＝自分たち VS 他社、その下に追加要素を縦に（他社の札にぶら下げる） */
+  .versus .line.now{align-items:flex-start}
+  .versus .line.now .x{margin-top:8px}
+  .versus .rival{flex-direction:column;align-items:flex-start;gap:6px}
+  .versus .adds{flex-direction:column;align-items:flex-start;gap:4px;margin-left:6px;padding-left:8px;border-left:2px solid var(--line)}
   .issues .grp{grid-template-columns:1fr;gap:6px 0}
-  /* スマホ：左に職種名、右に 01〜05 の5列。1職種＝1行（--rm） */
-  /* スマホ：01〜05 の5列だけ（矢印の隙間なし）。札の文字は中で折り返す */
-  .gantt-h{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0 3px;margin-bottom:4px;font-size:11px;color:var(--sub);text-align:center;font-variant-numeric:tabular-nums}
-  .gantt{grid-template-columns:repeat(10,minmax(0,1fr));gap:5px 0}
-  .gantt .bar{grid-column:var(--sm) / var(--em);white-space:normal;overflow:visible;padding:4px 6px;font-size:11px;line-height:1.4;word-break:auto-phrase}
+  /* 02章の職種の帯：列は PC と同じ（横スクロールの中）。文字は中で折り返す */
+  .gantt .bar{white-space:normal;overflow:visible;padding:4px 7px;font-size:11px;line-height:1.4}
   .pbar{min-height:0;height:26px}
   .pbar i{padding:0}.pbar i b{display:none}
   .pcap{display:block}
@@ -628,9 +631,7 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   .pcap b{position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:normal;display:block;font-weight:600}
   .pcap b,.pcap small{grid-column:2}
   .deals{grid-template-columns:1fr}
-  .kw{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
-  .kw>div{position:static;padding:0;width:auto !important}
-  .kw b{display:block;font-size:12px;font-weight:600;color:var(--ac);font-variant-numeric:tabular-nums;margin-bottom:2px}
+  /* 05章の年代トピック：PC と同じく軸の位置に置く（横スクロールの中）。長い語だけ折り返し可 */
   .kw span{white-space:normal}
   .phases{grid-template-columns:1fr;gap:6px}
   .phase,.phase:first-child{clip-path:none;border-radius:12px;padding:11px 16px 12px}
@@ -654,6 +655,7 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   /* 年表：縮めず PC の比率のまま横スクロール */
   .fig.scroll-x{overflow-x:auto;margin:0 -20px;padding:0 20px;scrollbar-width:thin}
   .fig.scroll-x .bands{min-width:600px}
+  .fig.scroll-x.wide>*{min-width:720px}
   .fig-hint{display:block}
 }
 
