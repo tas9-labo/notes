@@ -22,11 +22,11 @@ function readCsv(f) {
   return { h, rows: body.map(r => Object.fromEntries(h.map((k, i) => [k, (r[i] || '').trim()]))) };
 }
 
-const T_H = ['id', 'title_ja', 'developer', 'publisher', 'origin_jp', 'release_date', 'platforms', 'team_size', 'team_size_source', 'size_class', 'note'];
+const T_H = ['id', 'title_ja', 'developer', 'publisher', 'origin_jp', 'release_date', 'platforms', 'team_size', 'team_size_source', 'size_class', 'steam_appid', 'note'];
 const M_H = ['id', 'metric', 'value', 'unit', 'precision', 'scope', 'channel', 'basis', 'as_of', 'source_name', 'source_url', 'note'];
 const EN = {
-  metric: ['units_sold', 'units_shipped', 'units_shipped_dl', 'players', 'revenue'],
-  unit: ['本', '人', '円'],
+  metric: ['units_sold', 'units_shipped', 'units_shipped_dl', 'players', 'revenue', 'reviews'],
+  unit: ['本', '人', '円', '件'],
   precision: ['exact', 'at_least'],
   scope: ['world', 'japan'],
   channel: ['all', 'package', 'digital', 'steam'],
@@ -52,6 +52,7 @@ T.rows.forEach((r, i) => {
   if (r.size_class && !['S', 'M', 'L'].includes(r.size_class)) err(n + 'size_class は S/M/L か空');
   if (r.team_size && !/^\d+(-\d+)?$/.test(r.team_size)) err(n + 'team_size は数字か範囲（3-40）');
   if ((r.team_size || r.size_class) && !r.team_size_source) err(n + '人数・規模を書くなら team_size_source が要る');
+  if (r.steam_appid && !/^\d+$/.test(r.steam_appid)) err(n + 'steam_appid は数字だけ');
 });
 
 const seen = new Set();
@@ -67,6 +68,7 @@ M.rows.forEach((r, i) => {
   if (/^units/.test(r.metric) && r.unit !== '本') err(n + 'units_* の unit は 本');
   if (r.metric === 'players' && r.unit !== '人') err(n + 'players の unit は 人');
   if (r.metric === 'revenue' && r.unit !== '円') err(n + 'revenue の unit は 円');
+  if (r.metric === 'reviews' && (r.unit !== '件' || r.channel !== 'steam')) err(n + 'reviews の unit は 件・channel は steam');
   const key = [r.id, r.metric, r.scope, r.channel, r.as_of, r.source_url].join('|');
   if (seen.has(key)) err(n + '同じ作品・指標・時点・出典の重複');
   seen.add(key);

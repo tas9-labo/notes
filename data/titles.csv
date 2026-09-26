@@ -1,17 +1,17 @@
-﻿id,title_ja,developer,publisher,origin_jp,release_date,platforms,team_size,team_size_source,size_class,note
-mario-kart-world,マリオカート ワールド,任天堂,任天堂,1,2025-06-05,Switch2,,,,
-donkey-kong-bananza,ドンキーコング バナンザ,任天堂,任天堂,1,2025-07-17,Switch2,,,,
-pokemon-legends-za-sw2,Pokémon LEGENDS Z-A（Nintendo Switch 2 Edition）,ゲームフリーク,ポケモン／任天堂,1,2025-10-16,Switch2,,,,Nintendo Switch 版は別の集計
-pokopia,ぽこ あ ポケモン,ポケモン／ゲームフリーク／コーエーテクモゲームス（共同開発）,ポケモン／任天堂,1,2026-03-05,Switch2,,,,
-kirby-air-riders,カービィのエアライダー,ソラ／バンダイナムコスタジオ,任天堂,1,2025-11-20,Switch2,,,,
-mario-party-jamboree-sw2,スーパー マリオパーティ ジャンボリー Nintendo Switch 2 Edition ＋ ジャンボリーTV,エヌディーキューブ,任天堂,1,2025-07-24,Switch2,,,,
-tomodachi-life-wakuwaku,トモダチコレクション わくわく生活,任天堂,任天堂,1,2026-04-16,Switch,,,,
-monster-hunter-wilds,モンスターハンターワイルズ,カプコン,カプコン,1,2025-02-28,PS5|XSX|PC,,,,
-resident-evil-requiem,バイオハザード レクイエム,カプコン,カプコン,1,2026-02-27,PS5|XSX|PC|Switch2,,,,
-pragmata,プラグマタ,カプコン,カプコン,1,2026-04-17,PS5|XSX|PC|Switch2,,,,Switch 2 版は 2026-04-24
-elden-ring,ELDEN RING,フロム・ソフトウェア,バンダイナムコエンターテインメント／フロム・ソフトウェア,1,2022-02-25,PS5|PS4|XSX|XB1|PC,,,,
-elden-ring-nightreign,ELDEN RING NIGHTREIGN,フロム・ソフトウェア,バンダイナムコエンターテインメント／フロム・ソフトウェア,1,2025-05-30,PS5|PS4|XSX|XB1|PC,,,,
-palworld,Palworld／パルワールド,ポケットペア,ポケットペア,1,2024-01-19,PC|Xbox|PS5|Mac,3-40,dev.html の出典欄（AUTOMATON 2024-01-19・Forbes JAPAN）,M,早期アクセスの開始日。1.0 正式版は 2026-07-10。3〜4人で着手し約40人へ
-exit-8,8番出口,KOTAKE CREATE,KOTAKE CREATE,1,2023-11-29,PC|Switch|PS5|Xbox,1,dev.html の出典欄（4Gamer IDC2024・KOTAKE CREATE プロフィール）,S,Steam 版の発売日。Switch 版は 2024-04-17
-dq3-hd2d,ドラゴンクエストIII そして伝説へ… HD-2D Remake,スクウェア・エニックス／アートディンク,スクウェア・エニックス,1,2024-11-14,Switch|PS5|XSX|PC,,,,
-splatoon-raiders,スプラトゥーン レイダース,任天堂,任天堂,1,2026-07-23,Switch2,,,,
+﻿id,title_ja,developer,publisher,origin_jp,release_date,platforms,team_size,team_size_source,size_class,steam_appid,note
+mario-kart-world,マリオカート ワールド,任天堂,任天堂,1,2025-06-05,Switch2,,,,,
+donkey-kong-bananza,ドンキーコング バナンザ,任天堂,任天堂,1,2025-07-17,Switch2,,,,,
+pokemon-legends-za-sw2,Pokémon LEGENDS Z-A（Nintendo Switch 2 Edition）,ゲームフリーク,ポケモン／任天堂,1,2025-10-16,Switch2,,,,,Nintendo Switch 版は別の集計
+pokopia,ぽこ あ ポケモン,ポケモン／ゲームフリーク／コーエーテクモゲームス（共同開発）,ポケモン／任天堂,1,2026-03-05,Switch2,,,,,
+kirby-air-riders,カービィのエアライダー,ソラ／バンダイナムコスタジオ,任天堂,1,2025-11-20,Switch2,,,,,
+mario-party-jamboree-sw2,スーパー マリオパーティ ジャンボリー Nintendo Switch 2 Edition ＋ ジャンボリーTV,エヌディーキューブ,任天堂,1,2025-07-24,Switch2,,,,,
+tomodachi-life-wakuwaku,トモダチコレクション わくわく生活,任天堂,任天堂,1,2026-04-16,Switch,,,,,
+monster-hunter-wilds,モンスターハンターワイルズ,カプコン,カプコン,1,2025-02-28,PS5|XSX|PC,,,,2246340,
+resident-evil-requiem,バイオハザード レクイエム,カプコン,カプコン,1,2026-02-27,PS5|XSX|PC|Switch2,,,,3764200,
+pragmata,プラグマタ,カプコン,カプコン,1,2026-04-17,PS5|XSX|PC|Switch2,,,,3357650,Switch 2 版は 2026-04-24
+elden-ring,ELDEN RING,フロム・ソフトウェア,バンダイナムコエンターテインメント／フロム・ソフトウェア,1,2022-02-25,PS5|PS4|XSX|XB1|PC,,,,1245620,
+elden-ring-nightreign,ELDEN RING NIGHTREIGN,フロム・ソフトウェア,バンダイナムコエンターテインメント／フロム・ソフトウェア,1,2025-05-30,PS5|PS4|XSX|XB1|PC,,,,2622380,
+palworld,Palworld／パルワールド,ポケットペア,ポケットペア,1,2024-01-19,PC|Xbox|PS5|Mac,3-40,dev.html の出典欄（AUTOMATON 2024-01-19・Forbes JAPAN）,M,1623730,早期アクセスの開始日。1.0 正式版は 2026-07-10。3〜4人で着手し約40人へ
+exit-8,8番出口,KOTAKE CREATE,KOTAKE CREATE,1,2023-11-29,PC|Switch|PS5|Xbox,1,dev.html の出典欄（4Gamer IDC2024・KOTAKE CREATE プロフィール）,S,2653790,Steam 版の発売日。Switch 版は 2024-04-17
+dq3-hd2d,ドラゴンクエストIII そして伝説へ… HD-2D Remake,スクウェア・エニックス／アートディンク,スクウェア・エニックス,1,2024-11-14,Switch|PS5|XSX|PC,,,,2701660,
+splatoon-raiders,スプラトゥーン レイダース,任天堂,任天堂,1,2026-07-23,Switch2,,,,,

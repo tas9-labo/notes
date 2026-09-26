@@ -27,6 +27,7 @@ CSV は UTF-8（BOM つき＝Excel でそのまま開ける）。Google スプ�
 | team_size | 開発人数 | 数字か範囲（`3-40`）。いちばん多い時期の人数。不明なら空 |
 | team_size_source | 人数の出どころ | URL か資料名。人数を書くなら必ず |
 | size_class | 規模 | `S`＝1〜10人／`M`＝20〜100人／`L`＝200人以上（`dev.html`「規模」章と同じ区分）。人数が不明なら空 |
+| steam_appid | Steam の作品番号 | ストアの URL `store.steampowered.com/app/数字/` の数字。Steam に無ければ空 |
 | note | 補足 | 早期アクセス・別エディション・機器ごとの発売日など |
 
 ## milestones.csv の列
@@ -34,9 +35,9 @@ CSV は UTF-8（BOM つき＝Excel でそのまま開ける）。Google スプ�
 | 列 | 意味 | 値 |
 |---|---|---|
 | id | 作品の id | `titles.csv` にある id だけ |
-| metric | 何の数字か | `units_sold`（販売本数）／`units_shipped`（出荷本数）／`units_shipped_dl`（出荷＋DL 販売）／`players`（プレイヤー数）／`revenue`（売上額） |
+| metric | 何の数字か | `units_sold`（販売本数）／`units_shipped`（出荷本数）／`units_shipped_dl`（出荷＋DL 販売）／`players`（プレイヤー数）／`revenue`（売上額）／`reviews`（Steam のユーザーレビュー数） |
 | value | 数字 | 整数・桁区切りなし（1,539万本 → `15390000`） |
-| unit | 単位 | `本`／`人`／`円` |
+| unit | 単位 | `本`／`人`／`円`／`件` |
 | precision | 数字の性格 | `exact`＝その時点の値（IR の一覧など）／`at_least`＝「○万本突破」＝それ以上 |
 | scope | 地域 | `world`／`japan` |
 | channel | 数え方の範囲 | `all`（全部）／`package`（店頭のパッケージ中心。ファミ通はパッケージ＋DL カード＋本体同梱）／`digital`／`steam` |
@@ -54,6 +55,9 @@ CSV は UTF-8（BOM つき＝Excel でそのまま開ける）。Google スプ�
 4. **出典は1行に1つ。** 2つの出典がある時は行を分ける（数字が違えば別の事実）。
 5. **推計は推計と書く。** `basis=estimate` の行は、公式の行と別に扱えるようにする（検算のため）。
 6. 書いたら `node data/check.js` で形を確かめる（列・日付・重複・id の対応）。
+7. **追記は人とルーティンの両方**（2026-09-26 から）。ルーティン `notes-check` は毎月、公式の「突破」発表・IR 一覧の更新を `milestones.csv` に、
+   Steam のレビュー数を `steam_update.js` で足し、`check.js` を通してから push する。評価や予想は書かない・既存の行は消さない（News と同じ条件）。
+   `indicators.csv`（有報の数字）は EDINET の API 鍵が入るまで人の手。
 
 ## 母集団（何を載せるか）
 
@@ -65,6 +69,16 @@ CSV は UTF-8（BOM つき＝Excel でそのまま開ける）。Google スプ�
   - スマホは売上額の推計（本数が無い）
   - 会社の「突破」発表・IR の一覧は**検証用の列**（正確だが、出す会社に偏る）
 - 2026-09-26 の開始時点では、公式の開示分（任天堂・カプコンの IR 一覧、各社の突破発表、ファミ通の週間）だけを載せた。**網羅型の源はまだ入れていない**（次の作業）。
+
+## Steam の数字（steam_update.js）＝全作品を同じ物差しで数える背骨
+
+- 本数の推計サービスは使えなかった（2026-09-26 確認：Gamalytic の API は有料プランの鍵が要る・SteamSpy は自動取得を遮断・SteamDB は本数を出していない）。
+  代わりに **Steam が公式に返す「ユーザーレビュー数」**（全言語・全購入区分）を毎月そのまま記録する。レビュー数はどの作品も同じ方法で数えられる、偏りの無い観測値。
+- 記録の形：`milestones.csv` に `metric=reviews`・`unit=件`・`channel=steam`・`basis=official`・`as_of=取得日`。note に好評・不評の内訳と appid。
+- **本数への換算は分析の時に行い、台帳には書かない**：目安は「レビュー数 × 30〜40 ≒ Steam の販売本数」（レビュー1件あたりの購入者数。年・価格帯・地域で変わる）。
+  台帳に公式の本数もある作品（例：パルワールドの Steam 約1,500万本・2024年2月）で倍率を検算してから使う。
+- 対象は `titles.csv` の `steam_appid` がある作品。作品を足す時は appid も書く。
+- 走らせ方：`node D:/tas9_labo/web/notes/data/steam_update.js`（同じ日に2回走らせても二重には足さない）。毎月はルーティン notes-check が実行する。
 
 ## 指標台帳（indicators.csv）＝景気・投資・労働の取り分・資本の所在・人口を、年ごとに並べる
 
