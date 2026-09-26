@@ -62,11 +62,14 @@ def entities():
     return out
 
 # ---- 探す ----
-def find_docs(k, days):
+def find_docs(k, days, date_from=None, date_to=None):
     ents = entities(); codes = set(ents)
     today = dt.date.today(); found = []
-    for i in range(days, -1, -1):
-        d = today - dt.timedelta(days=i)
+    if date_from and date_to:
+        span = [date_from + dt.timedelta(days=i) for i in range((date_to - date_from).days + 1)]
+    else:
+        span = [today - dt.timedelta(days=i) for i in range(days, -1, -1)]
+    for d in span:
         if d.weekday() >= 5: continue
         try:
             j = get(API + 'documents.json?date=' + d.isoformat() + '&type=2&Subscription-Key=' + k)
@@ -240,6 +243,12 @@ def main():
         docs = find_docs(k, days); n = 0
         if not docs: print('ok 新しい有報なし（過去', days, '日）'); return
         for d in docs: n += process(k, d)
+        print('ok 合計', n, '行追記')
+    elif a[0] == '--range':
+        f, t = dt.date.fromisoformat(a[1]), dt.date.fromisoformat(a[2]); n = 0
+        docs = find_docs(k, 0, f, t)
+        if not docs: print('ok 対象の有報なし', f, '〜', t); return
+        for d in docs: n += process(k, d, dry='--dry' in a)
         print('ok 合計', n, '行追記')
     elif a[0] == '--doc':
         doc_id = a[1]
