@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=20260925b">
+<link rel="stylesheet" href="style.css?v=20260926a">
 <style>
 /* このページだけの図。共通の物は style.css */
 /* 01 チーム：相関図。上に決める人、左から右へ 企画→設定→制作→実装→検証、下に橋渡しの TA と差し戻し（色は 02 章の職種の群と同じ） */
@@ -114,6 +114,20 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
 .sim-out .minus{color:var(--imp3)}
 .sim-note{margin:12px 0 0;font-size:12px;color:var(--sub);line-height:1.7}
 /* 03 比較表：会社員4列（新卒・中途 × 中小・大手）＋フリーランス3列（梅竹松）。狭い画面では表の中だけ横に動く */
+.ex-m{display:none;margin-top:12px;font-size:12px;line-height:1.55;color:var(--sub)}
+.ex-m h4{margin:0 0 2px;font-size:11px;font-weight:600;color:var(--sub)}
+.ex-m>div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:0 8px;padding:8px 0;border-top:1px solid var(--line)}
+.ex-m>div>b{font-size:12px;color:var(--ink)}
+.ex-m .ex b{color:var(--ink);font-weight:600}.ex-m .ex small{display:block;margin-top:3px;font-size:11px}
+.cmp-m{display:none;margin-top:14px}
+.cmp-m .sim-mode button{padding:6px 12px;font-size:12px}
+.cmp-m .cmp-sub{margin:8px 0 0;font-size:11px;color:var(--sub)}
+.cmp-m .cmp-wrap2{margin-top:8px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--node)}
+.cmp-m .cmp{min-width:0;font-size:12px}
+.cmp-m .cmp th,.cmp-m .cmp td{padding:8px 6px}
+.cmp-m .cmp td b{font-size:13px;white-space:normal}
+.cmp-m .cmp .rh{white-space:normal;width:86px;position:static;font-size:12px}
+.cmp-m .cmp .money small{white-space:normal}
 .cmp-wrap{margin-top:14px;overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--node)}
 .cmp{width:100%;min-width:780px;border-collapse:collapse;font-size:12px;line-height:1.5}
 .cmp th,.cmp td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
@@ -158,10 +172,19 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
 @media (max-width:720px){
   .common,.facts{grid-template-columns:1fr 1fr}
   .sim-in{grid-template-columns:1fr}.sim-out{grid-template-columns:1fr 1fr}
-  .tiers{display:block}.t-lab{display:none}
-  .tier{display:block;margin-top:8px;padding:0 12px 4px}
-  .tier>div[data-k]{display:flex;gap:10px;align-items:baseline}
-  .tier>div[data-k]::before{content:attr(data-k);flex:none;width:44px;font-size:11px;font-weight:600;color:var(--sub)}
+  /* 規模：PC と同じ「行＝項目・列＝小中大」を細くして残す（比べる時に上下に行き来しない）。実例だけ表の下へ（JS が写す） */
+  .tiers{grid-template-columns:40px repeat(3,minmax(0,1fr));gap:0 5px}
+  .t-lab>div{font-size:10px;padding:8px 0}
+  .t-lab>div:nth-child(5),.tier>.ex{display:none}
+  .tier{padding:0 7px 2px;border-radius:10px}
+  .tier>div{font-size:12px;padding:8px 0;line-height:1.45}
+  .tier>.t-name{font-size:14px;padding-top:10px}
+  .t-name small{display:block;margin:2px 0 0;font-size:10px;letter-spacing:.02em}
+  .tier>.num{font-size:13px}
+  .ex-m{display:block}
+  /* お金の表：横スクロールの大表をやめ、新卒／中途／フリーランスを切り替えて見る（JS が作る） */
+  .cmp-wrap{display:none}
+  .cmp-m{display:block}
   .rel-flow{grid-template-columns:1fr}.rel-arrow{padding:0;line-height:1}.rel-arrow::before{content:"↓"}
   .cyc{grid-template-columns:1fr;grid-template-rows:none}
   .cyc>*{grid-column:auto !important;grid-row:auto !important}
@@ -692,6 +715,69 @@ details.sim-cost>summary span b{font-size:15px;color:var(--ink);font-variant-num
   draw();
 })();
 </script>
-<script src="common.js?v=20260925b"></script>
+<script>
+// スマホ用の組み替え（PC では CSS で隠れる）：規模の「実例」を表の下に写す／お金の表を新卒・中途・フリーランスで切り替える
+(function(){
+  var tiers=document.querySelector('.tiers');
+  if(tiers){
+    var m=document.createElement('div');m.className='ex-m';
+    var h=document.createElement('h4');h.textContent='実例';m.appendChild(h);
+    [].forEach.call(tiers.querySelectorAll('.tier'),function(t){
+      var n=t.querySelector('.t-name'),e=t.querySelector('.ex');if(!n||!e)return;
+      var d=document.createElement('div'),b=document.createElement('b');
+      b.textContent=(n.firstChild&&n.firstChild.nodeType===3)?n.firstChild.textContent.trim():n.textContent.trim();
+      var x=e.cloneNode(true);x.className='ex';x.removeAttribute('data-k');
+      d.appendChild(b);d.appendChild(x);m.appendChild(d);
+    });
+    tiers.parentNode.insertBefore(m,tiers.nextSibling);
+  }
+  var wrap=document.querySelector('.cmp-wrap'),tbl=wrap&&wrap.querySelector('table.cmp');
+  if(!tbl)return;
+  var rows=[].slice.call(tbl.rows),grid=[];
+  rows.forEach(function(tr,r){
+    grid[r]=grid[r]||[];var c=0;
+    [].forEach.call(tr.cells,function(cell){
+      while(grid[r][c])c++;
+      var cs=cell.colSpan||1,rs=cell.rowSpan||1;
+      for(var i=0;i<rs;i++){grid[r+i]=grid[r+i]||[];for(var j=0;j<cs;j++)grid[r+i][c+j]=cell;}
+      c+=cs;
+    });
+  });
+  var groups=[],col=1;
+  [].forEach.call(rows[0].cells,function(cell){
+    if(cell.classList.contains('rh'))return;
+    var cs=cell.colSpan||1,sm=cell.querySelector('small');
+    groups.push({label:cell.childNodes[0].textContent.trim(),sub:sm?sm.textContent:'',from:col,to:col+cs-1,fl:cell.classList.contains('fl')});
+    col+=cs;
+  });
+  if(!groups.length)return;
+  var box=document.createElement('div');box.className='cmp-m';
+  var bar=document.createElement('div');bar.className='sim-mode';bar.setAttribute('role','group');bar.setAttribute('aria-label','表の切り替え');
+  var sub=document.createElement('p');sub.className='cmp-sub';
+  var holder=document.createElement('div');holder.className='cmp-wrap2';
+  function build(g){
+    var t=document.createElement('table');t.className='cmp';
+    var tr=t.createTHead().insertRow();
+    tr.appendChild(document.createElement('th'));
+    for(var c=g.from;c<=g.to;c++){var th=grid[1][c].cloneNode(true);th.removeAttribute('colspan');th.className=g.fl?'fl':'';tr.appendChild(th);}
+    var tb=t.createTBody();
+    for(var r=2;r<grid.length;r++){
+      var row=tb.insertRow();row.className=rows[r].className;row.appendChild(grid[r][0].cloneNode(true));
+      for(var c2=g.from;c2<=g.to;){var src=grid[r][c2],span=1;while(c2+span<=g.to&&grid[r][c2+span]===src)span++;
+        var td=src.cloneNode(true);td.removeAttribute('colspan');if(span>1)td.colSpan=span;td.classList.remove('gs');row.appendChild(td);c2+=span;}
+    }
+    sub.textContent=g.sub;holder.textContent='';holder.appendChild(t);
+  }
+  groups.forEach(function(g,i){
+    var b=document.createElement('button');b.type='button';b.textContent=g.label;b.setAttribute('aria-pressed',i===0?'true':'false');if(i===0)b.className='on';
+    b.addEventListener('click',function(){[].forEach.call(bar.children,function(x){x.className='';x.setAttribute('aria-pressed','false');});b.className='on';b.setAttribute('aria-pressed','true');build(g);});
+    bar.appendChild(b);
+  });
+  box.appendChild(bar);box.appendChild(sub);box.appendChild(holder);
+  wrap.parentNode.insertBefore(box,wrap.nextSibling);
+  build(groups[0]);
+})();
+</script>
+<script src="common.js?v=20260926a"></script>
 </body>
 </html>

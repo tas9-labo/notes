@@ -97,6 +97,7 @@ h2{font-size:29px;line-height:1.3;font-weight:600;margin:14px 0 0;letter-spacing
 .fig-title{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin:26px 0 12px;font-size:13px;font-weight:600}
 .fig-title small{font-weight:400;color:var(--sub);font-size:12px}
 .fig-note{margin-top:10px;font-size:12px;color:var(--sub);line-height:1.7}
+.fig-hint{display:none;margin-top:8px;font-size:11px;color:var(--sub)}   /* スマホで横スクロールする図の案内 */
 
 /* ノードと矢印（PC＝横並び／スマホ＝縦積み） */
 .flow{display:flex;align-items:stretch}
@@ -644,6 +645,16 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   .hbars div{grid-template-columns:48px minmax(0,1fr) 62px 40px;gap:6px}
   .hbars.rank div{grid-template-columns:48px minmax(0,1fr) 62px}
   footer{padding:24px 20px 0}
+  /* 折り返し：文節で折る（Chrome/Edge。未対応のブラウザは今まで通り）。見出しは行の長さをそろえる。POINT の改行指定は外す */
+  body{word-break:auto-phrase}
+  h1,h2{text-wrap:balance}
+  .point br{display:none}
+  /* 課題の札：注記が2列目に置かれて札が縦書きにつぶれていた */
+  .issues .gnote{grid-column:1}
+  /* 年表：縮めず PC の比率のまま横スクロール */
+  .fig.scroll-x{overflow-x:auto;margin:0 -20px;padding:0 20px;scrollbar-width:thin}
+  .fig.scroll-x .bands{min-width:600px}
+  .fig-hint{display:block}
 }
 
 /* 印刷（配布用）。配色は常にライト。畳んだ部分は JS が印刷前に開く */
