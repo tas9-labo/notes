@@ -1,0 +1,16 @@
+entity,name_ja,edinet_code,fy_end_month,group,wip_element,note
+nintendo,任天堂,E02367,3,大手7,,事業会社。仕掛品はハード製造分なので game_wip は無し
+capcom,カプコン,E02417,3,大手7,jpcrp030000-asr_E02417-000:WorkInProgressForGameSoftwareCA,連結貸借対照表「ゲームソフト仕掛品」
+square-enix-hd,スクウェア・エニックスHD,E04859,3,大手7,jpcrp030000-asr_E04859-000:ContentProductionAccountCA,連結貸借対照表「コンテンツ制作勘定」
+bandai-namco-hd,バンダイナムコHD,E02481,3,大手7,,連結の仕掛品にゲーム制作費を含む（玩具等も含む）
+sega-sammy-hd,セガサミーHD,E02475,3,大手7,,ゲームの仕掛品はセグメント注記（数値要素なし）。全社の仕掛品のみ機械で取る
+konami-group,コナミグループ,E01956,3,大手7,,IFRS
+koei-tecmo-hd,コーエーテクモHD,E22460,3,大手7,,開発費は費用処理（仕掛品に積まない）
+gungho,ガンホー・オンライン・エンターテイメント,E05474,12,モバイル3,,
+mixi,MIXI,E05617,3,モバイル3,,
+colopl,コロプラ,E27062,9,モバイル3,,
+nippon-ichi,日本一ソフトウェア,E02489,3,中小5,,
+tose,トーセ,E05042,8,中小5,,受託開発
+cave,ケイブ,E05449,5,中小5,,
+edia,エディア,E32238,2,中小5,,
+silicon-studio,シリコンスタジオ,E31256,11,中小5,,
