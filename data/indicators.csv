@@ -798,3 +798,5 @@ cpi_all_items_2020base,japan,2022-12-31,102.3,2020年=100,official,総務省統�
 cpi_all_items_2020base,japan,2023-12-31,105.6,2020年=100,official,総務省統計局 消費者物価指数 2020年基準 長期時系列（e-Stat・全国 年平均・中分類指数 表1）,https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032103936&fileKind=1,2023年の年平均・総合
 cpi_all_items_2020base,japan,2024-12-31,108.5,2020年=100,official,総務省統計局 消費者物価指数 2020年基準 長期時系列（e-Stat・全国 年平均・中分類指数 表1）,https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032103936&fileKind=1,2024年の年平均・総合
 cpi_all_items_2020base,japan,2025-12-31,111.9,2020年=100,official,総務省統計局 消費者物価指数 2020年基準 長期時系列（e-Stat・全国 年平均・中分類指数 表1）,https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032103936&fileKind=1,2025年の年平均・総合
+market_growth_japan_jpy_pct,japan,2025-12-31,8.0,%,official,ファミ通ゲーム白書2026（角川アスキー総合研究所・PR TIMES）,https://prtimes.jp/main/html/rd/p/000000257.000017610.html,2025年の国内ゲームコンテンツ市場 2兆5885億円は前年比8.0%増（リリースの記載どおり）
+game_population_japan,japan,2025-12-31,56393000,人,official,ファミ通ゲーム白書2026（角川アスキー総合研究所・PR TIMES）,https://prtimes.jp/main/html/rd/p/000000257.000017610.html,2025年 5639.3万人（2024年 5475.3万人から164.0万人増・前年比3.0%増）。CESA レポートと同じ角川アスキー総研の推計

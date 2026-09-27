@@ -303,7 +303,7 @@ table.lg-tbl{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5;
     var box=$('kpi');box.textContent='';
     function tile(l,v,unit,d,extra){var t=h('div',{class:'lg-tile'},[h('div',{class:'l',text:l}),h('div',{class:'v'},[v,h('small',{text:unit})]),h('div',{class:'d'},d)]);if(extra)t.appendChild(extra);return t;}
     if(w){box.appendChild(tile('世界のゲーム市場（'+w.period_end.slice(0,4)+'年）',(Number(w.value)/1e12).toFixed(1),'兆円',[h('b',{text:(wg?'+'+wg.value+'%':'')}),' 円建て　',h('b',{text:(wc?'+'+wc.value+'%':'')}),' 同一通貨 ＝ 為替を除いた伸び']));}
-    if(j){var prev=null;box.appendChild(tile('国内のゲーム市場（'+j.period_end.slice(0,4)+'年）',(Number(j.value)/1e12).toFixed(2),'兆円',[h('b',{text:'+8.0%'}),' 前年比。',h('span',{text:'Switch 2 の発売年'})]));}
+    if(j){var jg=latest('market_growth_japan_jpy_pct','japan');box.appendChild(tile('国内のゲーム市場（'+j.period_end.slice(0,4)+'年）',(Number(j.value)/1e12).toFixed(2),'兆円',[h('b',{text:(jg&&jg.period_end.slice(0,4)===j.period_end.slice(0,4)?'+'+jg.value+'%':'—')}),' 前年比。',h('span',{text:'Switch 2 の発売年'})]));}
     if(gp&&pop){var pct=Number(gp.value)/Number(pop.value)*100;var m=h('div',{class:'lg-meter'},[h('i',{style:'width:'+pct.toFixed(1)+'%'})]);
       box.appendChild(tile('国内のゲーム人口（'+gp.period_end.slice(0,4)+'年）',(Number(gp.value)/1e4).toLocaleString('ja-JP'),'万人',[h('b',{text:pct.toFixed(0)+'%'}),' ＝ 人口 '+(Number(pop.value)/1e4).toLocaleString('ja-JP')+'万人に対する割合'],m));}
     if(bk.length){var last=bk[bk.length-1];var prevs=bk.slice(0,-1).map(function(r){return r.period_end.slice(0,4)+'年 '+r.value+'件';}).join('・');
