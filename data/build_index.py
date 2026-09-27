@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="robots" content="noindex,nofollow">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>データ台帳 ｜ ゲーム業界の理解を深める地図</title>
-<meta name="description" content="台帳の数字を図で読む裏の窓。">
-<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='104 129 105 89'><style>path{fill:%23333}@media (prefers-color-scheme:dark){path{fill:%23f5f5f7}}</style><path d='M176.0366,130.8232c-12.7488,2.0014-26.8024,7.6128-36.4664,15.6061-11.2927,10.4-10.2545,23.0626,7.1971,24.2507-.1219,2.8139-.313,5.8846-.3845,8.7311.098,1.6658.0058,2.6135-1.9803,2.7731-13.8904,2.7385-28.4505,4.9224-38.4208,11.546-.5634.1345-.5432.4985-.7303.8776-.1321.2675-.2402.5534-.2346.8517.1805,9.4435,15.2324.6668,20.8776-.289,6.5802-1.0276,13.6384-3.8511,20.1526-3.8411.1212,5.55.2944,14.6605,5.758,13.9257,3.9485-1.0272,1.507-9.018,2.639-12.9664-1.9142-5.1835,17.9977.4855,14.3948-9.1232-1.9492-3.3911-9.3795-2.2475-14.1548-2.1609.1599-3.5212.3199-7.0434.4798-10.5646,8.7144-.9588,14.6201-1.949,23.0324-4.562.295,11.596.5525,26.7108-1.1542,38.2311-.0275,3.3588-2.2057,6.8232-1.0253,10.0197,5.7303,7.3846,11.2675-2.4999,11.2827-8.2081,1.4005-8.3205,1.4758-17.6229,1.4515-27.0773.6795-4.2975-2.6248-10.9072,2.1598-12.9647,28.8408-14.3216,20.0151-40.3267-14.8742-35.0555ZM191.6307,154.1128c-1.4825.6987-3.4545,2.5314-4.5665,1.4816-.1877-.1772-.4628-.2456-.7176-.2036-6.6749,1.1013-11.6011,3.1055-17.7178,3.8529-4.3312.5755-9.2273,2.0431-13.4649,1.5919-.4554-.5104-.1702-1.961-.4799-2.6411-.9835-1.3435-2.2745-2.5884-4.0782-1.9208-2.2845.19-2.7604,2.7097-3.359,4.8023-15.0419.0143,5.1118-12.4051,8.1573-14.1659,6.9716-3.2369,15.7759-6.2043,24.4709-7.2037,14.1142-.731,26.5272,2.8245,11.7557,14.4062Z'/></svg>">
-<meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="../style.css?v=20260926b">
-<style>
+# -*- coding: utf-8 -*-
+# 裏ページ data/index.html を「図」中心で作り直す（v3＝2026-09-27 の7点の指摘を反映）。骨組みは news.html から写す。表は各章の「表で見る」に畳む。
+import io, re, sys
+sys.stdout.reconfigure(encoding='utf-8')
+D = 'D:/tas9_labo/web/notes/'
+src = io.open(D + 'news.html', encoding='utf-8', newline='').read().replace('\r\n', '\n')
+
+def block(start, end_tag):
+    i = src.index(start); j = src.index(end_tag, i) + len(end_tag)
+    return src[i:j]
+
+toc = block('<nav class="toc"', '</nav>'); hero = block('<div class="hero-bg page"', '</div>')
+head = block('<header class="top">', '</header>'); by = block('<footer class="by">', '</footer>')
+fonts = block('<link rel="preconnect" href="https://fonts.googleapis.com">', 'display=swap">'); icon = block('<link rel="icon"', '">')
+ver = re.search(r'style\.css\?v=([0-9a-z]+)', src).group(1)
+
+def relink(s):
+    for a, b in [('href="index.html"', 'href="../index.html"'), ('href="industry.html"', 'href="../industry.html"'), ('href="dev.html"', 'href="../dev.html"'),
+                 ('href="news.html" aria-current="page"', 'href="../news.html"'), ('href="news.html"', 'href="../news.html"'), ('src="hero.jpg', 'src="../hero.jpg')]:
+        s = s.replace(a, b)
+    return s
+toc, hero, head = relink(toc), relink(hero), relink(head)
+head = head.replace('>追う</p>', '>台帳</p>').replace('<h1>気になる News</h1>', '<h1>データ台帳</h1>')
+head = re.sub(r'<p class="lead">.*?</p>', '<p class="lead">台帳の数字を、図で読むための裏の窓。サイトからはリンクしていない。<br>原本は同じフォルダの CSV と <a href="README.md">README.md</a>。図の下の「表で見る」で数字そのものも確かめられる。</p>', head, flags=re.S)
+
+css = r'''
 /* 図の色：色弱でも隣り合う色が見分けられる組み合わせを検証済み（README 参照）。文字は必ず文字色、色は印にだけ */
 :root{--k-jp:#4f7d12;--k-us:#1160c9;--k-cn:#c2562a;--k-kr:#0a93a8;--k-eu:#6b5bd2;--k-ot:#8a919c;--k-dim:#c9ced6;
   --s1:#93b95a;--s2:#7aa63f;--s3:#639327;--s4:#4f7f16;--s5:#3d680c;--o1:#93b95a;--o2:#476f10;--up:#1160c9;--down:#c2562a;--grid:#e3e6ec;--on-mark:#fff}
@@ -133,124 +143,9 @@ table.lg-tbl{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5;
 #mileBox svg.viz{min-width:600px}
 @media (max-width:720px){.lg-share2,.lg-axis{grid-template-columns:minmax(96px,120px) minmax(0,1fr) 62px}.lg-crow{grid-template-columns:80px minmax(0,1fr) 30px}}
 @media (max-width:720px){.lg-row{grid-template-columns:minmax(96px,120px) minmax(0,1fr) 56px}.lg-srow{grid-template-columns:36px minmax(0,1fr) 50px}}
-</style>
-</head>
-<body>
+'''
 
-<nav class="toc" aria-label="ページの切り替え">
-  <div class="toc-pages">
-    <a class="home" href="../index.html" aria-label="地図のトップへ"><svg viewBox="104 129 105 89" role="img" aria-hidden="true"><path d="M176.0366,130.8232c-12.7488,2.0014-26.8024,7.6128-36.4664,15.6061-11.2927,10.4-10.2545,23.0626,7.1971,24.2507-.1219,2.8139-.313,5.8846-.3845,8.7311.098,1.6658.0058,2.6135-1.9803,2.7731-13.8904,2.7385-28.4505,4.9224-38.4208,11.546-.5634.1345-.5432.4985-.7303.8776-.1321.2675-.2402.5534-.2346.8517.1805,9.4435,15.2324.6668,20.8776-.289,6.5802-1.0276,13.6384-3.8511,20.1526-3.8411.1212,5.55.2944,14.6605,5.758,13.9257,3.9485-1.0272,1.507-9.018,2.639-12.9664-1.9142-5.1835,17.9977.4855,14.3948-9.1232-1.9492-3.3911-9.3795-2.2475-14.1548-2.1609.1599-3.5212.3199-7.0434.4798-10.5646,8.7144-.9588,14.6201-1.949,23.0324-4.562.295,11.596.5525,26.7108-1.1542,38.2311-.0275,3.3588-2.2057,6.8232-1.0253,10.0197,5.7303,7.3846,11.2675-2.4999,11.2827-8.2081,1.4005-8.3205,1.4758-17.6229,1.4515-27.0773.6795-4.2975-2.6248-10.9072,2.1598-12.9647,28.8408-14.3216,20.0151-40.3267-14.8742-35.0555ZM191.6307,154.1128c-1.4825.6987-3.4545,2.5314-4.5665,1.4816-.1877-.1772-.4628-.2456-.7176-.2036-6.6749,1.1013-11.6011,3.1055-17.7178,3.8529-4.3312.5755-9.2273,2.0431-13.4649,1.5919-.4554-.5104-.1702-1.961-.4799-2.6411-.9835-1.3435-2.2745-2.5884-4.0782-1.9208-2.2845.19-2.7604,2.7097-3.359,4.8023-15.0419.0143,5.1118-12.4051,8.1573-14.1659,6.9716-3.2369,15.7759-6.2043,24.4709-7.2037,14.1142-.731,26.5272,2.8245,11.7557,14.4062Z"/></svg></a>
-    <a href="../industry.html">産業のしくみ</a>
-    <a href="../dev.html">開発の現場</a>
-    <a href="../news.html">気になる News</a>
-  </div>
-</nav>
-
-<div class="hero-bg page" aria-hidden="true"><img src="../hero.jpg?v=1" alt=""></div>
-
-<div class="wrap">
-
-<header class="top">
-  <nav class="pages" id="chapters" aria-label="ページの切り替え">
- <a class="home" href="../index.html" aria-label="地図のトップへ"><svg viewBox="104 129 105 89" role="img" aria-hidden="true"><path d="M176.0366,130.8232c-12.7488,2.0014-26.8024,7.6128-36.4664,15.6061-11.2927,10.4-10.2545,23.0626,7.1971,24.2507-.1219,2.8139-.313,5.8846-.3845,8.7311.098,1.6658.0058,2.6135-1.9803,2.7731-13.8904,2.7385-28.4505,4.9224-38.4208,11.546-.5634.1345-.5432.4985-.7303.8776-.1321.2675-.2402.5534-.2346.8517.1805,9.4435,15.2324.6668,20.8776-.289,6.5802-1.0276,13.6384-3.8511,20.1526-3.8411.1212,5.55.2944,14.6605,5.758,13.9257,3.9485-1.0272,1.507-9.018,2.639-12.9664-1.9142-5.1835,17.9977.4855,14.3948-9.1232-1.9492-3.3911-9.3795-2.2475-14.1548-2.1609.1599-3.5212.3199-7.0434.4798-10.5646,8.7144-.9588,14.6201-1.949,23.0324-4.562.295,11.596.5525,26.7108-1.1542,38.2311-.0275,3.3588-2.2057,6.8232-1.0253,10.0197,5.7303,7.3846,11.2675-2.4999,11.2827-8.2081,1.4005-8.3205,1.4758-17.6229,1.4515-27.0773.6795-4.2975-2.6248-10.9072,2.1598-12.9647,28.8408-14.3216,20.0151-40.3267-14.8742-35.0555ZM191.6307,154.1128c-1.4825.6987-3.4545,2.5314-4.5665,1.4816-.1877-.1772-.4628-.2456-.7176-.2036-6.6749,1.1013-11.6011,3.1055-17.7178,3.8529-4.3312.5755-9.2273,2.0431-13.4649,1.5919-.4554-.5104-.1702-1.961-.4799-2.6411-.9835-1.3435-2.2745-2.5884-4.0782-1.9208-2.2845.19-2.7604,2.7097-3.359,4.8023-15.0419.0143,5.1118-12.4051,8.1573-14.1659,6.9716-3.2369,15.7759-6.2043,24.4709-7.2037,14.1142-.731,26.5272,2.8245,11.7557,14.4062Z"/></svg></a>
-  <a href="../industry.html">産業のしくみ</a>
-  <a href="../dev.html">開発の現場</a>
-  <a href="../news.html">気になる News</a>
-</nav>
-  <p class="eyebrow"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h13v13H4zM17 9.5h3v7a2 2 0 01-2 2M7 9h7M7 12h7M7 15h4"/></svg>台帳</p>
-  <div class="title-row">
-    <svg class="chara" viewBox="73 133 94 94" role="img" aria-hidden="true"><path fill="currentColor" d="M142.64,133.95h-45.29c-12.9,0-23.4,10.5-23.4,23.4v45.29c0,12.9,10.5,23.4,23.4,23.4h45.29c12.91,0,23.4-10.5,23.4-23.4v-45.29c0-12.9-10.5-23.4-23.4-23.4ZM159.05,157.36v4.97c-.33.01-.66.04-1.01.07-27.22.72-10.09,7.95-21.6-12.24-2.58-3.52-5.97-6.74-9.76-9.21h15.96c9.04,0,16.4,7.36,16.4,16.4ZM103.42,218.32c-3.32-2.83-8.21-3.45-12.24-5.28-.03-1.22-.51-4.96,0-5.52-.85-3.3,9.43,5.86,11.52,4.08,1.68-.04,3.55-2.76,1.92-4.08-.52-1.68-2.7-1.61-3.36-2.4-3.46-.88-5.43-3.7-9.84-4.8.42-9.02.19-18.69.24-28.08-.71-5.09,16.25-.73,19.68-.72,7.08.26,14,.07,21.36,0,5.13-1.36,3.78,2.41,4.08,5.76-.69-.41-3.34-3.05-4.8-1.68-4.28,2.42,1.76,7.35,5.04,7.68.83,7.12-.06,13.79.24,21.12.43,4.78.75,9.7.84,14.65h-34.56c-.02-.23-.05-.48-.12-.73ZM103.56,151.6c-1.39-.61-2.67-1.65-5.04-1.92,2.5-4.57,3.89-2.47,7.44-1.2,8,5.07,11.03-2.64,1.68-5.76,13.64-4.13,26.7,10.16,27.6,20.64.38,3.52-1.11,2.26-3.12,2.64-9.47.02-18.37.23-27.36-.96.04-5.24-7.3-3.83-11.04-5.28.42-2.07,1.24-5.39,2.64-6.48,1.88,2.87,8.55,5.57,11.52,3.12,1.35-3.29-2.19-4.24-4.32-4.8ZM80.95,157.36c0-9.04,7.36-16.4,16.4-16.4h1.99s-.07.06-.1.09c-15.9,10.89-13.03,36.84-13.68,56.88-.27,5.17-.38,10.4-.39,15.67-2.61-2.91-4.22-6.74-4.22-10.94v-45.29ZM143.94,218.98c-.08-9.07-.66-18.21-.68-27.01.03-5.99-.76-11.87-1.06-18.05-.02-2.74-.95-2.96,2.4-2.64,3.95-.2,7.73-.37,11.04-.96,1.13-.16,2.29-.15,3.41-.16v32.48c0,8.61-6.67,15.67-15.1,16.34Z M108.6,177.76c-1.42-4.99-9.21-.66-8.16,3.84,2.14,3.36,7.88-.79,8.16-3.84Z M109.08,192.16c-1.73-.32-3.08-.59-4.8-.48-.92.4-2.29,2.51-.96,3.6,1.93,2.85,13.65,5.46,13.68-.24-1.01-3.18-5.92-1.55-7.92-2.88Z M118.68,176.8c-.22,3.93,3.42,5.88,5.28,9.12-.17,1.25-1.86,2.81-2.64,3.6-1.77,1.06-1.15,3.46,0,4.56,4.24,1.1,8.64-4.57,8.16-8.64-1.89-2.76-6.76-12.35-10.8-8.64Z"/></svg>
-    <h1>データ台帳</h1>
-  </div>
-  <p class="lead">台帳の数字を、図で読むための裏の窓。サイトからはリンクしていない。<br>原本は同じフォルダの CSV と <a href="README.md">README.md</a>。図の下の「表で見る」で数字そのものも確かめられる。</p>
-</header>
-
-<section class="ch" id="kpis">
-  <div class="ch-head"><span class="ch-no">00</span></div>
-  <h2>市場と人口 ── いまの大きさ</h2>
-  <p class="sub">世界と国内の市場、遊ぶ人の数、いちばん下の層の倒産。数字は台帳の最新値。</p>
-  <div class="lg-kpi" data-box="1" id="kpi"></div>
-</section>
-<section class="ch" id="share">
-  <div class="ch-head"><span class="ch-no">01</span></div>
-  <h2>誰の作品が選ばれたか</h2>
-  <p class="sub">市場ごとの年間上位を、作品の国籍で塗り分けた帯。上から IP の持ち主・開発した拠点・販売や運営の会社の国。</p>
-  <div class="lg-caveat"><b>この景色は日本に寄っている。</b>4つの表のうち2つは日本国内の売れ行き（自国の作品が強いのは当然）で、世界の側は PC（Steam）だけ。米国の家庭用・中国・世界のスマホは未収録。国内家庭用はパッケージ中心の集計で、ダウンロード比率の高い海外作品が実態より下に出る。「日本 IP 9/10」を世界の姿と読まないこと。</div>
-  <div class="lg-legend" id="shareLegend"></div>
-  <div class="lg-lists" data-box="1" id="shareBox"></div>
-  <p class="lg-note">Steam の帯は順位の無い「上位12本」。国籍の決め方は README の「順位表」。米国家庭用（Circana）・世界スマホ（Sensor Tower）の年間表は、出典が取れ次第足す。</p>
-  <details class="lg-tv"><summary>表で見る</summary><div id="shareTv"></div></details>
-</section>
-<section class="ch" id="map">
-  <div class="ch-head"><span class="ch-no">02</span></div>
-  <h2>世界のどこの会社か</h2>
-  <p class="sub">2025年の4つの表に出た作品を国で数えた棒。左から IP の持ち主・開発の拠点・販売運営の会社。日本の棒だけ緑。</p>
-  <div class="lg-three" data-box="1" id="mapBox"></div>
-  <p class="lg-note" id="mapNote"></p>
-  <details class="lg-tv"><summary>表で見る</summary><div id="mapTv"></div></details>
-</section>
-<section class="ch" id="trend">
-  <div class="ch-head"><span class="ch-no">03</span></div>
-  <h2>勢い ── 売上と人数はどう動いたか</h2>
-  <p class="sub">会社ごとに、売上高（緑）と従業員数（灰）を最初の年＝100 の指数で並べた。上へ行くほど伸びた。</p>
-  <div class="lg-ctl"><span class="lg-legend" style="margin:0"><span><i class="ln" style="--c:var(--k-jp)"></i>売上高</span><span><i class="ln" style="--c:var(--k-ot)"></i>従業員数</span></span><label class="lg-hint" style="margin-left:auto"><input type="checkbox" id="realChk" checked> 売上は実質（2020年価格）</label></div>
-  <div class="lg-smulti" data-box="1" id="trendBox"></div>
-  <p class="lg-note" id="trendNote"></p>
-  <details class="lg-tv"><summary>表で見る</summary><div id="trendTv"></div></details>
-</section>
-<section class="ch" id="invest">
-  <div class="ch-head"><span class="ch-no">04</span></div>
-  <h2>弾込め ── 開発にお金を積んでいるか</h2>
-  <p class="sub">会社が公表する研究開発費を売上高で割った比率の推移（自分の売上の何%を開発に回しているか）と、作りかけのゲームの残高の前年比。</p>
-  <div class="lg-caveat"><b>会社をまたいで金額は比べない。</b>研究開発費の中身は会社ごとに違う（任天堂はハードの研究も含む。スクエニはゲームの制作費を資産に積むので費用は小さく出る。コナミは全事業）。比べてよいのは「同じ会社の中の推移」と「売上比の向き」まで。</div>
-  <p class="fig-title" style="margin-top:18px">研究開発費 ÷ 売上高 <small>%・線の終点が最新・下線が 0%</small></p>
-  <div class="lg-smulti" data-box="1" id="rdBox"></div>
-  <p class="lg-note" id="rdNote"></p>
-  <p class="fig-title" style="margin-top:30px">作りかけのゲームの残高（前年比） <small>右（青）が増加・左（橙）が減少・自社比</small></p>
-  <div class="lg-hbars" data-box="1" id="wipBox" style="max-width:560px"></div>
-  <p class="lg-note">仕掛品の定義：カプコン＝ゲームソフト仕掛品、スクエニ＝コンテンツ制作勘定、バンナム＝連結の仕掛品（玩具等も含む）、セガサミー＝エンタテインメントコンテンツ事業の仕掛品。開発費をその場で費用にする会社はこの棒に出ない。</p>
-  <details class="lg-tv"><summary>表で見る</summary><div id="rdTv"></div><div id="wipTv"></div></details>
-</section>
-<section class="ch" id="labor">
-  <div class="ch-head"><span class="ch-no">05</span></div>
-  <h2>労働の取り分 ── 稼ぎは人に回っているか</h2>
-  <p class="sub">1人が生んだ稼ぎを「本人の給与」と「会社に残る営業利益（1人あたり）」に分け、給与の側の割合を出した。50% なら同額。右ほど人に回っている。</p>
-  <div class="lg-caveat"><b>読み方。</b>白抜きの点が3〜5年前、緑の点が最新。右へ動いていれば、利益より給与の方が速く増えた（人に回った）。左へ動いていれば、給与より利益の方が速く増えた（会社と株主に残った）。持株会社は給与が本社だけの値なので外してある。</div>
-  <div class="lg-hbars" data-box="1" id="laborBox"></div>
-  <p class="lg-note">給与＝提出会社（単体）の平均年間給与。1人あたり営業利益＝連結の営業利益÷連結の従業員数。本当の労働分配率（人件費の総額÷付加価値）は有報から取れないので、その代わりの物差し。営業赤字の年は「赤字」と表示し点を打たない。</p>
-  <details class="lg-tv"><summary>表で見る</summary><div id="laborTv"></div></details>
-</section>
-<section class="ch" id="own">
-  <div class="ch-head"><span class="ch-no">06</span></div>
-  <h2>資本の所在 ── 誰が株を持っているか</h2>
-  <p class="sub">日本の上場15社の、外国法人等の持株比率。縦線は半分。高いほど、配当と議決権の行き先が海外に寄る。</p>
-  <div class="lg-hbars" data-box="1" id="ownBox"></div>
-  <p class="lg-note">これは「株を持たれている側」の数字で、多くは年金や投資信託などの機関投資家（経営権を取りに来る資本とは別）。逆向き＝日本の会社が海外のスタジオや IP を買う流れも同時にある（セガ→Rovio 2023、ソニー→Bungie 2022、任天堂→Shiver 2024 など）。その台帳はまだ無い＝次に足す。</p>
-  <details class="lg-tv"><summary>表で見る</summary><div id="ownTv"></div></details>
-</section>
-<section class="ch" id="mile">
-  <div class="ch-head"><span class="ch-no">07</span></div>
-  <h2>節目 ── 100万本までの速さ</h2>
-  <p class="sub">発売日を左端に置き、100万本に届いたと確認できた日を点で打った。左にあるほど速い。縦線は1か月・100日・1年。</p>
-  <div class="fig" data-box="1" id="mileBox"></div>
-  <p class="lg-note" id="mileNote"></p>
-  <details class="lg-tv"><summary>表で見る</summary><div id="mileTv"></div></details>
-  <p class="lg-note">原本：<a href="titles.csv">titles.csv</a>・<a href="milestones.csv">milestones.csv</a>・<a href="rankings.csv">rankings.csv</a>・<a href="indicators.csv">indicators.csv</a>・<a href="indicator_defs.csv">indicator_defs.csv</a>・<a href="entities.csv">entities.csv</a>　<span id="counts"></span></p>
-</section>
-
-<footer class="by">
-  <p class="who">+9 ／ 高橋 佐</p>
-  <p class="bio">2002年からゲーム業界へ</p>
-  <p class="bio">2019年からフリーランス</p>
-  <p class="bio">モーションデザイナー</p>
-  <p class="bio">専門学校で講師も兼任</p>
-  <p class="site"><a href="https://www.tas9.net/" target="_blank" rel="noopener">tas9.net</a></p>
-</footer>
-
-</div>
-<div id="tip" role="status" aria-live="polite"></div>
-<script src="../common.js?v=20260926b"></script>
-<script>
+js = r'''
 (function(){
   // 確認用：?theme=dark / light で配色を固定できる（通常は端末の設定に追従）
   var th=(location.search.match(/[?&]theme=(dark|light)/)||[])[1];if(th)document.documentElement.setAttribute('data-theme',th);
@@ -484,6 +379,32 @@ table.lg-tbl{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5;
     $('counts').textContent='作品 '+T.length+'・数字 '+M.length+'・順位 '+R.length+'・指標 '+I.length+' 行';
   }).catch(function(e){document.querySelectorAll('[data-box]').forEach(function(b){b.innerHTML='';b.appendChild(h('p',{class:'lg-empty',text:'CSV を読めなかった（'+e.message+'）。file:// では開けないので、サーバー経由か公開 URL で開く。'}));});});
 })();
-</script>
-</body>
-</html>
+'''
+
+def sec(no, id, title, sub, inner):
+    return ('<section class="ch" id="' + id + '">\n  <div class="ch-head"><span class="ch-no">' + no + '</span></div>\n  <h2>' + title + '</h2>\n  <p class="sub">' + sub + '</p>\n' + inner + '\n</section>\n')
+
+body = ''
+body += sec('00', 'kpis', '市場と人口 ── いまの大きさ', '世界と国内の市場、遊ぶ人の数、いちばん下の層の倒産。数字は台帳の最新値。', '  <div class="lg-kpi" data-box="1" id="kpi"></div>')
+body += sec('01', 'share', '誰の作品が選ばれたか', '市場ごとの年間上位を、作品の国籍で塗り分けた帯。上から IP の持ち主・開発した拠点・販売や運営の会社の国。',
+            '  <div class="lg-caveat"><b>この景色は日本に寄っている。</b>4つの表のうち2つは日本国内の売れ行き（自国の作品が強いのは当然）で、世界の側は PC（Steam）だけ。米国の家庭用・中国・世界のスマホは未収録。国内家庭用はパッケージ中心の集計で、ダウンロード比率の高い海外作品が実態より下に出る。「日本 IP 9/10」を世界の姿と読まないこと。</div>\n  <div class="lg-legend" id="shareLegend"></div>\n  <div class="lg-lists" data-box="1" id="shareBox"></div>\n  <p class="lg-note">Steam の帯は順位の無い「上位12本」。国籍の決め方は README の「順位表」。米国家庭用（Circana）・世界スマホ（Sensor Tower）の年間表は、出典が取れ次第足す。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="shareTv"></div></details>')
+body += sec('02', 'map', '世界のどこの会社か', '2025年の4つの表に出た作品を国で数えた棒。左から IP の持ち主・開発の拠点・販売運営の会社。日本の棒だけ緑。',
+            '  <div class="lg-three" data-box="1" id="mapBox"></div>\n  <p class="lg-note" id="mapNote"></p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="mapTv"></div></details>')
+body += sec('03', 'trend', '勢い ── 売上と人数はどう動いたか', '会社ごとに、売上高（緑）と従業員数（灰）を最初の年＝100 の指数で並べた。上へ行くほど伸びた。',
+            '  <div class="lg-ctl"><span class="lg-legend" style="margin:0"><span><i class="ln" style="--c:var(--k-jp)"></i>売上高</span><span><i class="ln" style="--c:var(--k-ot)"></i>従業員数</span></span><label class="lg-hint" style="margin-left:auto"><input type="checkbox" id="realChk" checked> 売上は実質（2020年価格）</label></div>\n  <div class="lg-smulti" data-box="1" id="trendBox"></div>\n  <p class="lg-note" id="trendNote"></p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="trendTv"></div></details>')
+body += sec('04', 'invest', '弾込め ── 開発にお金を積んでいるか', '会社が公表する研究開発費を売上高で割った比率の推移（自分の売上の何%を開発に回しているか）と、作りかけのゲームの残高の前年比。',
+            '  <div class="lg-caveat"><b>会社をまたいで金額は比べない。</b>研究開発費の中身は会社ごとに違う（任天堂はハードの研究も含む。スクエニはゲームの制作費を資産に積むので費用は小さく出る。コナミは全事業）。比べてよいのは「同じ会社の中の推移」と「売上比の向き」まで。</div>\n  <p class="fig-title" style="margin-top:18px">研究開発費 ÷ 売上高 <small>%・線の終点が最新・下線が 0%</small></p>\n  <div class="lg-smulti" data-box="1" id="rdBox"></div>\n  <p class="lg-note" id="rdNote"></p>\n  <p class="fig-title" style="margin-top:30px">作りかけのゲームの残高（前年比） <small>右（青）が増加・左（橙）が減少・自社比</small></p>\n  <div class="lg-hbars" data-box="1" id="wipBox" style="max-width:560px"></div>\n  <p class="lg-note">仕掛品の定義：カプコン＝ゲームソフト仕掛品、スクエニ＝コンテンツ制作勘定、バンナム＝連結の仕掛品（玩具等も含む）、セガサミー＝エンタテインメントコンテンツ事業の仕掛品。開発費をその場で費用にする会社はこの棒に出ない。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="rdTv"></div><div id="wipTv"></div></details>')
+body += sec('05', 'labor', '労働の取り分 ── 稼ぎは人に回っているか', '1人が生んだ稼ぎを「本人の給与」と「会社に残る営業利益（1人あたり）」に分け、給与の側の割合を出した。50% なら同額。右ほど人に回っている。',
+            '  <div class="lg-caveat"><b>読み方。</b>白抜きの点が3〜5年前、緑の点が最新。右へ動いていれば、利益より給与の方が速く増えた（人に回った）。左へ動いていれば、給与より利益の方が速く増えた（会社と株主に残った）。持株会社は給与が本社だけの値なので外してある。</div>\n  <div class="lg-hbars" data-box="1" id="laborBox"></div>\n  <p class="lg-note">給与＝提出会社（単体）の平均年間給与。1人あたり営業利益＝連結の営業利益÷連結の従業員数。本当の労働分配率（人件費の総額÷付加価値）は有報から取れないので、その代わりの物差し。営業赤字の年は「赤字」と表示し点を打たない。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="laborTv"></div></details>')
+body += sec('06', 'own', '資本の所在 ── 誰が株を持っているか', '日本の上場15社の、外国法人等の持株比率。縦線は半分。高いほど、配当と議決権の行き先が海外に寄る。',
+            '  <div class="lg-hbars" data-box="1" id="ownBox"></div>\n  <p class="lg-note">これは「株を持たれている側」の数字で、多くは年金や投資信託などの機関投資家（経営権を取りに来る資本とは別）。逆向き＝日本の会社が海外のスタジオや IP を買う流れも同時にある（セガ→Rovio 2023、ソニー→Bungie 2022、任天堂→Shiver 2024 など）。その台帳はまだ無い＝次に足す。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="ownTv"></div></details>')
+body += sec('07', 'mile', '節目 ── 100万本までの速さ', '発売日を左端に置き、100万本に届いたと確認できた日を点で打った。左にあるほど速い。縦線は1か月・100日・1年。',
+            '  <div class="fig" data-box="1" id="mileBox"></div>\n  <p class="lg-note" id="mileNote"></p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="mileTv"></div></details>\n  <p class="lg-note">原本：<a href="titles.csv">titles.csv</a>・<a href="milestones.csv">milestones.csv</a>・<a href="rankings.csv">rankings.csv</a>・<a href="indicators.csv">indicators.csv</a>・<a href="indicator_defs.csv">indicator_defs.csv</a>・<a href="entities.csv">entities.csv</a>　<span id="counts"></span></p>')
+
+html = ('<!DOCTYPE html>\n<html lang="ja">\n<head>\n<meta charset="utf-8">\n<meta name="robots" content="noindex,nofollow">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n'
+        '<title>データ台帳 ｜ ゲーム業界の理解を深める地図</title>\n<meta name="description" content="台帳の数字を図で読む裏の窓。">\n' + icon + '\n'
+        '<meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">\n<meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)">\n' + fonts + '\n'
+        '<link rel="stylesheet" href="../style.css?v=' + ver + '">\n<style>' + css + '</style>\n</head>\n<body>\n\n' + toc + '\n\n' + hero + '\n\n<div class="wrap">\n\n' + head + '\n\n' + body + '\n' + by +
+        '\n\n</div>\n<div id="tip" role="status" aria-live="polite"></div>\n<script src="../common.js?v=' + ver + '"></script>\n<script>' + js + '</script>\n</body>\n</html>\n')
+io.open(D + 'data/index.html', 'w', encoding='utf-8', newline='').write(html)
+print('ok data/index.html', len(html), 'bytes')
