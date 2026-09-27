@@ -132,6 +132,27 @@ table.lg-tbl{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5;
 #mileBox{overflow-x:auto}
 #mileBox svg.viz{min-width:600px}
 @media (max-width:720px){.lg-share2,.lg-axis{grid-template-columns:minmax(96px,120px) minmax(0,1fr) 62px}.lg-crow{grid-template-columns:80px minmax(0,1fr) 30px}}
+.lg-index{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:26px 0 6px}
+.lg-ix{border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--card);min-width:0}
+.lg-ix ol{margin:10px 0 0;padding:0;list-style:none;font-size:14px;line-height:1.9}
+.lg-ix ol li{display:flex;gap:8px;align-items:baseline}
+.lg-ix .lg-ixno{font-family:var(--mono);font-size:11px;color:var(--sub);min-width:20px}
+.lg-ix ol li a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.lg-ix ol li a:hover{border-bottom-color:var(--ink)}
+.lg-ix .lg-why{margin:10px 0 0;font-size:12px;color:var(--sub);line-height:1.65}
+.lg-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.02em;padding:3px 10px;border-radius:980px;line-height:1.4;white-space:nowrap}
+.lg-badge i{font-style:normal;font-size:11px}
+.lg-ba{background:var(--accent);color:var(--on-color)}
+.lg-bb{border:1.5px solid var(--sub);color:var(--ink);background:transparent}
+.lg-bc{border:1.5px dashed var(--ink);color:var(--ink);background:transparent}
+.lg-grp{margin:38px 0 12px;padding:14px 18px;border-radius:10px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;background:var(--tonal)}
+.lg-grp p{margin:0;font-size:13px;color:var(--sub);line-height:1.6;flex:1 1 260px}
+.lg-grp.lg-ga{border-left:6px solid var(--accent)}
+.lg-grp.lg-gb{border-left:6px solid var(--sub)}
+.lg-grp.lg-gc{border:1.5px dashed var(--ink);background:transparent}
+.ch-head .lg-badge{margin-left:12px}
+section.ch.lg-gc{border:1.5px dashed var(--ink)}
+@media (max-width:720px){.lg-grp{margin-top:28px}}
 @media (max-width:720px){.lg-row{grid-template-columns:minmax(96px,120px) minmax(0,1fr) 56px}.lg-srow{grid-template-columns:36px minmax(0,1fr) 50px}}
 </style>
 </head>
@@ -162,17 +183,40 @@ table.lg-tbl{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5;
     <svg class="chara" viewBox="73 133 94 94" role="img" aria-hidden="true"><path fill="currentColor" d="M142.64,133.95h-45.29c-12.9,0-23.4,10.5-23.4,23.4v45.29c0,12.9,10.5,23.4,23.4,23.4h45.29c12.91,0,23.4-10.5,23.4-23.4v-45.29c0-12.9-10.5-23.4-23.4-23.4ZM159.05,157.36v4.97c-.33.01-.66.04-1.01.07-27.22.72-10.09,7.95-21.6-12.24-2.58-3.52-5.97-6.74-9.76-9.21h15.96c9.04,0,16.4,7.36,16.4,16.4ZM103.42,218.32c-3.32-2.83-8.21-3.45-12.24-5.28-.03-1.22-.51-4.96,0-5.52-.85-3.3,9.43,5.86,11.52,4.08,1.68-.04,3.55-2.76,1.92-4.08-.52-1.68-2.7-1.61-3.36-2.4-3.46-.88-5.43-3.7-9.84-4.8.42-9.02.19-18.69.24-28.08-.71-5.09,16.25-.73,19.68-.72,7.08.26,14,.07,21.36,0,5.13-1.36,3.78,2.41,4.08,5.76-.69-.41-3.34-3.05-4.8-1.68-4.28,2.42,1.76,7.35,5.04,7.68.83,7.12-.06,13.79.24,21.12.43,4.78.75,9.7.84,14.65h-34.56c-.02-.23-.05-.48-.12-.73ZM103.56,151.6c-1.39-.61-2.67-1.65-5.04-1.92,2.5-4.57,3.89-2.47,7.44-1.2,8,5.07,11.03-2.64,1.68-5.76,13.64-4.13,26.7,10.16,27.6,20.64.38,3.52-1.11,2.26-3.12,2.64-9.47.02-18.37.23-27.36-.96.04-5.24-7.3-3.83-11.04-5.28.42-2.07,1.24-5.39,2.64-6.48,1.88,2.87,8.55,5.57,11.52,3.12,1.35-3.29-2.19-4.24-4.32-4.8ZM80.95,157.36c0-9.04,7.36-16.4,16.4-16.4h1.99s-.07.06-.1.09c-15.9,10.89-13.03,36.84-13.68,56.88-.27,5.17-.38,10.4-.39,15.67-2.61-2.91-4.22-6.74-4.22-10.94v-45.29ZM143.94,218.98c-.08-9.07-.66-18.21-.68-27.01.03-5.99-.76-11.87-1.06-18.05-.02-2.74-.95-2.96,2.4-2.64,3.95-.2,7.73-.37,11.04-.96,1.13-.16,2.29-.15,3.41-.16v32.48c0,8.61-6.67,15.67-15.1,16.34Z M108.6,177.76c-1.42-4.99-9.21-.66-8.16,3.84,2.14,3.36,7.88-.79,8.16-3.84Z M109.08,192.16c-1.73-.32-3.08-.59-4.8-.48-.92.4-2.29,2.51-.96,3.6,1.93,2.85,13.65,5.46,13.68-.24-1.01-3.18-5.92-1.55-7.92-2.88Z M118.68,176.8c-.22,3.93,3.42,5.88,5.28,9.12-.17,1.25-1.86,2.81-2.64,3.6-1.77,1.06-1.15,3.46,0,4.56,4.24,1.1,8.64-4.57,8.16-8.64-1.89-2.76-6.76-12.35-10.8-8.64Z"/></svg>
     <h1>データ台帳</h1>
   </div>
-  <p class="lead">台帳の数字を、図で読むための裏の窓。サイトからはリンクしていない。<br>原本は同じフォルダの CSV と <a href="README.md">README.md</a>。図の下の「表で見る」で数字そのものも確かめられる。</p>
+  <p class="lead">台帳の数字を、図で読むための裏の窓。サイトからはリンクしていない。<br>図は精度で3つに分けて並べた：<b>● 判断材料にしてよい</b>／<b>▲ 向きだけ読む</b>／<b>○ まだ指針にしない</b>。原本は同じフォルダの CSV と <a href="README.md">README.md</a>。図の下の「表で見る」で数字そのものも確かめられる。</p>
 </header>
 
-<section class="ch" id="kpis">
-  <div class="ch-head"><span class="ch-no">00</span></div>
+<div class="lg-index" aria-label="図の分け方">
+  <div class="lg-ix lg-ga"><span class="lg-badge lg-ba"><i aria-hidden="true">●</i>判断材料にしてよい</span><ol><li><span class="lg-ixno">01</span><a href="#kpis">市場と人口</a></li><li><span class="lg-ixno">02</span><a href="#trend">勢い</a></li><li><span class="lg-ixno">03</span><a href="#own">資本の所在</a></li></ol><p class="lg-why">公式の値で、全社が同じ定義。数字そのものを根拠にしてよい（持株会社の売上はゲーム以外も含むと承知の上で）。</p></div>
+  <div class="lg-ix lg-gb"><span class="lg-badge lg-bb"><i aria-hidden="true">▲</i>向きだけ読む</span><ol><li><span class="lg-ixno">04</span><a href="#share">誰の作品が選ばれたか</a></li><li><span class="lg-ixno">05</span><a href="#map">世界のどこの会社か</a></li><li><span class="lg-ixno">06</span><a href="#invest">弾込め</a></li><li><span class="lg-ixno">07</span><a href="#mile">節目</a></li></ol><p class="lg-why">表の偏り・作品数の少なさ・自社比の制約がある。増えた減ったの「向き」までにとどめ、大きさや世界の姿は読まない。</p></div>
+  <div class="lg-ix lg-gc"><span class="lg-badge lg-bc"><i aria-hidden="true">○</i>まだ指針にしない</span><ol><li><span class="lg-ixno">08</span><a href="#labor">労働の取り分</a></li></ol><p class="lg-why">代理の物差し（単体の給与と連結の利益を混ぜている）。数字は出すが、判断には使わない。</p></div>
+</div><div class="lg-grp lg-ga" id="ga" role="heading" aria-level="2"><span class="lg-badge lg-ba"><i aria-hidden="true">●</i>判断材料にしてよい</span><p>公式の値で、全社が同じ定義。数字そのものを根拠にしてよい（持株会社の売上はゲーム以外も含むと承知の上で）。</p></div>
+<section class="ch lg-ga" id="kpis" data-grade="a">
+  <div class="ch-head"><span class="ch-no">01</span><span class="lg-badge lg-ba"><i aria-hidden="true">●</i>判断材料にしてよい</span></div>
   <h2>市場と人口 ── いまの大きさ</h2>
   <p class="sub">世界と国内の市場、遊ぶ人の数、いちばん下の層の倒産。数字は台帳の最新値。</p>
   <div class="lg-kpi" data-box="1" id="kpi"></div>
 </section>
-<section class="ch" id="share">
-  <div class="ch-head"><span class="ch-no">01</span></div>
+<section class="ch lg-ga" id="trend" data-grade="a">
+  <div class="ch-head"><span class="ch-no">02</span><span class="lg-badge lg-ba"><i aria-hidden="true">●</i>判断材料にしてよい</span></div>
+  <h2>勢い ── 売上と人数はどう動いたか</h2>
+  <p class="sub">会社ごとに、売上高（緑）と従業員数（灰）を最初の年＝100 の指数で並べた。上へ行くほど伸びた。</p>
+  <div class="lg-ctl"><span class="lg-legend" style="margin:0"><span><i class="ln" style="--c:var(--k-jp)"></i>売上高</span><span><i class="ln" style="--c:var(--k-ot)"></i>従業員数</span></span><label class="lg-hint" style="margin-left:auto"><input type="checkbox" id="realChk" checked> 売上は実質（2020年価格）</label></div>
+  <div class="lg-smulti" data-box="1" id="trendBox"></div>
+  <p class="lg-note" id="trendNote"></p>
+  <details class="lg-tv"><summary>表で見る</summary><div id="trendTv"></div></details>
+</section>
+<section class="ch lg-ga" id="own" data-grade="a">
+  <div class="ch-head"><span class="ch-no">03</span><span class="lg-badge lg-ba"><i aria-hidden="true">●</i>判断材料にしてよい</span></div>
+  <h2>資本の所在 ── 誰が株を持っているか</h2>
+  <p class="sub">日本の上場15社の、外国法人等の持株比率。縦線は半分。高いほど、配当と議決権の行き先が海外に寄る。</p>
+  <div class="lg-hbars" data-box="1" id="ownBox"></div>
+  <p class="lg-note">これは「株を持たれている側」の数字で、多くは年金や投資信託などの機関投資家（経営権を取りに来る資本とは別）。逆向き＝日本の会社が海外のスタジオや IP を買う流れも同時にある（セガ→Rovio 2023、ソニー→Bungie 2022、任天堂→Shiver 2024 など）。その台帳はまだ無い＝次に足す。</p>
+  <details class="lg-tv"><summary>表で見る</summary><div id="ownTv"></div></details>
+</section>
+<div class="lg-grp lg-gb" id="gb" role="heading" aria-level="2"><span class="lg-badge lg-bb"><i aria-hidden="true">▲</i>向きだけ読む</span><p>表の偏り・作品数の少なさ・自社比の制約がある。増えた減ったの「向き」までにとどめ、大きさや世界の姿は読まない。</p></div>
+<section class="ch lg-gb" id="share" data-grade="b">
+  <div class="ch-head"><span class="ch-no">04</span><span class="lg-badge lg-bb"><i aria-hidden="true">▲</i>向きだけ読む</span></div>
   <h2>誰の作品が選ばれたか</h2>
   <p class="sub">市場ごとの年間上位を、作品の国籍で塗り分けた帯。上から IP の持ち主・開発した拠点・販売や運営の会社の国。</p>
   <div class="lg-caveat"><b>この景色は日本に寄っている。</b>4つの表のうち2つは日本国内の売れ行き（自国の作品が強いのは当然）で、世界の側は PC（Steam）だけ。米国の家庭用・中国・世界のスマホは未収録。国内家庭用はパッケージ中心の集計で、ダウンロード比率の高い海外作品が実態より下に出る。「日本 IP 9/10」を世界の姿と読まないこと。</div>
@@ -181,25 +225,16 @@ table.lg-tbl{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5;
   <p class="lg-note">Steam の帯は順位の無い「上位12本」。国籍の決め方は README の「順位表」。米国家庭用（Circana）・世界スマホ（Sensor Tower）の年間表は、出典が取れ次第足す。</p>
   <details class="lg-tv"><summary>表で見る</summary><div id="shareTv"></div></details>
 </section>
-<section class="ch" id="map">
-  <div class="ch-head"><span class="ch-no">02</span></div>
+<section class="ch lg-gb" id="map" data-grade="b">
+  <div class="ch-head"><span class="ch-no">05</span><span class="lg-badge lg-bb"><i aria-hidden="true">▲</i>向きだけ読む</span></div>
   <h2>世界のどこの会社か</h2>
   <p class="sub">2025年の4つの表に出た作品を国で数えた棒。左から IP の持ち主・開発の拠点・販売運営の会社。日本の棒だけ緑。</p>
   <div class="lg-three" data-box="1" id="mapBox"></div>
   <p class="lg-note" id="mapNote"></p>
   <details class="lg-tv"><summary>表で見る</summary><div id="mapTv"></div></details>
 </section>
-<section class="ch" id="trend">
-  <div class="ch-head"><span class="ch-no">03</span></div>
-  <h2>勢い ── 売上と人数はどう動いたか</h2>
-  <p class="sub">会社ごとに、売上高（緑）と従業員数（灰）を最初の年＝100 の指数で並べた。上へ行くほど伸びた。</p>
-  <div class="lg-ctl"><span class="lg-legend" style="margin:0"><span><i class="ln" style="--c:var(--k-jp)"></i>売上高</span><span><i class="ln" style="--c:var(--k-ot)"></i>従業員数</span></span><label class="lg-hint" style="margin-left:auto"><input type="checkbox" id="realChk" checked> 売上は実質（2020年価格）</label></div>
-  <div class="lg-smulti" data-box="1" id="trendBox"></div>
-  <p class="lg-note" id="trendNote"></p>
-  <details class="lg-tv"><summary>表で見る</summary><div id="trendTv"></div></details>
-</section>
-<section class="ch" id="invest">
-  <div class="ch-head"><span class="ch-no">04</span></div>
+<section class="ch lg-gb" id="invest" data-grade="b">
+  <div class="ch-head"><span class="ch-no">06</span><span class="lg-badge lg-bb"><i aria-hidden="true">▲</i>向きだけ読む</span></div>
   <h2>弾込め ── 開発にお金を積んでいるか</h2>
   <p class="sub">会社が公表する研究開発費を売上高で割った比率の推移（自分の売上の何%を開発に回しているか）と、作りかけのゲームの残高の前年比。</p>
   <div class="lg-caveat"><b>会社をまたいで金額は比べない。</b>研究開発費の中身は会社ごとに違う（任天堂はハードの研究も含む。スクエニはゲームの制作費を資産に積むので費用は小さく出る。コナミは全事業）。比べてよいのは「同じ会社の中の推移」と「売上比の向き」まで。</div>
@@ -211,31 +246,24 @@ table.lg-tbl{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5;
   <p class="lg-note">仕掛品の定義：カプコン＝ゲームソフト仕掛品、スクエニ＝コンテンツ制作勘定、バンナム＝連結の仕掛品（玩具等も含む）、セガサミー＝エンタテインメントコンテンツ事業の仕掛品。開発費をその場で費用にする会社はこの棒に出ない。</p>
   <details class="lg-tv"><summary>表で見る</summary><div id="rdTv"></div><div id="wipTv"></div></details>
 </section>
-<section class="ch" id="labor">
-  <div class="ch-head"><span class="ch-no">05</span></div>
-  <h2>労働の取り分 ── 稼ぎは人に回っているか</h2>
-  <p class="sub">1人が生んだ稼ぎを「本人の給与」と「会社に残る営業利益（1人あたり）」に分け、給与の側の割合を出した。50% なら同額。右ほど人に回っている。</p>
-  <div class="lg-caveat"><b>読み方。</b>白抜きの点が3〜5年前、緑の点が最新。右へ動いていれば、利益より給与の方が速く増えた（人に回った）。左へ動いていれば、給与より利益の方が速く増えた（会社と株主に残った）。持株会社は給与が本社だけの値なので外してある。</div>
-  <div class="lg-hbars" data-box="1" id="laborBox"></div>
-  <p class="lg-note">給与＝提出会社（単体）の平均年間給与。1人あたり営業利益＝連結の営業利益÷連結の従業員数。本当の労働分配率（人件費の総額÷付加価値）は有報から取れないので、その代わりの物差し。営業赤字の年は「赤字」と表示し点を打たない。</p>
-  <details class="lg-tv"><summary>表で見る</summary><div id="laborTv"></div></details>
-</section>
-<section class="ch" id="own">
-  <div class="ch-head"><span class="ch-no">06</span></div>
-  <h2>資本の所在 ── 誰が株を持っているか</h2>
-  <p class="sub">日本の上場15社の、外国法人等の持株比率。縦線は半分。高いほど、配当と議決権の行き先が海外に寄る。</p>
-  <div class="lg-hbars" data-box="1" id="ownBox"></div>
-  <p class="lg-note">これは「株を持たれている側」の数字で、多くは年金や投資信託などの機関投資家（経営権を取りに来る資本とは別）。逆向き＝日本の会社が海外のスタジオや IP を買う流れも同時にある（セガ→Rovio 2023、ソニー→Bungie 2022、任天堂→Shiver 2024 など）。その台帳はまだ無い＝次に足す。</p>
-  <details class="lg-tv"><summary>表で見る</summary><div id="ownTv"></div></details>
-</section>
-<section class="ch" id="mile">
-  <div class="ch-head"><span class="ch-no">07</span></div>
+<section class="ch lg-gb" id="mile" data-grade="b">
+  <div class="ch-head"><span class="ch-no">07</span><span class="lg-badge lg-bb"><i aria-hidden="true">▲</i>向きだけ読む</span></div>
   <h2>節目 ── 100万本までの速さ</h2>
   <p class="sub">発売日を左端に置き、100万本に届いたと確認できた日を点で打った。左にあるほど速い。縦線は1か月・100日・1年。</p>
   <div class="fig" data-box="1" id="mileBox"></div>
   <p class="lg-note" id="mileNote"></p>
   <details class="lg-tv"><summary>表で見る</summary><div id="mileTv"></div></details>
   <p class="lg-note">原本：<a href="titles.csv">titles.csv</a>・<a href="milestones.csv">milestones.csv</a>・<a href="rankings.csv">rankings.csv</a>・<a href="indicators.csv">indicators.csv</a>・<a href="indicator_defs.csv">indicator_defs.csv</a>・<a href="entities.csv">entities.csv</a>　<span id="counts"></span></p>
+</section>
+<div class="lg-grp lg-gc" id="gc" role="heading" aria-level="2"><span class="lg-badge lg-bc"><i aria-hidden="true">○</i>まだ指針にしない</span><p>代理の物差し（単体の給与と連結の利益を混ぜている）。数字は出すが、判断には使わない。</p></div>
+<section class="ch lg-gc" id="labor" data-grade="c">
+  <div class="ch-head"><span class="ch-no">08</span><span class="lg-badge lg-bc"><i aria-hidden="true">○</i>まだ指針にしない</span></div>
+  <h2>労働の取り分 ── 稼ぎは人に回っているか</h2>
+  <p class="sub">1人が生んだ稼ぎを「本人の給与」と「会社に残る営業利益（1人あたり）」に分け、給与の側の割合を出した。50% なら同額。右ほど人に回っている。</p>
+  <div class="lg-caveat"><b>読み方。</b>白抜きの点が3〜5年前、緑の点が最新。右へ動いていれば、利益より給与の方が速く増えた（人に回った）。左へ動いていれば、給与より利益の方が速く増えた（会社と株主に残った）。持株会社は給与が本社だけの値なので外してある。</div>
+  <div class="lg-hbars" data-box="1" id="laborBox"></div>
+  <p class="lg-note">給与＝提出会社（単体）の平均年間給与。1人あたり営業利益＝連結の営業利益÷連結の従業員数。本当の労働分配率（人件費の総額÷付加価値）は有報から取れないので、その代わりの物差し。営業赤字の年は「赤字」と表示し点を打たない。</p>
+  <details class="lg-tv"><summary>表で見る</summary><div id="laborTv"></div></details>
 </section>
 
 <footer class="by">

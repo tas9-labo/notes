@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 裏ページ data/index.html を「図」中心で作り直す（v3＝2026-09-27 の7点の指摘を反映）。骨組みは news.html から写す。表は各章の「表で見る」に畳む。
+# 裏ページ data/index.html を「図」中心で作り直す（v3＝2026-09-27 の7点の指摘を反映・v4＝精度の3区分で並べ替え）。骨組みは news.html から写す。表は各章の「表で見る」に畳む。
 import io, re, sys
 sys.stdout.reconfigure(encoding='utf-8')
 D = 'D:/tas9_labo/web/notes/'
@@ -21,7 +21,7 @@ def relink(s):
     return s
 toc, hero, head = relink(toc), relink(hero), relink(head)
 head = head.replace('>追う</p>', '>台帳</p>').replace('<h1>気になる News</h1>', '<h1>データ台帳</h1>')
-head = re.sub(r'<p class="lead">.*?</p>', '<p class="lead">台帳の数字を、図で読むための裏の窓。サイトからはリンクしていない。<br>原本は同じフォルダの CSV と <a href="README.md">README.md</a>。図の下の「表で見る」で数字そのものも確かめられる。</p>', head, flags=re.S)
+head = re.sub(r'<p class="lead">.*?</p>', '<p class="lead">台帳の数字を、図で読むための裏の窓。サイトからはリンクしていない。<br>図は精度で3つに分けて並べた：<b>● 判断材料にしてよい</b>／<b>▲ 向きだけ読む</b>／<b>○ まだ指針にしない</b>。原本は同じフォルダの CSV と <a href="README.md">README.md</a>。図の下の「表で見る」で数字そのものも確かめられる。</p>', head, flags=re.S)
 
 css = r'''
 /* 図の色：色弱でも隣り合う色が見分けられる組み合わせを検証済み（README 参照）。文字は必ず文字色、色は印にだけ */
@@ -142,6 +142,27 @@ table.lg-tbl{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5;
 #mileBox{overflow-x:auto}
 #mileBox svg.viz{min-width:600px}
 @media (max-width:720px){.lg-share2,.lg-axis{grid-template-columns:minmax(96px,120px) minmax(0,1fr) 62px}.lg-crow{grid-template-columns:80px minmax(0,1fr) 30px}}
+.lg-index{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:26px 0 6px}
+.lg-ix{border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--card);min-width:0}
+.lg-ix ol{margin:10px 0 0;padding:0;list-style:none;font-size:14px;line-height:1.9}
+.lg-ix ol li{display:flex;gap:8px;align-items:baseline}
+.lg-ix .lg-ixno{font-family:var(--mono);font-size:11px;color:var(--sub);min-width:20px}
+.lg-ix ol li a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.lg-ix ol li a:hover{border-bottom-color:var(--ink)}
+.lg-ix .lg-why{margin:10px 0 0;font-size:12px;color:var(--sub);line-height:1.65}
+.lg-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.02em;padding:3px 10px;border-radius:980px;line-height:1.4;white-space:nowrap}
+.lg-badge i{font-style:normal;font-size:11px}
+.lg-ba{background:var(--accent);color:var(--on-color)}
+.lg-bb{border:1.5px solid var(--sub);color:var(--ink);background:transparent}
+.lg-bc{border:1.5px dashed var(--ink);color:var(--ink);background:transparent}
+.lg-grp{margin:38px 0 12px;padding:14px 18px;border-radius:10px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;background:var(--tonal)}
+.lg-grp p{margin:0;font-size:13px;color:var(--sub);line-height:1.6;flex:1 1 260px}
+.lg-grp.lg-ga{border-left:6px solid var(--accent)}
+.lg-grp.lg-gb{border-left:6px solid var(--sub)}
+.lg-grp.lg-gc{border:1.5px dashed var(--ink);background:transparent}
+.ch-head .lg-badge{margin-left:12px}
+section.ch.lg-gc{border:1.5px dashed var(--ink)}
+@media (max-width:720px){.lg-grp{margin-top:28px}}
 @media (max-width:720px){.lg-row{grid-template-columns:minmax(96px,120px) minmax(0,1fr) 56px}.lg-srow{grid-template-columns:36px minmax(0,1fr) 50px}}
 '''
 
@@ -381,26 +402,36 @@ js = r'''
 })();
 '''
 
-def sec(no, id, title, sub, inner):
-    return ('<section class="ch" id="' + id + '">\n  <div class="ch-head"><span class="ch-no">' + no + '</span></div>\n  <h2>' + title + '</h2>\n  <p class="sub">' + sub + '</p>\n' + inner + '\n</section>\n')
+BADGE = {'a': ('●', '判断材料にしてよい'), 'b': ('▲', '向きだけ読む'), 'c': ('○', 'まだ指針にしない')}
+def badge(grade, label=None):
+    g = BADGE[grade]
+    return '<span class="lg-badge lg-b' + grade + '"><i aria-hidden="true">' + g[0] + '</i>' + (label or g[1]) + '</span>'
+def sec(no, id, title, sub, inner, grade):
+    return ('<section class="ch lg-g' + grade + '" id="' + id + '" data-grade="' + grade + '">\n  <div class="ch-head"><span class="ch-no">' + no + '</span>' + badge(grade) + '</div>\n  <h2>' + title + '</h2>\n  <p class="sub">' + sub + '</p>\n' + inner + '\n</section>\n')
+def grp(grade, label, why):
+    return ('<div class="lg-grp lg-g' + grade + '" id="g' + grade + '" role="heading" aria-level="2">' + badge(grade, label) + '<p>' + why + '</p></div>\n')
 
 body = ''
-body += sec('00', 'kpis', '市場と人口 ── いまの大きさ', '世界と国内の市場、遊ぶ人の数、いちばん下の層の倒産。数字は台帳の最新値。', '  <div class="lg-kpi" data-box="1" id="kpi"></div>')
-body += sec('01', 'share', '誰の作品が選ばれたか', '市場ごとの年間上位を、作品の国籍で塗り分けた帯。上から IP の持ち主・開発した拠点・販売や運営の会社の国。',
-            '  <div class="lg-caveat"><b>この景色は日本に寄っている。</b>4つの表のうち2つは日本国内の売れ行き（自国の作品が強いのは当然）で、世界の側は PC（Steam）だけ。米国の家庭用・中国・世界のスマホは未収録。国内家庭用はパッケージ中心の集計で、ダウンロード比率の高い海外作品が実態より下に出る。「日本 IP 9/10」を世界の姿と読まないこと。</div>\n  <div class="lg-legend" id="shareLegend"></div>\n  <div class="lg-lists" data-box="1" id="shareBox"></div>\n  <p class="lg-note">Steam の帯は順位の無い「上位12本」。国籍の決め方は README の「順位表」。米国家庭用（Circana）・世界スマホ（Sensor Tower）の年間表は、出典が取れ次第足す。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="shareTv"></div></details>')
-body += sec('02', 'map', '世界のどこの会社か', '2025年の4つの表に出た作品を国で数えた棒。左から IP の持ち主・開発の拠点・販売運営の会社。日本の棒だけ緑。',
-            '  <div class="lg-three" data-box="1" id="mapBox"></div>\n  <p class="lg-note" id="mapNote"></p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="mapTv"></div></details>')
-body += sec('03', 'trend', '勢い ── 売上と人数はどう動いたか', '会社ごとに、売上高（緑）と従業員数（灰）を最初の年＝100 の指数で並べた。上へ行くほど伸びた。',
-            '  <div class="lg-ctl"><span class="lg-legend" style="margin:0"><span><i class="ln" style="--c:var(--k-jp)"></i>売上高</span><span><i class="ln" style="--c:var(--k-ot)"></i>従業員数</span></span><label class="lg-hint" style="margin-left:auto"><input type="checkbox" id="realChk" checked> 売上は実質（2020年価格）</label></div>\n  <div class="lg-smulti" data-box="1" id="trendBox"></div>\n  <p class="lg-note" id="trendNote"></p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="trendTv"></div></details>')
-body += sec('04', 'invest', '弾込め ── 開発にお金を積んでいるか', '会社が公表する研究開発費を売上高で割った比率の推移（自分の売上の何%を開発に回しているか）と、作りかけのゲームの残高の前年比。',
-            '  <div class="lg-caveat"><b>会社をまたいで金額は比べない。</b>研究開発費の中身は会社ごとに違う（任天堂はハードの研究も含む。スクエニはゲームの制作費を資産に積むので費用は小さく出る。コナミは全事業）。比べてよいのは「同じ会社の中の推移」と「売上比の向き」まで。</div>\n  <p class="fig-title" style="margin-top:18px">研究開発費 ÷ 売上高 <small>%・線の終点が最新・下線が 0%</small></p>\n  <div class="lg-smulti" data-box="1" id="rdBox"></div>\n  <p class="lg-note" id="rdNote"></p>\n  <p class="fig-title" style="margin-top:30px">作りかけのゲームの残高（前年比） <small>右（青）が増加・左（橙）が減少・自社比</small></p>\n  <div class="lg-hbars" data-box="1" id="wipBox" style="max-width:560px"></div>\n  <p class="lg-note">仕掛品の定義：カプコン＝ゲームソフト仕掛品、スクエニ＝コンテンツ制作勘定、バンナム＝連結の仕掛品（玩具等も含む）、セガサミー＝エンタテインメントコンテンツ事業の仕掛品。開発費をその場で費用にする会社はこの棒に出ない。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="rdTv"></div><div id="wipTv"></div></details>')
-body += sec('05', 'labor', '労働の取り分 ── 稼ぎは人に回っているか', '1人が生んだ稼ぎを「本人の給与」と「会社に残る営業利益（1人あたり）」に分け、給与の側の割合を出した。50% なら同額。右ほど人に回っている。',
-            '  <div class="lg-caveat"><b>読み方。</b>白抜きの点が3〜5年前、緑の点が最新。右へ動いていれば、利益より給与の方が速く増えた（人に回った）。左へ動いていれば、給与より利益の方が速く増えた（会社と株主に残った）。持株会社は給与が本社だけの値なので外してある。</div>\n  <div class="lg-hbars" data-box="1" id="laborBox"></div>\n  <p class="lg-note">給与＝提出会社（単体）の平均年間給与。1人あたり営業利益＝連結の営業利益÷連結の従業員数。本当の労働分配率（人件費の総額÷付加価値）は有報から取れないので、その代わりの物差し。営業赤字の年は「赤字」と表示し点を打たない。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="laborTv"></div></details>')
-body += sec('06', 'own', '資本の所在 ── 誰が株を持っているか', '日本の上場15社の、外国法人等の持株比率。縦線は半分。高いほど、配当と議決権の行き先が海外に寄る。',
-            '  <div class="lg-hbars" data-box="1" id="ownBox"></div>\n  <p class="lg-note">これは「株を持たれている側」の数字で、多くは年金や投資信託などの機関投資家（経営権を取りに来る資本とは別）。逆向き＝日本の会社が海外のスタジオや IP を買う流れも同時にある（セガ→Rovio 2023、ソニー→Bungie 2022、任天堂→Shiver 2024 など）。その台帳はまだ無い＝次に足す。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="ownTv"></div></details>')
+body += '<div class="lg-index" aria-label="図の分け方">\n  <div class="lg-ix lg-ga">' + badge('a', '判断材料にしてよい') + '<ol><li><span class="lg-ixno">01</span><a href="#kpis">市場と人口</a></li><li><span class="lg-ixno">02</span><a href="#trend">勢い</a></li><li><span class="lg-ixno">03</span><a href="#own">資本の所在</a></li></ol><p class="lg-why">公式の値で、全社が同じ定義。数字そのものを根拠にしてよい（持株会社の売上はゲーム以外も含むと承知の上で）。</p></div>\n  <div class="lg-ix lg-gb">' + badge('b', '向きだけ読む') + '<ol><li><span class="lg-ixno">04</span><a href="#share">誰の作品が選ばれたか</a></li><li><span class="lg-ixno">05</span><a href="#map">世界のどこの会社か</a></li><li><span class="lg-ixno">06</span><a href="#invest">弾込め</a></li><li><span class="lg-ixno">07</span><a href="#mile">節目</a></li></ol><p class="lg-why">表の偏り・作品数の少なさ・自社比の制約がある。増えた減ったの「向き」までにとどめ、大きさや世界の姿は読まない。</p></div>\n  <div class="lg-ix lg-gc">' + badge('c', 'まだ指針にしない') + '<ol><li><span class="lg-ixno">08</span><a href="#labor">労働の取り分</a></li></ol><p class="lg-why">代理の物差し（単体の給与と連結の利益を混ぜている）。数字は出すが、判断には使わない。</p></div>\n</div>'
+body += grp('a', '判断材料にしてよい', '公式の値で、全社が同じ定義。数字そのものを根拠にしてよい（持株会社の売上はゲーム以外も含むと承知の上で）。')
+body += sec('01', 'kpis', '市場と人口 ── いまの大きさ', '世界と国内の市場、遊ぶ人の数、いちばん下の層の倒産。数字は台帳の最新値。',
+            '  <div class="lg-kpi" data-box="1" id="kpi"></div>', 'a')
+body += sec('02', 'trend', '勢い ── 売上と人数はどう動いたか', '会社ごとに、売上高（緑）と従業員数（灰）を最初の年＝100 の指数で並べた。上へ行くほど伸びた。',
+            '  <div class="lg-ctl"><span class="lg-legend" style="margin:0"><span><i class="ln" style="--c:var(--k-jp)"></i>売上高</span><span><i class="ln" style="--c:var(--k-ot)"></i>従業員数</span></span><label class="lg-hint" style="margin-left:auto"><input type="checkbox" id="realChk" checked> 売上は実質（2020年価格）</label></div>\n  <div class="lg-smulti" data-box="1" id="trendBox"></div>\n  <p class="lg-note" id="trendNote"></p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="trendTv"></div></details>', 'a')
+body += sec('03', 'own', '資本の所在 ── 誰が株を持っているか', '日本の上場15社の、外国法人等の持株比率。縦線は半分。高いほど、配当と議決権の行き先が海外に寄る。',
+            '  <div class="lg-hbars" data-box="1" id="ownBox"></div>\n  <p class="lg-note">これは「株を持たれている側」の数字で、多くは年金や投資信託などの機関投資家（経営権を取りに来る資本とは別）。逆向き＝日本の会社が海外のスタジオや IP を買う流れも同時にある（セガ→Rovio 2023、ソニー→Bungie 2022、任天堂→Shiver 2024 など）。その台帳はまだ無い＝次に足す。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="ownTv"></div></details>', 'a')
+body += grp('b', '向きだけ読む', '表の偏り・作品数の少なさ・自社比の制約がある。増えた減ったの「向き」までにとどめ、大きさや世界の姿は読まない。')
+body += sec('04', 'share', '誰の作品が選ばれたか', '市場ごとの年間上位を、作品の国籍で塗り分けた帯。上から IP の持ち主・開発した拠点・販売や運営の会社の国。',
+            '  <div class="lg-caveat"><b>この景色は日本に寄っている。</b>4つの表のうち2つは日本国内の売れ行き（自国の作品が強いのは当然）で、世界の側は PC（Steam）だけ。米国の家庭用・中国・世界のスマホは未収録。国内家庭用はパッケージ中心の集計で、ダウンロード比率の高い海外作品が実態より下に出る。「日本 IP 9/10」を世界の姿と読まないこと。</div>\n  <div class="lg-legend" id="shareLegend"></div>\n  <div class="lg-lists" data-box="1" id="shareBox"></div>\n  <p class="lg-note">Steam の帯は順位の無い「上位12本」。国籍の決め方は README の「順位表」。米国家庭用（Circana）・世界スマホ（Sensor Tower）の年間表は、出典が取れ次第足す。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="shareTv"></div></details>', 'b')
+body += sec('05', 'map', '世界のどこの会社か', '2025年の4つの表に出た作品を国で数えた棒。左から IP の持ち主・開発の拠点・販売運営の会社。日本の棒だけ緑。',
+            '  <div class="lg-three" data-box="1" id="mapBox"></div>\n  <p class="lg-note" id="mapNote"></p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="mapTv"></div></details>', 'b')
+body += sec('06', 'invest', '弾込め ── 開発にお金を積んでいるか', '会社が公表する研究開発費を売上高で割った比率の推移（自分の売上の何%を開発に回しているか）と、作りかけのゲームの残高の前年比。',
+            '  <div class="lg-caveat"><b>会社をまたいで金額は比べない。</b>研究開発費の中身は会社ごとに違う（任天堂はハードの研究も含む。スクエニはゲームの制作費を資産に積むので費用は小さく出る。コナミは全事業）。比べてよいのは「同じ会社の中の推移」と「売上比の向き」まで。</div>\n  <p class="fig-title" style="margin-top:18px">研究開発費 ÷ 売上高 <small>%・線の終点が最新・下線が 0%</small></p>\n  <div class="lg-smulti" data-box="1" id="rdBox"></div>\n  <p class="lg-note" id="rdNote"></p>\n  <p class="fig-title" style="margin-top:30px">作りかけのゲームの残高（前年比） <small>右（青）が増加・左（橙）が減少・自社比</small></p>\n  <div class="lg-hbars" data-box="1" id="wipBox" style="max-width:560px"></div>\n  <p class="lg-note">仕掛品の定義：カプコン＝ゲームソフト仕掛品、スクエニ＝コンテンツ制作勘定、バンナム＝連結の仕掛品（玩具等も含む）、セガサミー＝エンタテインメントコンテンツ事業の仕掛品。開発費をその場で費用にする会社はこの棒に出ない。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="rdTv"></div><div id="wipTv"></div></details>', 'b')
 body += sec('07', 'mile', '節目 ── 100万本までの速さ', '発売日を左端に置き、100万本に届いたと確認できた日を点で打った。左にあるほど速い。縦線は1か月・100日・1年。',
-            '  <div class="fig" data-box="1" id="mileBox"></div>\n  <p class="lg-note" id="mileNote"></p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="mileTv"></div></details>\n  <p class="lg-note">原本：<a href="titles.csv">titles.csv</a>・<a href="milestones.csv">milestones.csv</a>・<a href="rankings.csv">rankings.csv</a>・<a href="indicators.csv">indicators.csv</a>・<a href="indicator_defs.csv">indicator_defs.csv</a>・<a href="entities.csv">entities.csv</a>　<span id="counts"></span></p>')
-
+            '  <div class="fig" data-box="1" id="mileBox"></div>\n  <p class="lg-note" id="mileNote"></p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="mileTv"></div></details>\n  <p class="lg-note">原本：<a href="titles.csv">titles.csv</a>・<a href="milestones.csv">milestones.csv</a>・<a href="rankings.csv">rankings.csv</a>・<a href="indicators.csv">indicators.csv</a>・<a href="indicator_defs.csv">indicator_defs.csv</a>・<a href="entities.csv">entities.csv</a>　<span id="counts"></span></p>', 'b')
+body += grp('c', 'まだ指針にしない', '代理の物差し（単体の給与と連結の利益を混ぜている）。数字は出すが、判断には使わない。')
+body += sec('08', 'labor', '労働の取り分 ── 稼ぎは人に回っているか', '1人が生んだ稼ぎを「本人の給与」と「会社に残る営業利益（1人あたり）」に分け、給与の側の割合を出した。50% なら同額。右ほど人に回っている。',
+            '  <div class="lg-caveat"><b>読み方。</b>白抜きの点が3〜5年前、緑の点が最新。右へ動いていれば、利益より給与の方が速く増えた（人に回った）。左へ動いていれば、給与より利益の方が速く増えた（会社と株主に残った）。持株会社は給与が本社だけの値なので外してある。</div>\n  <div class="lg-hbars" data-box="1" id="laborBox"></div>\n  <p class="lg-note">給与＝提出会社（単体）の平均年間給与。1人あたり営業利益＝連結の営業利益÷連結の従業員数。本当の労働分配率（人件費の総額÷付加価値）は有報から取れないので、その代わりの物差し。営業赤字の年は「赤字」と表示し点を打たない。</p>\n  <details class="lg-tv"><summary>表で見る</summary><div id="laborTv"></div></details>', 'c')
 html = ('<!DOCTYPE html>\n<html lang="ja">\n<head>\n<meta charset="utf-8">\n<meta name="robots" content="noindex,nofollow">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n'
         '<title>データ台帳 ｜ ゲーム業界の理解を深める地図</title>\n<meta name="description" content="台帳の数字を図で読む裏の窓。">\n' + icon + '\n'
         '<meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">\n<meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)">\n' + fonts + '\n'
