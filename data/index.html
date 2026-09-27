@@ -5,7 +5,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>データ台帳 ｜ ゲーム業界の理解を深める地図</title>
-<meta name="description" content="台帳（作品の売れ行き・順位表・企業の指標）を CSV から読んで表にする裏の窓。">
+<meta name="description" content="台帳の数字を図で読む裏の窓。">
 <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='104 129 105 89'><style>path{fill:%23333}@media (prefers-color-scheme:dark){path{fill:%23f5f5f7}}</style><path d='M176.0366,130.8232c-12.7488,2.0014-26.8024,7.6128-36.4664,15.6061-11.2927,10.4-10.2545,23.0626,7.1971,24.2507-.1219,2.8139-.313,5.8846-.3845,8.7311.098,1.6658.0058,2.6135-1.9803,2.7731-13.8904,2.7385-28.4505,4.9224-38.4208,11.546-.5634.1345-.5432.4985-.7303.8776-.1321.2675-.2402.5534-.2346.8517.1805,9.4435,15.2324.6668,20.8776-.289,6.5802-1.0276,13.6384-3.8511,20.1526-3.8411.1212,5.55.2944,14.6605,5.758,13.9257,3.9485-1.0272,1.507-9.018,2.639-12.9664-1.9142-5.1835,17.9977.4855,14.3948-9.1232-1.9492-3.3911-9.3795-2.2475-14.1548-2.1609.1599-3.5212.3199-7.0434.4798-10.5646,8.7144-.9588,14.6201-1.949,23.0324-4.562.295,11.596.5525,26.7108-1.1542,38.2311-.0275,3.3588-2.2057,6.8232-1.0253,10.0197,5.7303,7.3846,11.2675-2.4999,11.2827-8.2081,1.4005-8.3205,1.4758-17.6229,1.4515-27.0773.6795-4.2975-2.6248-10.9072,2.1598-12.9647,28.8408-14.3216,20.0151-40.3267-14.8742-35.0555ZM191.6307,154.1128c-1.4825.6987-3.4545,2.5314-4.5665,1.4816-.1877-.1772-.4628-.2456-.7176-.2036-6.6749,1.1013-11.6011,3.1055-17.7178,3.8529-4.3312.5755-9.2273,2.0431-13.4649,1.5919-.4554-.5104-.1702-1.961-.4799-2.6411-.9835-1.3435-2.2745-2.5884-4.0782-1.9208-2.2845.19-2.7604,2.7097-3.359,4.8023-15.0419.0143,5.1118-12.4051,8.1573-14.1659,6.9716-3.2369,15.7759-6.2043,24.4709-7.2037,14.1142-.731,26.5272,2.8245,11.7557,14.4062Z'/></svg>">
 <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)">
@@ -14,36 +14,94 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../style.css?v=20260926b">
 <style>
-/* このページだけの見た目：表と絞り込み */
-.ctl{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px}
-.ctl label{font-size:13px;color:var(--sub)}
-.ctl select{font:inherit;font-size:13px;padding:6px 32px 6px 12px;border-radius:980px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-width:100%;min-width:0;text-overflow:ellipsis;
-  appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--sub) 50%),linear-gradient(135deg,var(--sub) 50%,transparent 50%);
-  background-position:calc(100% - 17px) 55%,calc(100% - 12px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
-.ctl input[type=checkbox]{accent-color:var(--accent)}
-.ctl .hint{font-size:12px;color:var(--sub);margin-left:auto}
-.sum{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
-.sum span{background:var(--tonal);border-radius:9px;padding:6px 12px;font-size:13px;line-height:1.5}
-.sum b{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums}
-.scroll-x{margin-top:16px;max-width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--node)}
+/* 図の色：色弱でも隣り合う色が見分けられる組み合わせを検証済み（README 参照）。文字は必ず文字色、色は印にだけ */
+:root{--k-jp:#4f7d12;--k-us:#1160c9;--k-cn:#c2562a;--k-kr:#0a93a8;--k-eu:#6b5bd2;--k-ot:#8a919c;--k-dim:#c9ced6;
+  --s1:#93b95a;--s2:#7aa63f;--s3:#639327;--s4:#4f7f16;--s5:#3d680c;--o1:#93b95a;--o2:#476f10;--up:#1160c9;--down:#c2562a;--grid:#e3e6ec;--on-mark:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--k-jp:#6e9c3a;--k-us:#3d86e0;--k-cn:#d86a2f;--k-kr:#1f97aa;--k-eu:#7d6fd0;--k-ot:#6f7680;--k-dim:#3a3f47;
+  --s1:#4a5f2c;--s2:#5f7f30;--s3:#78a13a;--s4:#9bc25b;--s5:#bfdc8e;--o1:#78a13a;--o2:#bfdc8e;--up:#3d86e0;--down:#d86a2f;--grid:#262a31;--on-mark:#0a0b0d}}
+:root[data-theme="dark"]{--k-jp:#6e9c3a;--k-us:#3d86e0;--k-cn:#d86a2f;--k-kr:#1f97aa;--k-eu:#7d6fd0;--k-ot:#6f7680;--k-dim:#3a3f47;
+  --s1:#4a5f2c;--s2:#5f7f30;--s3:#78a13a;--s4:#9bc25b;--s5:#bfdc8e;--o1:#78a13a;--o2:#bfdc8e;--up:#3d86e0;--down:#d86a2f;--grid:#262a31;--on-mark:#0a0b0d}
 section.ch{min-width:0}
-.ctl,.sum{min-width:0;max-width:100%}
-table.tbl{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5;min-width:640px}
-.tbl th,.tbl td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;white-space:nowrap}
-.tbl th{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--sub);background:var(--tonal);position:sticky;top:0}
-.tbl tr:last-child td{border-bottom:0}
-.tbl td.num,.tbl th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
-.tbl td.t{white-space:normal;min-width:14em;font-weight:500}
-.tbl td.t small{display:block;font-weight:400;color:var(--sub);font-size:11px}
-.tbl td.cc{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--sub)}
-.tbl td.cc.jp{color:var(--ink);font-weight:700;background:var(--accent-soft)}
-.tbl td.cc.jp::before{content:"● ";color:var(--accent)}
-.tbl td.dim{color:var(--sub)}
-.tbl a{color:var(--sub);text-decoration:none;border-bottom:1px solid var(--line)}
-.tbl a:hover{color:var(--ink)}
-.note{margin-top:12px;font-size:12px;color:var(--sub);line-height:1.7}
-.empty{margin-top:16px;font-size:14px;color:var(--sub)}
-@media (max-width:720px){.ctl .hint{margin-left:0}}
+.lg-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:22px}
+.lg-tile{background:var(--node);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
+.lg-tile .l{font-size:12px;color:var(--sub);line-height:1.5}
+.lg-tile .v{margin-top:6px;font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.lg-tile .v small{font-size:14px;font-weight:500;color:var(--sub);margin-left:2px}
+.lg-tile .d{margin-top:6px;font-size:12px;color:var(--sub);line-height:1.6}
+.lg-tile .d b{color:var(--ink);font-weight:600}
+.lg-meter{margin-top:10px;height:8px;border-radius:4px;background:color-mix(in srgb,var(--k-jp) 18%,var(--node));overflow:hidden}
+.lg-meter i{display:block;height:100%;border-radius:4px;background:var(--k-jp)}
+.lg-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:18px;font-size:12px;color:var(--sub)}
+.lg-legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-legend i{width:12px;height:12px;border-radius:3px;background:var(--c)}
+.lg-legend i.ln{width:16px;height:2px;border-radius:1px}
+.lg-lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px 28px;margin-top:14px}
+.lg-lst h3{margin:14px 0 8px;font-size:14px;font-weight:600;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.lg-lst h3 small{font-weight:400;color:var(--sub);font-size:12px}
+.lg-lst .lg-share{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--sub);font-variant-numeric:tabular-nums}
+.lg-lst .lg-share b{font-size:16px;color:var(--ink)}
+.lg-srow{display:grid;grid-template-columns:44px minmax(0,1fr) 56px;align-items:center;gap:10px;margin-top:8px;font-size:12px;color:var(--sub)}
+.lg-srow .lg-bar{display:flex;gap:2px;height:20px}
+.lg-srow .lg-seg{position:relative;height:100%;border-radius:3px;background:var(--c);min-width:2px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:11px;font-weight:600;color:var(--on-mark);outline:none}
+.lg-srow .lg-seg:first-child{border-top-left-radius:4px;border-bottom-left-radius:4px}
+.lg-srow .lg-seg:last-child{border-top-right-radius:4px;border-bottom-right-radius:4px}
+.lg-srow .lg-seg:hover,.lg-srow .lg-seg:focus-visible{filter:brightness(1.12)}
+.lg-srow .lg-n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.lg-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:20px}
+.lg-segctl{display:inline-flex;border:1px solid var(--line);border-radius:980px;padding:2px;background:var(--card)}
+.lg-segctl button{font:inherit;font-size:13px;line-height:1.4;padding:5px 14px;border-radius:980px;border:0;background:transparent;color:var(--sub);cursor:pointer}
+.lg-segctl button[aria-pressed="true"]{background:var(--tonal);color:var(--ink);font-weight:500}
+.lg-ctl .lg-hint{font-size:12px;color:var(--sub)}
+.fig{margin-top:18px}
+svg.viz{display:block;width:100%;height:auto;overflow:visible}
+svg.viz text{font-family:"Inter","Noto Sans JP",system-ui,sans-serif;fill:var(--ink)}
+svg.viz .ax text{fill:var(--sub);font-size:11px;font-family:var(--mono)}
+svg.viz .grid line{stroke:var(--grid);stroke-width:1}
+svg.viz .ax line,svg.viz .ax path{stroke:var(--line);stroke-width:1}
+svg.viz .lab{font-size:11px;fill:var(--sub)}
+svg.viz .lab.ink{fill:var(--ink);font-weight:600}
+svg.viz .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+svg.viz .hit{fill:transparent;pointer-events:all;outline:none}
+.lg-smulti{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px 18px;margin-top:8px}
+.lg-sm{background:var(--node);border:1px solid var(--line);border-radius:14px;padding:12px 12px 8px;min-width:0}
+.lg-sm h4{margin:0;font-size:13px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.lg-sm h4 small{font-weight:400;color:var(--sub);font-size:11px}
+.lg-sm .lg-vals{display:flex;gap:12px;margin-top:2px;font-size:11px;color:var(--sub)}
+.lg-sm .lg-vals b{font-family:var(--mono);color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.lg-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px 32px}
+.lg-hbars{margin-top:8px}
+.lg-row{display:grid;grid-template-columns:minmax(120px,170px) minmax(0,1fr) 64px;align-items:center;gap:10px;padding:5px 0;font-size:13px;line-height:1.35}
+.lg-row .lg-nm{min-width:0;word-break:auto-phrase}
+.lg-row .lg-nm small{display:block;font-size:11px;color:var(--sub)}
+.lg-row .lg-tr{position:relative;height:14px}
+.lg-row .lg-tr i{position:absolute;top:0;height:100%;border-radius:0 4px 4px 0;background:var(--k-jp)}
+.lg-row .lg-tr i.lg-neg{border-radius:4px 0 0 4px;background:var(--down)}
+.lg-row .lg-tr i.lg-pos{background:var(--up)}
+.lg-row .lg-tr i.lg-est{background:repeating-linear-gradient(135deg,var(--k-jp) 0 6px,color-mix(in srgb,var(--k-jp) 45%,var(--node)) 6px 10px)}
+.lg-row .lg-tr .lg-ref{position:absolute;top:-4px;bottom:-4px;width:1px;background:var(--sub)}
+.lg-row .lg-tr .lg-zero{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--sub)}
+.lg-row .lg-vl{font-family:var(--mono);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.lg-row .lg-tr i:hover,.lg-row .lg-tr i:focus-visible{filter:brightness(1.12);outline:none}
+.lg-tv{margin-top:20px}
+.lg-tv summary{cursor:pointer;font-size:13px;color:var(--sub);list-style:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--line);border-radius:980px}
+.lg-tv summary::-webkit-details-marker{display:none}
+.lg-tv[open] summary{color:var(--ink)}
+.lg-tv .lg-scroll{margin-top:12px;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--node)}
+table.lg-tbl{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5;min-width:560px}
+.lg-tbl th,.lg-tbl td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;vertical-align:top}
+.lg-tbl th{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--sub);background:var(--tonal)}
+.lg-tbl td.num,.lg-tbl th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.lg-tbl tr:last-child td{border-bottom:0}
+.lg-note{margin-top:12px;font-size:12px;color:var(--sub);line-height:1.7}
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:10px;padding:8px 11px;font-size:12px;line-height:1.5;max-width:280px;box-shadow:var(--shadow);display:none}
+#tip .h{font-weight:600;margin-bottom:2px}
+#tip .r{display:flex;gap:8px;justify-content:space-between}
+#tip .r b{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums}
+#tip .k{display:inline-block;width:10px;height:2px;vertical-align:middle;margin-right:5px;background:var(--c)}
+#tip ul{margin:4px 0 0;padding-left:14px}
+.lg-empty{margin-top:16px;font-size:14px;color:var(--sub)}
+@media (max-width:720px){.lg-row{grid-template-columns:minmax(96px,120px) minmax(0,1fr) 56px}.lg-srow{grid-template-columns:36px minmax(0,1fr) 50px}}
 </style>
 </head>
 <body>
@@ -73,41 +131,76 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5;min
     <svg class="chara" viewBox="73 133 94 94" role="img" aria-hidden="true"><path fill="currentColor" d="M142.64,133.95h-45.29c-12.9,0-23.4,10.5-23.4,23.4v45.29c0,12.9,10.5,23.4,23.4,23.4h45.29c12.91,0,23.4-10.5,23.4-23.4v-45.29c0-12.9-10.5-23.4-23.4-23.4ZM159.05,157.36v4.97c-.33.01-.66.04-1.01.07-27.22.72-10.09,7.95-21.6-12.24-2.58-3.52-5.97-6.74-9.76-9.21h15.96c9.04,0,16.4,7.36,16.4,16.4ZM103.42,218.32c-3.32-2.83-8.21-3.45-12.24-5.28-.03-1.22-.51-4.96,0-5.52-.85-3.3,9.43,5.86,11.52,4.08,1.68-.04,3.55-2.76,1.92-4.08-.52-1.68-2.7-1.61-3.36-2.4-3.46-.88-5.43-3.7-9.84-4.8.42-9.02.19-18.69.24-28.08-.71-5.09,16.25-.73,19.68-.72,7.08.26,14,.07,21.36,0,5.13-1.36,3.78,2.41,4.08,5.76-.69-.41-3.34-3.05-4.8-1.68-4.28,2.42,1.76,7.35,5.04,7.68.83,7.12-.06,13.79.24,21.12.43,4.78.75,9.7.84,14.65h-34.56c-.02-.23-.05-.48-.12-.73ZM103.56,151.6c-1.39-.61-2.67-1.65-5.04-1.92,2.5-4.57,3.89-2.47,7.44-1.2,8,5.07,11.03-2.64,1.68-5.76,13.64-4.13,26.7,10.16,27.6,20.64.38,3.52-1.11,2.26-3.12,2.64-9.47.02-18.37.23-27.36-.96.04-5.24-7.3-3.83-11.04-5.28.42-2.07,1.24-5.39,2.64-6.48,1.88,2.87,8.55,5.57,11.52,3.12,1.35-3.29-2.19-4.24-4.32-4.8ZM80.95,157.36c0-9.04,7.36-16.4,16.4-16.4h1.99s-.07.06-.1.09c-15.9,10.89-13.03,36.84-13.68,56.88-.27,5.17-.38,10.4-.39,15.67-2.61-2.91-4.22-6.74-4.22-10.94v-45.29ZM143.94,218.98c-.08-9.07-.66-18.21-.68-27.01.03-5.99-.76-11.87-1.06-18.05-.02-2.74-.95-2.96,2.4-2.64,3.95-.2,7.73-.37,11.04-.96,1.13-.16,2.29-.15,3.41-.16v32.48c0,8.61-6.67,15.67-15.1,16.34Z M108.6,177.76c-1.42-4.99-9.21-.66-8.16,3.84,2.14,3.36,7.88-.79,8.16-3.84Z M109.08,192.16c-1.73-.32-3.08-.59-4.8-.48-.92.4-2.29,2.51-.96,3.6,1.93,2.85,13.65,5.46,13.68-.24-1.01-3.18-5.92-1.55-7.92-2.88Z M118.68,176.8c-.22,3.93,3.42,5.88,5.28,9.12-.17,1.25-1.86,2.81-2.64,3.6-1.77,1.06-1.15,3.46,0,4.56,4.24,1.1,8.64-4.57,8.16-8.64-1.89-2.76-6.76-12.35-10.8-8.64Z"/></svg>
     <h1>データ台帳</h1>
   </div>
-  <p class="lead">作品の売れ行き・順位表・企業の指標を、CSV から読んで表にする窓。<br>サイトからはリンクしていない。原本は <a href="README.md">data/README.md</a> と同じフォルダの CSV。</p>
+  <p class="lead">台帳の数字を、図で読むための裏の窓。サイトからはリンクしていない。<br>原本は同じフォルダの CSV と <a href="README.md">README.md</a>。図の下の「表で見る」で数字そのものも確かめられる。</p>
 </header>
 
-<section class="ch" id="rank">
+<section class="ch" id="kpis">
+  <div class="ch-head"><span class="ch-no">00</span></div>
+  <h2>市場と人口 ── いまの大きさ</h2>
+  <p class="sub">世界と国内の市場、遊ぶ人の数、いちばん下の層の倒産。数字は台帳の最新値。</p>
+  <div class="lg-kpi" data-box="1" id="kpi"></div>
+</section>
+<section class="ch" id="share">
   <div class="ch-head"><span class="ch-no">01</span></div>
-  <h2>順位表 ── 誰の作品が選ばれたか</h2>
-  <p class="sub">市場ごとの年間上位を、作品の国籍（IP の持ち主・開発・販売運営）と並べる。●JP は日本。</p>
-  <div class="ctl"><label for="rankSel">表</label><select id="rankSel"></select><span class="hint">国籍の決め方は README の「順位表」</span></div>
-  <div class="sum" id="rankSum"></div>
-  <div class="scroll-x box" id="rankBox"></div>
-  <p class="note" id="rankNote"></p>
+  <h2>誰の作品が選ばれたか</h2>
+  <p class="sub">市場ごとの年間上位を、作品の国籍で塗り分けた帯。上から IP の持ち主・開発した拠点・販売や運営の会社の国。</p>
+  <div class="lg-legend" id="shareLegend"></div>
+  <div class="lg-lists" data-box="1" id="shareBox"></div>
+  <p class="lg-note">国内の家庭用はパッケージ中心の集計なので日本に有利に出る。Steam の帯は順位の無い「上位12本」。国籍の決め方は README の「順位表」。</p>
+  <details class="lg-tv"><summary>表で見る</summary><div id="shareTv"></div></details>
 </section>
-
-<section class="ch" id="mile">
+<section class="ch" id="map">
   <div class="ch-head"><span class="ch-no">02</span></div>
-  <h2>節目台帳 ── 売れ行きの記録</h2>
-  <p class="sub">作品ごとの最新の本数と、発売から100万本までの日数。「以上」は「○万本突破」の発表。Steam のレビュー数は毎月の観測値。</p>
-  <div class="scroll-x box" id="mileBox"></div>
+  <h2>世界のどこの会社か</h2>
+  <p class="sub">2025年の4つの表に出た作品を、国ごとに数えたタイル地図。見方を切り替えると、IP・開発・運営で数え直す。</p>
+  <div class="lg-ctl"><div class="lg-segctl" id="lensCtl" role="group" aria-label="見方"><button type="button" data-lens="ip_country" aria-pressed="true">IP の持ち主</button><button type="button" data-lens="dev_country" aria-pressed="false">開発</button><button type="button" data-lens="pub_country" aria-pressed="false">販売・運営</button></div></div>
+  <div class="fig" data-box="1" id="mapBox"></div>
+  <p class="lg-note" id="mapNote"></p>
+  <details class="lg-tv"><summary>表で見る</summary><div id="mapTv"></div></details>
 </section>
-
-<section class="ch" id="ind">
+<section class="ch" id="trend">
   <div class="ch-head"><span class="ch-no">03</span></div>
-  <h2>指標台帳 ── 業界と企業の体温</h2>
-  <p class="sub">有価証券報告書（EDINET）と公的統計から。持株会社の給与は本社だけの値。仕掛品は会社ごとに定義が違うので、会社をまたいで足さない。</p>
-  <div class="ctl"><label for="indSel">指標</label><select id="indSel"></select><span id="realWrap"><label><input type="checkbox" id="realChk"> 実質（2020年価格）</label></span></div>
-  <div class="scroll-x box" id="indBox"></div>
-  <p class="note" id="indNote"></p>
+  <h2>勢い ── 売上と人数はどう動いたか</h2>
+  <p class="sub">会社ごとに、売上高（緑）と従業員数（灰）を最初の年＝100 の指数で並べた。上へ行くほど伸びた。</p>
+  <div class="lg-ctl"><span class="lg-legend" style="margin:0"><span><i class="ln" style="--c:var(--k-jp)"></i>売上高</span><span><i class="ln" style="--c:var(--k-ot)"></i>従業員数</span></span><label class="lg-hint" style="margin-left:auto"><input type="checkbox" id="realChk" checked> 売上は実質（2020年価格）</label></div>
+  <div class="lg-smulti" data-box="1" id="trendBox"></div>
+  <p class="lg-note" id="trendNote"></p>
+  <details class="lg-tv"><summary>表で見る</summary><div id="trendTv"></div></details>
 </section>
-
-<section class="ch" id="titles">
+<section class="ch" id="invest">
   <div class="ch-head"><span class="ch-no">04</span></div>
-  <h2>作品一覧 ── 国籍と出典</h2>
-  <p class="sub">IP と販売運営は最終的な親会社の国、開発は作っている拠点の国。出典のリンクから確かめられる。</p>
-  <div class="scroll-x box" id="titleBox"></div>
-  <p class="note">原本：<a href="titles.csv">titles.csv</a>・<a href="milestones.csv">milestones.csv</a>・<a href="rankings.csv">rankings.csv</a>・<a href="indicators.csv">indicators.csv</a>・<a href="indicator_defs.csv">indicator_defs.csv</a>・<a href="entities.csv">entities.csv</a>　<span id="counts"></span></p>
+  <h2>弾込め ── 開発にお金を積んでいるか</h2>
+  <p class="sub">作りかけのゲームの残高（1〜3年先の発売分）と、研究開発費の前年比。右（青）が増加、左（橙）が減少。</p>
+  <div class="lg-two">
+    <div><p class="fig-title">作りかけのゲームの残高 <small>会社ごとの会計の定義で・自社比</small></p><div class="lg-hbars" data-box="1" id="wipBox"></div></div>
+    <div><p class="fig-title">研究開発費 <small>年額・自社比</small></p><div class="lg-hbars" data-box="1" id="rdBox"></div></div>
+  </div>
+  <p class="lg-note">仕掛品はカプコン＝ゲームソフト仕掛品、スクエニ＝コンテンツ制作勘定、バンナム＝連結の仕掛品（玩具等も含む）、セガサミー＝エンタテインメントコンテンツ事業の仕掛品。会社をまたいで金額は比べない（増減率だけ）。</p>
+  <details class="lg-tv"><summary>表で見る</summary><div id="wipTv"></div><div id="rdTv"></div></details>
+</section>
+<section class="ch" id="labor">
+  <div class="ch-head"><span class="ch-no">05</span></div>
+  <h2>労働の取り分 ── 稼ぎは人に回っているか</h2>
+  <p class="sub">横＝従業員1人あたりの営業利益、縦＝平均年間給与。右上ほど「稼いで、払っている」。持株会社は給与が本社だけの値なので外した。</p>
+  <div class="fig" data-box="1" id="laborBox"></div>
+  <p class="lg-note">給与は提出会社（単体）、利益と人数は連結。最新の年度どうし。同じ会社の年ごとの動きは「表で見る」と指標台帳の CSV で。</p>
+  <details class="lg-tv"><summary>表で見る</summary><div id="laborTv"></div></details>
+</section>
+<section class="ch" id="own">
+  <div class="ch-head"><span class="ch-no">06</span></div>
+  <h2>資本の所在 ── 誰が株を持っているか</h2>
+  <p class="sub">外国法人等の持株比率。縦線は半分。高いほど、配当と議決権が海外へ向かう。</p>
+  <div class="lg-hbars" data-box="1" id="ownBox"></div>
+  <details class="lg-tv"><summary>表で見る</summary><div id="ownTv"></div></details>
+</section>
+<section class="ch" id="mile">
+  <div class="ch-head"><span class="ch-no">07</span></div>
+  <h2>節目 ── 100万本までの速さ</h2>
+  <p class="sub">発売から、世界で100万本以上と確認できた最初の時点までの日数。短いほど速い。</p>
+  <div class="lg-hbars" data-box="1" id="mileBox"></div>
+  <p class="lg-note" id="mileNote"></p>
+  <details class="lg-tv"><summary>表で見る</summary><div id="mileTv"></div></details>
+  <p class="lg-note">原本：<a href="titles.csv">titles.csv</a>・<a href="milestones.csv">milestones.csv</a>・<a href="rankings.csv">rankings.csv</a>・<a href="indicators.csv">indicators.csv</a>・<a href="indicator_defs.csv">indicator_defs.csv</a>・<a href="entities.csv">entities.csv</a>　<span id="counts"></span></p>
 </section>
 
 <footer class="by">
@@ -120,120 +213,213 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5;min
 </footer>
 
 </div>
+<div id="tip" role="status" aria-live="polite"></div>
 <script src="../common.js?v=20260926b"></script>
 <script>
 (function(){
-  function parse(t){
-    if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);
-    t=t.replace(/\r\n/g,'\n');var rows=[],row=[],cell='',q=false;
-    for(var i=0;i<t.length;i++){var c=t[i];
-      if(q){if(c==='"'){if(t[i+1]==='"'){cell+='"';i++;}else q=false;}else cell+=c;}
-      else if(c==='"')q=true;else if(c===','){row.push(cell);cell='';}
-      else if(c==='\n'){row.push(cell);rows.push(row);row=[];cell='';}else cell+=c;}
-    if(cell!==''||row.length){row.push(cell);rows.push(row);}
-    var h=rows.shift();return rows.filter(function(r){return r.some(function(x){return x.trim()!=='';});})
-      .map(function(r){var o={};h.forEach(function(k,i){o[k.trim()]=(r[i]||'').trim();});return o;});
-  }
+  // 確認用：?theme=dark / light で配色を固定できる（通常は端末の設定に追従）
+  var th=(location.search.match(/[?&]theme=(dark|light)/)||[])[1];if(th)document.documentElement.setAttribute('data-theme',th);
+  // ---------- 読み込み ----------
+  function parse(t){if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);t=t.replace(/\r\n/g,'\n');var rows=[],row=[],cell='',q=false;
+    for(var i=0;i<t.length;i++){var c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){cell+='"';i++;}else q=false;}else cell+=c;}
+      else if(c==='"')q=true;else if(c===','){row.push(cell);cell='';}else if(c==='\n'){row.push(cell);rows.push(row);row=[];cell='';}else cell+=c;}
+    if(cell!==''||row.length){row.push(cell);rows.push(row);}var h=rows.shift();
+    return rows.filter(function(r){return r.some(function(x){return x.trim()!=='';});}).map(function(r){var o={};h.forEach(function(k,i){o[k.trim()]=(r[i]||'').trim();});return o;});}
   function load(f){return fetch(f+'?c='+Date.now()).then(function(r){if(!r.ok)throw new Error(f);return r.text();}).then(parse);}
-  var T,M,R,I,DEF,ENT,byId={},entName={};
   var $=function(id){return document.getElementById(id);};
-  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
-  var fmtInt=function(n){return Number(n).toLocaleString('ja-JP');};
-  function fmtUnits(v){v=Number(v);if(v>=1e8)return (v/1e8).toFixed(v>=1e9?1:2).replace(/\.?0+$/,'')+'億';if(v>=1e4)return (v/1e4).toFixed(v>=1e6?0:1).replace(/\.0$/,'')+'万';return fmtInt(v);}
-  function fmtYen(v){v=Number(v);var a=Math.abs(v),s=v<0?'−':'';
-    if(a>=1e12){var cho=Math.floor(a/1e12),oku=Math.round((a-cho*1e12)/1e8);return s+cho+'兆'+(oku?fmtInt(oku)+'億':'')+'円';}
-    if(a>=1e10)return s+fmtInt(Math.round(a/1e8))+'億円';
-    if(a>=1e8)return s+(a/1e8).toFixed(1).replace(/\.0$/,'')+'億円';
-    if(a>=1e4)return s+fmtInt(Math.round(a/1e4))+'万円';return s+fmtInt(a)+'円';}
-  function cc(td,c){td.className='cc'+(c==='JP'?' jp':'');td.textContent=c||'—';return td;}
-  function th(t,cls){var e=document.createElement('th');e.textContent=t;if(cls)e.className=cls;return e;}
-  function td(t,cls,html){var e=document.createElement('td');if(html)e.innerHTML=t;else e.textContent=t;if(cls)e.className=cls;return e;}
-  function table(heads){var tb=document.createElement('table');tb.className='tbl';var tr=document.createElement('tr');heads.forEach(function(h){tr.appendChild(th(h[0],h[1]));});var thead=document.createElement('thead');thead.appendChild(tr);tb.appendChild(thead);tb.tbody=document.createElement('tbody');tb.appendChild(tb.tbody);return tb;}
-  function mount(id,el){var box=$(id);box.textContent='';box.appendChild(el);}
-  function pct(n,d){return d?Math.round(n/d*100)+'%':'—';}
+  var T,M,R,I,DEF,ENT,byId={},entName={},entGroup={},cpi={};
+  var SHORT={'square-enix-hd':'スクエニHD','bandai-namco-hd':'バンナムHD','sega-sammy-hd':'セガサミーHD','konami-group':'コナミG','koei-tecmo-hd':'コーエーテクモHD',gungho:'ガンホー','nippon-ichi':'日本一','silicon-studio':'シリコンスタジオ'};
+  var nm=function(e){return SHORT[e.entity]||e.name_ja;};
+  var GROUPS=[['JP','日本'],['US','米国'],['CN','中国'],['KR','韓国'],['EU','欧州'],['OT','その他']];
+  var EU={SE:1,NO:1,CZ:1,AT:1,FR:1,DE:1,GB:1,PL:1,NL:1,FI:1,DK:1,ES:1,IT:1};
+  var CN_NAME={JP:'日本',US:'米国',CN:'中国',KR:'韓国',SE:'スウェーデン',NO:'ノルウェー',CZ:'チェコ',AT:'オーストリア',AU:'オーストラリア',SG:'シンガポール',CA:'カナダ',GB:'英国',FR:'フランス',DE:'ドイツ'};
+  function grp(c){if(!c)return 'OT';if(c==='JP'||c==='US'||c==='CN'||c==='KR')return c;if(EU[c])return 'EU';return 'OT';}
+  var fmtInt=function(n){return Math.round(Number(n)).toLocaleString('ja-JP');};
+  function fmtYen(v){v=Number(v);var a=Math.abs(v),s=v<0?'−':'';if(a>=1e12){var cho=Math.floor(a/1e12),oku=Math.round((a-cho*1e12)/1e8);return s+cho+'兆'+(oku?fmtInt(oku)+'億':'')+'円';}
+    if(a>=1e10)return s+fmtInt(a/1e8)+'億円';if(a>=1e8)return s+(a/1e8).toFixed(1).replace(/\.0$/,'')+'億円';if(a>=1e4)return s+fmtInt(a/1e4)+'万円';return s+fmtInt(a)+'円';}
+  function fmtUnits(v){v=Number(v);if(v>=1e8)return (v/1e8).toFixed(2).replace(/\.?0+$/,'')+'億';if(v>=1e4)return (v/1e4).toFixed(v>=1e6?0:1).replace(/\.0$/,'')+'万';return fmtInt(v);}
+  function h(tag,attrs,kids){var e=document.createElement(tag);if(attrs)Object.keys(attrs).forEach(function(k){if(k==='text')e.textContent=attrs[k];else if(k==='style')e.style.cssText=attrs[k];else e.setAttribute(k,attrs[k]);});
+    (kids||[]).forEach(function(k){if(k==null)return;e.appendChild(typeof k==='string'?document.createTextNode(k):k);});return e;}
+  var NS='http://www.w3.org/2000/svg';
+  function s(tag,attrs,kids){var e=document.createElementNS(NS,tag);if(attrs)Object.keys(attrs).forEach(function(k){if(k==='text')e.textContent=attrs[k];else e.setAttribute(k,attrs[k]);});(kids||[]).forEach(function(k){if(k)e.appendChild(k);});return e;}
+  function mount(id,el){var b=$(id);b.textContent='';b.appendChild(el);}
+  // ---------- ツールチップ（値が主・名前は従。文字は textContent） ----------
+  var tip=$('tip');
+  function showTip(ev,title,rows,list){tip.textContent='';tip.appendChild(h('div',{class:'h',text:title}));
+    (rows||[]).forEach(function(r){var d=h('div',{class:'r'});var l=h('span');if(r.c){l.appendChild(h('i',{class:'k',style:'--c:'+r.c}));}l.appendChild(document.createTextNode(r.k));d.appendChild(l);d.appendChild(h('b',{text:r.v}));tip.appendChild(d);});
+    if(list&&list.length){var ul=h('ul');list.slice(0,12).forEach(function(x){ul.appendChild(h('li',{text:x}));});if(list.length>12)ul.appendChild(h('li',{text:'…ほか '+(list.length-12)+' 本'}));tip.appendChild(ul);}
+    tip.style.display='block';moveTip(ev);}
+  function moveTip(ev){var x=(ev.clientX||0)+14,y=(ev.clientY||0)+14,w=tip.offsetWidth,hh=tip.offsetHeight;if(x+w>innerWidth-8)x=ev.clientX-w-14;if(y+hh>innerHeight-8)y=ev.clientY-hh-14;tip.style.left=x+'px';tip.style.top=y+'px';}
+  function hideTip(){tip.style.display='none';}
+  function hover(node,fn){node.setAttribute('tabindex','0');node.addEventListener('pointerenter',function(e){var a=fn();showTip(e,a[0],a[1],a[2]);});node.addEventListener('pointermove',moveTip);node.addEventListener('pointerleave',hideTip);
+    node.addEventListener('focus',function(){var a=fn();var r=node.getBoundingClientRect();showTip({clientX:r.left+r.width/2,clientY:r.top},a[0],a[1],a[2]);});node.addEventListener('blur',hideTip);}
+  // ---------- 共通：表で見る ----------
+  function table(heads,rows){var tb=h('table',{class:'lg-tbl'});var tr=h('tr');heads.forEach(function(x){tr.appendChild(h('th',{text:x[0],class:x[1]||''}));});tb.appendChild(h('thead',null,[tr]));var tbody=h('tbody');
+    rows.forEach(function(r){var e=h('tr');r.forEach(function(c,i){e.appendChild(h('td',{text:c==null?'—':String(c),class:heads[i][1]||''}));});tbody.appendChild(e);});tb.appendChild(tbody);return h('div',{class:'lg-scroll'},[tb]);}
+  function tv(id,heads,rows){mount(id,table(heads,rows));}
+  function latest(ind,ent){var xs=I.filter(function(r){return r.indicator_id===ind&&r.entity===ent;}).sort(function(a,b){return b.period_end.localeCompare(a.period_end);});return xs[0];}
+  function series(ind,ent){var m={};I.filter(function(r){return r.indicator_id===ind&&r.entity===ent;}).forEach(function(r){var y=r.period_end.slice(0,4);if(!m[y]||r.period_end>m[y].period_end)m[y]=r;});return m;}
 
-  // 1) 順位表
-  function drawRank(){
-    var lid=$('rankSel').value,rows=R.filter(function(r){return r.list_id===lid;}).sort(function(a,b){return +a.rank-+b.rank;});
-    var n=rows.length,ip=0,dv=0,pb=0;
-    rows.forEach(function(r){var t=byId[r.title_id]||{};if(t.ip_country==='JP')ip++;if(t.dev_country==='JP')dv++;if(t.pub_country==='JP')pb++;});
-    $('rankSum').innerHTML='<span>日本が IP を持つ <b>'+ip+'/'+n+'</b>（'+pct(ip,n)+'）</span><span>日本で開発 <b>'+dv+'/'+n+'</b></span><span>日本が販売・運営 <b>'+pb+'/'+n+'</b></span>';
-    var tb=table([['#','num'],['作品'],['IP の持ち主'],['IP'],['開発'],['運営'],['数値','num']]);
-    rows.forEach(function(r){var t=byId[r.title_id]||{};var tr=document.createElement('tr');
-      tr.appendChild(td(r.rank,'num'));
-      tr.appendChild(td(esc(t.title_ja||r.title_id)+(t.origin_jp==='0'?'<small>日本発ではない（比較用）</small>':''),'t',true));
-      tr.appendChild(td(t.ip_owner||'—','dim'));
-      tr.appendChild(cc(document.createElement('td'),t.ip_country));tr.appendChild(cc(document.createElement('td'),t.dev_country));tr.appendChild(cc(document.createElement('td'),t.pub_country));
-      tr.appendChild(td(r.value?fmtUnits(r.value)+(r.unit||''):'—','num'));tb.tbody.appendChild(tr);});
-    mount('rankBox',tb);
-    var first=rows[0]||{};$('rankNote').textContent=first.note?('注：'+first.note+'　出典：'+first.source_name):'';
+  // ---------- 00 KPI ----------
+  function drawKpi(){
+    var w=latest('market_size_world_jpy','world'),wg=latest('market_growth_world_jpy_pct','world'),wc=latest('market_growth_world_const_currency_pct','world');
+    var j=latest('market_size_japan_jpy','japan'),gp=latest('game_population_japan','japan'),pop=latest('population_japan','japan');
+    var bk=I.filter(function(r){return r.indicator_id==='bankruptcies_smartphone_game';}).sort(function(a,b){return a.period_end.localeCompare(b.period_end);});
+    var box=$('kpi');box.textContent='';
+    function tile(l,v,unit,d,extra){var t=h('div',{class:'lg-tile'},[h('div',{class:'l',text:l}),h('div',{class:'v'},[v,h('small',{text:unit})]),h('div',{class:'d'},d)]);if(extra)t.appendChild(extra);return t;}
+    if(w){box.appendChild(tile('世界のゲーム市場（'+w.period_end.slice(0,4)+'年）',(Number(w.value)/1e12).toFixed(1),'兆円',[h('b',{text:(wg?'+'+wg.value+'%':'')}),' 円建て　',h('b',{text:(wc?'+'+wc.value+'%':'')}),' 同一通貨 ＝ 為替を除いた伸び']));}
+    if(j){var prev=null;box.appendChild(tile('国内のゲーム市場（'+j.period_end.slice(0,4)+'年）',(Number(j.value)/1e12).toFixed(2),'兆円',[h('b',{text:'+8.0%'}),' 前年比。',h('span',{text:'Switch 2 の発売年'})]));}
+    if(gp&&pop){var pct=Number(gp.value)/Number(pop.value)*100;var m=h('div',{class:'lg-meter'},[h('i',{style:'width:'+pct.toFixed(1)+'%'})]);
+      box.appendChild(tile('国内のゲーム人口（'+gp.period_end.slice(0,4)+'年）',(Number(gp.value)/1e4).toLocaleString('ja-JP'),'万人',[h('b',{text:pct.toFixed(0)+'%'}),' ＝ 人口 '+(Number(pop.value)/1e4).toLocaleString('ja-JP')+'万人に対する割合'],m));}
+    if(bk.length){var last=bk[bk.length-1];var prevs=bk.slice(0,-1).map(function(r){return r.period_end.slice(0,4)+'年 '+r.value+'件';}).join('・');
+      box.appendChild(tile('スマホゲーム事業者の倒産',last.value,'件',[h('b',{text:last.note||''}),' ',h('span',{text:prevs?('比較：'+prevs):''})]));}
   }
 
-  // 2) 節目台帳
+  // ---------- 01 誰の作品が選ばれたか（積み上げ帯） ----------
+  var LISTS=[['famitsu-annual-jp-2025','国内 家庭用','ファミ通 年間 TOP10（パッケージ）'],['sensortower-jp-mobile-revenue-2025','国内 スマホ','Sensor Tower 収益 TOP10（推計）'],
+             ['steam-best-of-2025-top-sellers','世界 PC','Steam 年間ベスト トップセラー プラチナ12'],['steam-best-of-2025-new-releases','世界 PC（新作）','Steam 年間ベスト 新作 プラチナ12']];
+  var LENS=[['ip_country','IP'],['dev_country','開発'],['pub_country','運営']];
+  function drawShare(){
+    var lg=$('shareLegend');lg.textContent='';GROUPS.forEach(function(g){lg.appendChild(h('span',null,[h('i',{style:'--c:var(--k-'+g[0].toLowerCase()+')'}),g[1]]));});
+    var box=$('shareBox');box.textContent='';var trows=[];
+    LISTS.forEach(function(L){var rows=R.filter(function(r){return r.list_id===L[0];}).sort(function(a,b){return +a.rank-+b.rank;});if(!rows.length)return;
+      var n=rows.length,jp=rows.filter(function(r){return (byId[r.title_id]||{}).ip_country==='JP';}).length;
+      var lst=h('div',{class:'lg-lst'},[h('h3',null,[L[1],h('small',{text:L[2]}),h('span',{class:'lg-share'},['日本 IP ',h('b',{text:jp+'/'+n})])])]);
+      LENS.forEach(function(len){var cnt={},names={};GROUPS.forEach(function(g){cnt[g[0]]=0;names[g[0]]=[];});
+        rows.forEach(function(r){var t=byId[r.title_id]||{};var g=grp(t[len[0]]);cnt[g]++;names[g].push((t.title_ja||r.title_id)+(t[len[0]]&&g!==t[len[0]]?'（'+t[len[0]]+'）':''));});
+        var bar=h('div',{class:'lg-bar'});GROUPS.forEach(function(g){if(!cnt[g[0]])return;var w=cnt[g[0]]/n*100;var seg=h('div',{class:'lg-seg',style:'--c:var(--k-'+g[0].toLowerCase()+');flex:0 0 calc('+w.toFixed(3)+'% - 2px)','role':'img','aria-label':g[1]+' '+cnt[g[0]]+'本'});
+          if(w>=14)seg.textContent=(g[0]==='OT'?'他':g[0])+' '+cnt[g[0]];hover(seg,function(){return [L[1]+'・'+len[1]+'：'+g[1],[{k:'本数',v:cnt[g[0]]+'/'+n},{k:'割合',v:Math.round(cnt[g[0]]/n*100)+'%'}],names[g[0]]];});bar.appendChild(seg);});
+        lst.appendChild(h('div',{class:'lg-srow'},[h('span',{text:len[1]}),bar,h('span',{class:'lg-n',text:'JP '+cnt.JP+'/'+n})]));
+        trows.push([L[1],len[1]].concat(GROUPS.map(function(g){return cnt[g[0]];})));});
+      box.appendChild(lst);});
+    tv('shareTv',[['表'],['見方']].concat(GROUPS.map(function(g){return [g[1],'num'];})),trows);
+  }
+
+  // ---------- 02 地図（タイル） ----------
+  var TILES={CA:[0,0],US:[0,1],NO:[4,0],SE:[5,0],CZ:[5,1],AT:[5,2],CN:[8,1],KR:[9,1],JP:[10,1],SG:[8,2],AU:[9,3]};
+  var lens='ip_country';
+  function drawMap(){
+    var ids={};R.forEach(function(r){if(LISTS.some(function(L){return L[0]===r.list_id;}))ids[r.title_id]=1;});
+    var cnt={},names={};Object.keys(ids).forEach(function(id){var t=byId[id]||{};var c=t[lens]||'—';cnt[c]=(cnt[c]||0)+1;(names[c]=names[c]||[]).push(t.title_ja||id);});
+    var max=Math.max.apply(null,Object.keys(cnt).map(function(c){return cnt[c];}).concat([1]));
+    var W=12,H=4,cell=64,gap=6,vw=W*(cell+gap),vh=H*(cell+gap);
+    var svg=s('svg',{class:'viz',viewBox:'0 0 '+vw+' '+vh,role:'img','aria-label':'国別の本数（タイル地図）'});
+    var regions=[['北米',0],['欧州',4],['東アジア',8]];regions.forEach(function(r){svg.appendChild(s('text',{x:r[1]*(cell+gap),y:-8,class:'lab',text:r[0]}));});
+    Object.keys(TILES).forEach(function(c){var p=TILES[c],n=cnt[c]||0,step=n?Math.min(5,Math.ceil(n/max*5)):0;var x=p[0]*(cell+gap),y=p[1]*(cell+gap);
+      var g=s('g');var rect=s('rect',{x:x,y:y,width:cell,height:cell,rx:12,style:'fill:'+(step?'var(--s'+step+')':'var(--tonal)')+';stroke:var(--line);stroke-width:1'});g.appendChild(rect);
+      g.appendChild(s('text',{x:x+10,y:y+20,class:'lab '+(step?'':'')+'mono',style:'font-size:12px;font-weight:600;fill:'+(step>=3?'var(--on-mark)':'var(--ink)'),text:c}));
+      g.appendChild(s('text',{x:x+cell-10,y:y+cell-12,'text-anchor':'end',class:'mono',style:'font-size:22px;font-weight:600;fill:'+(step>=3?'var(--on-mark)':(step?'var(--ink)':'var(--sub)')),text:String(n)}));
+      var hit=s('rect',{x:x,y:y,width:cell,height:cell,rx:12,class:'hit'});hover(hit,function(){return [(CN_NAME[c]||c)+'（'+({ip_country:'IP の持ち主',dev_country:'開発',pub_country:'販売・運営'})[lens]+'）',[{k:'本数',v:n+'本'}],names[c]||[]];});
+      g.appendChild(hit);svg.appendChild(g);});
+    var others=Object.keys(cnt).filter(function(c){return !TILES[c];});
+    mount('mapBox',svg);
+    $('mapNote').textContent='2025年の4つの表に出た作品（重複を除く '+Object.keys(ids).length+' 本）を国ごとに数えた。色が濃いほど多い。位置はおおまかな地理。'+(others.length?'タイルの無い国：'+others.map(function(c){return (CN_NAME[c]||c)+' '+cnt[c];}).join('・'):'');
+    tv('mapTv',[['国'],['本数','num'],['作品']],Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a];}).map(function(c){return [CN_NAME[c]||c,cnt[c],(names[c]||[]).join('、')];}));
+  }
+
+  // ---------- 03 勢い（小さな折れ線を並べる・指数） ----------
+  function drawTrend(){
+    var real=$('realChk').checked;var box=$('trendBox');box.textContent='';var trows=[];
+    var Y0=2016,Y1=2026,years=[];for(var y=Y0;y<=Y1;y++)years.push(String(y));
+    var panels=[];
+    ENT.forEach(function(e){var sv=series('net_sales_consolidated',e.entity),em=series('employees_consolidated',e.entity);
+      var ys=years.filter(function(y){return sv[y]&&em[y];});if(ys.length<3)return;var b=ys[0];
+      var sales=function(y){var v=Number(sv[y].value);return real&&cpi[y]?v/(cpi[y]/100):v;};
+      var a=ys.map(function(y){return [y,sales(y)/sales(b)*100];}),c=ys.map(function(y){return [y,Number(em[y].value)/Number(em[b].value)*100];});
+      panels.push({e:e,ys:ys,a:a,c:c,sv:sv,em:em,sales:sales});});
+    var W=220,H=110,pl=6,pr=6,pt=8,pb=18;
+    panels.forEach(function(p){
+      var vals=p.a.concat(p.c).map(function(d){return d[1];});var lo=Math.min(80,Math.floor(Math.min.apply(null,vals)/20)*20),hi=Math.max(120,Math.ceil(Math.max.apply(null,vals)/20)*20);
+      var x=function(y){return pl+(Number(y)-Y0)/(Y1-Y0)*(W-pl-pr);},yy=function(v){return pt+(hi-v)/(hi-lo)*(H-pt-pb);};
+      var svg=s('svg',{class:'viz',viewBox:'0 0 '+W+' '+H,role:'img','aria-label':p.e.name_ja+' の売上高と従業員数の指数'});
+      var grid=s('g',{class:'grid'});[100].forEach(function(v){grid.appendChild(s('line',{x1:pl,x2:W-pr,y1:yy(v),y2:yy(v)}));});svg.appendChild(grid);
+      var ax=s('g',{class:'ax'});ax.appendChild(s('text',{x:pl,y:H-4,text:p.ys[0]}));ax.appendChild(s('text',{x:W-pr,y:H-4,'text-anchor':'end',text:p.ys[p.ys.length-1]}));ax.appendChild(s('text',{x:pl,y:yy(100)-3,text:'100',style:'font-size:9px'}));svg.appendChild(ax);
+      function path(d,col){return s('path',{d:d.map(function(q,i){return (i?'L':'M')+x(q[0]).toFixed(1)+' '+yy(q[1]).toFixed(1);}).join(' '),style:'fill:none;stroke:'+col+';stroke-width:2;stroke-linejoin:round;stroke-linecap:round'});}
+      svg.appendChild(path(p.c,'var(--k-ot)'));svg.appendChild(path(p.a,'var(--k-jp)'));
+      var la=p.a[p.a.length-1],lc=p.c[p.c.length-1];
+      [[la,'var(--k-jp)'],[lc,'var(--k-ot)']].forEach(function(q){svg.appendChild(s('circle',{cx:x(q[0][0]),cy:yy(q[0][1]),r:4,style:'fill:'+q[1]+';stroke:var(--node);stroke-width:2'}));});
+      var cross=s('line',{x1:0,x2:0,y1:pt,y2:H-pb,style:'stroke:var(--sub);stroke-width:1;display:none'});svg.appendChild(cross);
+      var hit=s('rect',{x:0,y:0,width:W,height:H,class:'hit'});svg.appendChild(hit);
+      function at(ev){var r=svg.getBoundingClientRect();var fx=(ev.clientX-r.left)/r.width*W;var best=p.ys[0],bd=1e9;p.ys.forEach(function(y){var d=Math.abs(x(y)-fx);if(d<bd){bd=d;best=y;}});return best;}
+      hit.addEventListener('pointermove',function(ev){var y=at(ev);cross.setAttribute('x1',x(y));cross.setAttribute('x2',x(y));cross.style.display='';
+        showTip(ev,nm(p.e)+' '+y+'年'+(p.e.fy_end_month!=='12'?'（'+p.e.fy_end_month+'月期）':''),[{k:'売上高'+(real?'（実質）':''),v:fmtYen(p.sales(y)),c:'var(--k-jp)'},{k:'指数',v:(p.sales(y)/p.sales(p.ys[0])*100).toFixed(0)},{k:'従業員',v:fmtInt(p.em[y].value)+'人',c:'var(--k-ot)'},{k:'指数',v:(Number(p.em[y].value)/Number(p.em[p.ys[0]].value)*100).toFixed(0)}]);});
+      hit.addEventListener('pointerleave',function(){cross.style.display='none';hideTip();});
+      var panel=h('div',{class:'lg-sm'},[h('h4',null,[nm(p.e),h('small',{text:p.e.group})]),h('div',{class:'lg-vals'},[h('span',null,['売上 ',h('b',{text:la[1].toFixed(0)})]),h('span',null,['人 ',h('b',{text:lc[1].toFixed(0)})])]),svg]);
+      box.appendChild(panel);
+      trows.push([p.e.name_ja,p.ys[0],fmtYen(p.sales(p.ys[0])),fmtYen(p.sales(p.ys[p.ys.length-1])),la[1].toFixed(0),fmtInt(p.em[p.ys[0]].value),fmtInt(p.em[p.ys[p.ys.length-1]].value),lc[1].toFixed(0)]);});
+    $('trendNote').textContent='最初の年を 100 とした指数。売上高は'+(real?'消費者物価指数で割った実質値':'名目値')+'（右上の切り替え）。縦の目盛りは会社ごと（100 の線が基準）なので、傾きの大きさは会社どうしで比べず、上の数字で比べる。';
+    tv('trendTv',[['会社'],['起点'],['売上 起点'],['売上 最新'],['指数','num'],['従業員 起点','num'],['従業員 最新','num'],['指数','num']],trows);
+  }
+
+  // ---------- 04 弾込め（前年比の発散棒） ----------
+  function drawInvest(){
+    function block(id,noteId,tvId,pick,title){var rows=[];ENT.forEach(function(e){var p=pick(e.entity);if(p)rows.push(p);});rows.sort(function(a,b){return b.pct-a.pct;});
+      var box=$(id);box.textContent='';var maxp=Math.max.apply(null,rows.map(function(r){return Math.abs(r.pct);}).concat([10]));
+      rows.forEach(function(r){var w=Math.min(50,Math.abs(r.pct)/maxp*50);var tr=h('div',{class:'lg-tr'});tr.appendChild(h('span',{class:'lg-zero',style:'left:50%'}));
+        var bar=h('i',{class:r.pct>=0?'lg-pos':'lg-neg',style:(r.pct>=0?'left:50%;':'right:50%;')+'width:'+w.toFixed(2)+'%','role':'img','aria-label':r.name+' '+r.pct.toFixed(1)+'%'});
+        hover(bar,function(){return [r.name+'：'+r.label,[{k:r.y0,v:fmtYen(r.v0)},{k:r.y1,v:fmtYen(r.v1)},{k:'増減',v:(r.pct>=0?'+':'')+r.pct.toFixed(1)+'%'}],[]];});tr.appendChild(bar);
+        box.appendChild(h('div',{class:'lg-row'},[h('span',{class:'lg-nm'},[r.name,h('small',{text:r.label})]),tr,h('span',{class:'lg-vl',text:(r.pct>=0?'+':'')+r.pct.toFixed(1)+'%'})]));});
+      if(!rows.length)box.appendChild(h('p',{class:'lg-empty',text:'データなし'}));
+      tv(tvId,[['会社'],['何の数字'],['前年'],['最新'],['増減','num']],rows.map(function(r){return [r.name,r.label,fmtYen(r.v0)+'（'+r.y0+'）',fmtYen(r.v1)+'（'+r.y1+'）',(r.pct>=0?'+':'')+r.pct.toFixed(1)+'%'];}));}
+    function two(ind,ent){var m=series(ind,ent),ys=Object.keys(m).sort();if(ys.length<2)return null;var y0=ys[ys.length-2],y1=ys[ys.length-1];var v0=Number(m[y0].value),v1=Number(m[y1].value);if(!v0)return null;return {y0:y0,y1:y1,v0:v0,v1:v1,pct:(v1/v0-1)*100};}
+    block('wipBox','wipNote','wipTv',function(ent){var p=two('game_wip',ent);var lab='ゲームの仕掛品';if(!p){return null;}return Object.assign({name:SHORT[ent]||entName[ent],label:lab},p);},'仕掛品');
+    block('rdBox','rdNote','rdTv',function(ent){var p=two('rd_expense',ent);if(!p)return null;return Object.assign({name:SHORT[ent]||entName[ent],label:'研究開発費'},p);},'研究開発費');
+  }
+
+  // ---------- 05 労働の取り分（散布図） ----------
+  var OPERATING={nintendo:1,capcom:1,gungho:1,mixi:1,colopl:1,'nippon-ichi':1,tose:1,cave:1,edia:1,'silicon-studio':1};
+  function drawLabor(){
+    var pts=[];ENT.forEach(function(e){if(!OPERATING[e.entity])return;var sal=latest('avg_salary_parent',e.entity),op=latest('operating_income_consolidated',e.entity),em=latest('employees_consolidated',e.entity);if(!sal||!op||!em)return;
+      var y=sal.period_end.slice(0,4);var opy=series('operating_income_consolidated',e.entity)[y],emy=series('employees_consolidated',e.entity)[y];if(!opy||!emy)return;
+      pts.push({e:e,x:Number(opy.value)/Number(emy.value)/1e4,y:Number(sal.value)/1e4,fy:y});});
+    var W=560,H=320,pl=64,pr=16,pt=12,pb=40;var xmax=Math.ceil(Math.max.apply(null,pts.map(function(p){return p.x;}))/500)*500,xmin=Math.min(0,Math.floor(Math.min.apply(null,pts.map(function(p){return p.x;}))/500)*500);
+    var ymax=Math.ceil(Math.max.apply(null,pts.map(function(p){return p.y;}))/200)*200,ymin=Math.floor(Math.min.apply(null,pts.map(function(p){return p.y;}))/200)*200-200;
+    var X=function(v){return pl+(v-xmin)/(xmax-xmin)*(W-pl-pr);},Y=function(v){return pt+(ymax-v)/(ymax-ymin)*(H-pt-pb);};
+    var svg=s('svg',{class:'viz',viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'1人あたり営業利益と平均給与の散布図'});
+    var grid=s('g',{class:'grid'}),ax=s('g',{class:'ax'});
+    for(var v=ymin;v<=ymax;v+=200){grid.appendChild(s('line',{x1:pl,x2:W-pr,y1:Y(v),y2:Y(v)}));ax.appendChild(s('text',{x:pl-8,y:Y(v)+4,'text-anchor':'end',text:fmtInt(v)}));}
+    for(var u=xmin;u<=xmax;u+=500){if(u!==xmin)grid.appendChild(s('line',{x1:X(u),x2:X(u),y1:pt,y2:H-pb}));ax.appendChild(s('text',{x:X(u),y:H-pb+16,'text-anchor':'middle',text:fmtInt(u)}));}
+    if(xmin<0)grid.appendChild(s('line',{x1:X(0),x2:X(0),y1:pt,y2:H-pb,style:'stroke:var(--sub)'}));
+    ax.appendChild(s('text',{x:W-pr,y:H-6,'text-anchor':'end',class:'lab',style:'font-family:inherit',text:'従業員1人あたりの営業利益（万円・連結）→'}));
+    ax.appendChild(s('text',{x:pl-8,y:pt-2,'text-anchor':'end',class:'lab',style:'font-family:inherit',text:'平均年間給与（万円）↑'}));
+    svg.appendChild(grid);svg.appendChild(ax);
+    pts.sort(function(a,b){return a.x-b.x;}).forEach(function(p,i){var g=s('g');g.appendChild(s('circle',{cx:X(p.x),cy:Y(p.y),r:5,style:'fill:var(--k-jp);stroke:var(--node);stroke-width:2'}));
+      var dy=(i%2?14:-8),right=X(p.x)>W*0.62;g.appendChild(s('text',{x:X(p.x)+(right?-9:9),y:Y(p.y)+dy,'text-anchor':right?'end':'start',class:'lab ink',text:nm(p.e)}));
+      var hit=s('circle',{cx:X(p.x),cy:Y(p.y),r:14,class:'hit'});hover(hit,function(){return [nm(p.e)+'（'+p.fy+'年）',[{k:'1人あたり営業利益',v:fmtInt(p.x)+'万円'},{k:'平均年間給与',v:fmtInt(p.y)+'万円'},{k:'給与÷利益',v:p.x>0?(p.y/p.x*100).toFixed(0)+'%':'—'}],[]];});g.appendChild(hit);svg.appendChild(g);});
+    mount('laborBox',svg);
+    tv('laborTv',[['会社'],['年度'],['1人あたり営業利益（万円）','num'],['平均年間給与（万円）','num']],pts.map(function(p){return [p.e.name_ja,p.fy,fmtInt(p.x),fmtInt(p.y)];}));
+  }
+
+  // ---------- 06 資本の所在（横棒） ----------
+  function drawOwn(){
+    var rows=[];ENT.forEach(function(e){var r=latest('foreign_ownership_pct',e.entity);if(r)rows.push({e:e,v:Number(r.value),y:r.period_end.slice(0,4)});});rows.sort(function(a,b){return b.v-a.v;});
+    var box=$('ownBox');box.textContent='';
+    rows.forEach(function(r){var tr=h('div',{class:'lg-tr'});tr.appendChild(h('span',{class:'lg-ref',style:'left:50%'}));var bar=h('i',{style:'left:0;width:'+r.v+'%','role':'img','aria-label':r.e.name_ja+' '+r.v+'%'});
+      hover(bar,function(){return [r.e.name_ja+'（'+r.y+'年）',[{k:'外国法人等の持株比率',v:r.v.toFixed(1)+'%'},{k:'区分',v:r.e.group}],[]];});tr.appendChild(bar);
+      box.appendChild(h('div',{class:'lg-row'},[h('span',{class:'lg-nm'},[nm(r.e),h('small',{text:r.e.group})]),tr,h('span',{class:'lg-vl',text:r.v.toFixed(1)+'%'})]));});
+    tv('ownTv',[['会社'],['区分'],['年'],['外国法人等の持株比率','num']],rows.map(function(r){return [r.e.name_ja,r.e.group,r.y,r.v.toFixed(2)+'%'];}));
+  }
+
+  // ---------- 07 節目（100万本までの日数） ----------
   function drawMile(){
-    var tb=table([['作品'],['発売'],['最新の本数（世界）','num'],['最新の本数（国内）','num'],['100万本まで','num'],['Steam レビュー','num']]);
-    var titles=T.slice().sort(function(a,b){return (b.release_date||'').localeCompare(a.release_date||'');});
-    titles.forEach(function(t){var ms=M.filter(function(m){return m.id===t.id;});if(!ms.length)return;
-      function latest(pred){var xs=ms.filter(pred).sort(function(a,b){return b.as_of.localeCompare(a.as_of);});return xs[0];}
-      var w=latest(function(m){return /^units/.test(m.metric)&&m.scope==='world';}),j=latest(function(m){return /^units/.test(m.metric)&&m.scope==='japan';}),pl=latest(function(m){return m.metric==='players';}),rv=latest(function(m){return m.metric==='reviews';});
-      var m1=ms.filter(function(m){return /^units/.test(m.metric)&&m.scope==='world'&&+m.value>=1e6;}).sort(function(a,b){return a.as_of.localeCompare(b.as_of);})[0];
-      var days=(m1&&t.release_date)?Math.round((new Date(m1.as_of)-new Date(t.release_date))/864e5):null;
-      var tr=document.createElement('tr');
-      tr.appendChild(td(esc(t.title_ja)+'<small>'+esc((t.developer||'')+(t.publisher&&t.publisher!==t.developer?' ／ '+t.publisher:''))+'</small>','t',true));
-      tr.appendChild(td(t.release_date||'—','dim'));
-      tr.appendChild(td(w?(fmtUnits(w.value)+'本'+(w.precision==='at_least'?'以上':'')+' ('+w.as_of.slice(0,7)+')'):(pl?fmtUnits(pl.value)+'人 ('+pl.as_of.slice(0,7)+')':'—'),'num'));
-      tr.appendChild(td(j?(fmtUnits(j.value)+'本'+(j.precision==='at_least'?'以上':'')+' ('+j.as_of.slice(0,7)+')'):'—','num'));
-      tr.appendChild(td(days!=null?(days+'日'+(m1.precision==='at_least'?'以内':'')):'—','num'));
-      tr.appendChild(td(rv?fmtInt(rv.value)+'件 ('+rv.as_of.slice(5)+')':'—','num'));tb.tbody.appendChild(tr);});
-    mount('mileBox',tb);
-  }
-
-  // 3) 指標台帳
-  var cpi={};
-  function drawInd(){
-    var ind=$('indSel').value,def=DEF.filter(function(d){return d.indicator_id===ind;})[0]||{},real=$('realChk').checked&&def.unit==='円';
-    var rows=I.filter(function(r){return r.indicator_id===ind;});
-    var years=[];rows.forEach(function(r){var y=r.period_end.slice(0,4);if(years.indexOf(y)<0)years.push(y);});years.sort();years=years.slice(-10);
-    var ents=[];rows.forEach(function(r){if(ents.indexOf(r.entity)<0)ents.push(r.entity);});
-    var order=ENT.map(function(e){return e.entity;});ents.sort(function(a,b){var i=order.indexOf(a),j=order.indexOf(b);return (i<0?99:i)-(j<0?99:j)||a.localeCompare(b);});
-    var tb=table([['主体']].concat(years.map(function(y){return [y,'num'];})));
-    ents.forEach(function(e){var tr=document.createElement('tr');tr.appendChild(td(entName[e]||e,'t'));
-      years.forEach(function(y){var xs=rows.filter(function(r){return r.entity===e&&r.period_end.slice(0,4)===y;}).sort(function(a,b){return b.period_end.localeCompare(a.period_end);});
-        var v=xs[0]?Number(xs[0].value):null,txt='—';
-        if(v!=null){if(real&&cpi[y]){v=v/(cpi[y]/100);}
-          if(def.unit==='円')txt=fmtYen(v);else if(def.unit==='人')txt=fmtInt(v)+'人';else if(def.unit==='%')txt=v.toFixed(1)+'%';else if(def.unit==='件')txt=fmtInt(v)+'件';else txt=String(v)+(def.unit||'');}
-        tr.appendChild(td(txt,'num'));});tb.tbody.appendChild(tr);});
-    mount('indBox',tb);
-    $('indNote').textContent=(def.definition||'')+(real?'　※実質＝その年の消費者物価指数（2020年=100）で割った値。3月期は年度末の年の指数を使う。':'');
-    $('realWrap').style.display=def.unit==='円'?'':'none';
-  }
-
-  // 4) 作品一覧
-  function drawTitles(){
-    var tb=table([['作品'],['開発'],['販売・運営'],['IP の持ち主'],['IP'],['開発'],['運営'],['発売'],['出典']]);
-    T.slice().sort(function(a,b){return (b.release_date||'').localeCompare(a.release_date||'');}).forEach(function(t){var tr=document.createElement('tr');
-      tr.appendChild(td(esc(t.title_ja)+(t.note?'<small>'+esc(t.note)+'</small>':''),'t',true));
-      tr.appendChild(td(t.developer||'—','dim'));tr.appendChild(td(t.publisher||'—','dim'));tr.appendChild(td(t.ip_owner||'—','dim'));
-      tr.appendChild(cc(document.createElement('td'),t.ip_country));tr.appendChild(cc(document.createElement('td'),t.dev_country));tr.appendChild(cc(document.createElement('td'),t.pub_country));
-      tr.appendChild(td(t.release_date||'—','dim'));
-      var s=[];if(t.country_source)s.push('<a href="'+esc(t.country_source)+'" target="_blank" rel="noopener">国籍</a>');if(t.release_source)s.push('<a href="'+esc(t.release_source)+'" target="_blank" rel="noopener">発売日</a>');
-      tr.appendChild(td(s.join(' ')||'—','dim',true));tb.tbody.appendChild(tr);});
-    mount('titleBox',tb);
+    var rows=[];T.forEach(function(t){if(!t.release_date)return;var ms=M.filter(function(m){return m.id===t.id&&/^units/.test(m.metric)&&m.scope==='world'&&+m.value>=1e6;}).sort(function(a,b){return a.as_of.localeCompare(b.as_of);});
+      if(!ms.length)return;var m=ms[0];if(+m.value>5e6)return;var days=Math.round((new Date(m.as_of)-new Date(t.release_date))/864e5);if(days<0)return;rows.push({t:t,m:m,days:days,upper:m.precision==='exact'});});
+    rows.sort(function(a,b){return a.days-b.days;});var box=$('mileBox');box.textContent='';var max=Math.max.apply(null,rows.map(function(r){return r.days;}).concat([30]));
+    rows.forEach(function(r){var tr=h('div',{class:'lg-tr'});var bar=h('i',{class:r.upper?'lg-est':'',style:'left:0;width:'+(r.days/max*100).toFixed(2)+'%','role':'img','aria-label':r.t.title_ja+' '+r.days+'日'});
+      hover(bar,function(){return [r.t.title_ja,[{k:'発売',v:r.t.release_date},{k:'到達の確認日',v:r.m.as_of},{k:'その時点',v:fmtUnits(r.m.value)+'本'+(r.m.precision==='at_least'?'以上':'')},{k:'日数',v:r.days+'日'+(r.upper?'以内':'')}],[]];});tr.appendChild(bar);
+      box.appendChild(h('div',{class:'lg-row'},[h('span',{class:'lg-nm'},[r.t.title_ja,h('small',{text:r.t.release_date.slice(0,7).replace('-','年')+'月発売'})]),tr,h('span',{class:'lg-vl',text:(r.upper?'≤':'')+r.days+'日'})]));});
+    $('mileNote').textContent='世界の販売・出荷本数が100万本以上と確認できた最初の時点までの日数（'+rows.length+'作品）。縞の棒は「その日までに」＝IR の一覧など時点が粗い出典で、実際はもっと早い。「突破」の発表は発表日を到達日とみなす。最初の記録が500万本を超えている作品（マリオカート ワールド・モンスターハンターワイルズ・バイオハザード レクイエム・ELDEN RING）は、100万本の時点が分からないので載せていない。';
+    tv('mileTv',[['作品'],['発売日'],['確認日'],['本数','num'],['日数','num']],rows.map(function(r){return [r.t.title_ja,r.t.release_date,r.m.as_of,fmtUnits(r.m.value)+'本'+(r.m.precision==='at_least'?'以上':''),(r.upper?'≤':'')+r.days];}));
   }
 
   Promise.all([load('titles.csv'),load('milestones.csv'),load('rankings.csv'),load('indicators.csv'),load('indicator_defs.csv'),load('entities.csv')]).then(function(a){
-    T=a[0];M=a[1];R=a[2];I=a[3];DEF=a[4];ENT=a[5];
-    T.forEach(function(t){byId[t.id]=t;});ENT.forEach(function(e){entName[e.entity]=e.name_ja;});entName.japan='日本（全体）';entName.world='世界';
+    T=a[0];M=a[1];R=a[2];I=a[3];DEF=a[4];ENT=a[5];T.forEach(function(t){byId[t.id]=t;});ENT.forEach(function(e){entName[e.entity]=e.name_ja;entGroup[e.entity]=e.group;});
     I.filter(function(r){return r.indicator_id==='cpi_all_items_2020base';}).forEach(function(r){cpi[r.period_end.slice(0,4)]=Number(r.value);});
-    var lists={};R.forEach(function(r){lists[r.list_id]=r.list_name;});
-    var pref=['famitsu','sensortower','steam-best-of-'];
-    var rs=$('rankSel');Object.keys(lists).sort(function(a,b){var ia=pref.findIndex(function(p){return a.indexOf(p)===0;}),ib=pref.findIndex(function(p){return b.indexOf(p)===0;});return (ia<0?9:ia)-(ib<0?9:ib)||b.localeCompare(a);}).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=lists[k];rs.appendChild(o);});
-    var is=$('indSel');DEF.forEach(function(d){if(d.indicator_id==='cpi_all_items_2020base')return;var o=document.createElement('option');o.value=d.indicator_id;o.textContent=d.name_ja;is.appendChild(o);});
-    is.value='net_sales_consolidated';
-    rs.addEventListener('change',drawRank);is.addEventListener('change',drawInd);$('realChk').addEventListener('change',drawInd);
-    drawRank();drawMile();drawInd();drawTitles();
+    drawKpi();drawShare();drawMap();drawTrend();drawInvest();drawLabor();drawOwn();drawMile();
+    document.querySelectorAll('#lensCtl button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#lensCtl button').forEach(function(x){x.setAttribute('aria-pressed','false');});b.setAttribute('aria-pressed','true');lens=b.getAttribute('data-lens');drawMap();});});
+    $('realChk').addEventListener('change',drawTrend);
     $('counts').textContent='作品 '+T.length+'・数字 '+M.length+'・順位 '+R.length+'・指標 '+I.length+' 行';
-  }).catch(function(e){document.querySelectorAll('.box').forEach(function(b){b.innerHTML='<p class="empty">CSV を読めなかった（'+esc(e.message)+'）。file:// では開けないので、サーバー経由か公開 URL で開く。</p>';});});
+  }).catch(function(e){document.querySelectorAll('[data-box]').forEach(function(b){b.innerHTML='';b.appendChild(h('p',{class:'lg-empty',text:'CSV を読めなかった（'+e.message+'）。file:// では開けないので、サーバー経由か公開 URL で開く。'}));});});
 })();
 </script>
 </body>
