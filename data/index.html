@@ -17,7 +17,7 @@
 /* このページだけの見た目：表と絞り込み */
 .ctl{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px}
 .ctl label{font-size:13px;color:var(--sub)}
-.ctl select{font:inherit;font-size:13px;padding:6px 32px 6px 12px;border-radius:980px;border:1px solid var(--line);background:var(--card);color:var(--ink);
+.ctl select{font:inherit;font-size:13px;padding:6px 32px 6px 12px;border-radius:980px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-width:100%;min-width:0;text-overflow:ellipsis;
   appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--sub) 50%),linear-gradient(135deg,var(--sub) 50%,transparent 50%);
   background-position:calc(100% - 17px) 55%,calc(100% - 12px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
 .ctl input[type=checkbox]{accent-color:var(--accent)}
@@ -25,7 +25,9 @@
 .sum{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
 .sum span{background:var(--tonal);border-radius:9px;padding:6px 12px;font-size:13px;line-height:1.5}
 .sum b{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums}
-.scroll-x{margin-top:16px;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--node)}
+.scroll-x{margin-top:16px;max-width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--node)}
+section.ch{min-width:0}
+.ctl,.sum{min-width:0;max-width:100%}
 table.tbl{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5;min-width:640px}
 .tbl th,.tbl td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;white-space:nowrap}
 .tbl th{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--sub);background:var(--tonal);position:sticky;top:0}
