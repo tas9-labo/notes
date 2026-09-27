@@ -22,7 +22,7 @@ function readCsv(f) {
   return { h, rows: body.map(r => Object.fromEntries(h.map((k, i) => [k, (r[i] || '').trim()]))) };
 }
 
-const T_H = ['id', 'title_ja', 'developer', 'publisher', 'origin_jp', 'release_date', 'platforms', 'team_size', 'team_size_source', 'size_class', 'steam_appid', 'ip_owner', 'ip_country', 'dev_country', 'pub_country', 'note'];
+const T_H = ['id', 'title_ja', 'developer', 'publisher', 'origin_jp', 'release_date', 'platforms', 'team_size', 'team_size_source', 'size_class', 'steam_appid', 'ip_owner', 'ip_country', 'dev_country', 'pub_country', 'country_source', 'release_source', 'note'];
 const M_H = ['id', 'metric', 'value', 'unit', 'precision', 'scope', 'channel', 'basis', 'as_of', 'source_name', 'source_url', 'note'];
 const EN = {
   metric: ['units_sold', 'units_shipped', 'units_shipped_dl', 'players', 'revenue', 'reviews'],
@@ -78,6 +78,9 @@ M.rows.forEach((r, i) => {
 T.rows.forEach((r, i) => {
   const n = 'titles.csv ' + (i + 2) + '行目 ' + r.id + ': ';
   ['ip_country', 'dev_country', 'pub_country'].forEach(k => { if (r[k] && !/^[A-Z]{2}$/.test(r[k])) err(n + k + ' は2文字の国コード（JP/US/CN…）か空'); });
+  ['country_source', 'release_source'].forEach(k => { if (r[k] && !/^https?:\/\//.test(r[k])) err(n + k + ' は URL か空'); });
+  if (r.ip_country && !r.country_source) err(n + '国籍を書くなら country_source（出典 URL）が要る');
+  if (r.release_date && !r.release_source && !/出典は未添付/.test(r.note)) err(n + '発売日を書くなら release_source が要る（無いなら note に「発売日の出典は未添付」）');
   if (r.ip_country && r.origin_jp === '1' && r.dev_country && r.dev_country !== 'JP') err(n + 'origin_jp=1 なのに dev_country が JP でない（開発の主体が日本＝origin_jp の定義）');
 });
 
