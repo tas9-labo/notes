@@ -10,6 +10,7 @@
 | `titles.csv` | 作品の台帳（変わらない情報） | 1作品 |
 | `milestones.csv` | 数字の記録（時点つき・追記だけ） | 1作品 × 1指標 × 1時点 |
 | `check.js` | 形の確認（`node data/check.js`） | — |
+| `index.html` | **裏の窓**（https://notes.tas9.net/data/ ）。同じフォルダの CSV をブラウザで読んで、順位表・節目・指標・作品一覧を表にする。サイトからはリンクせず、検索にも載せない（noindex）。原本は CSV で、このページは読むだけ | — |
 
 CSV は UTF-8（BOM つき＝Excel でそのまま開ける）。Google スプレッドシートにも取り込める。
 

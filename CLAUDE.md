@@ -533,7 +533,9 @@
 
 - 置き場は `data/`：`titles.csv`（1行＝1作品）・`milestones.csv`（1行＝1作品×1指標×1時点・**追記だけ**）・
   `README.md`（列の定義と記入ルール＝**原本はこちら**）・`check.js`（形の確認）。CSV は UTF-8 BOM つき（Excel でそのまま開ける）。
-  **サイトのページはまだ無い**（作るなら CSV を読んで描く「窓」にする。原本は CSV）。
+  **裏の窓 `data/index.html`**（2026-09-27）＝ https://notes.tas9.net/data/ 。CSV を fetch して表にするだけ（書き込みなし）。
+  サイトからはリンクしない・`noindex`・sitemap にも載せない（本人の指示「裏のページとして。リンクは無くてよい」）。骨組み（上の行・写真・題名・署名）は
+  news.html から写しているので、共通の見た目を変えたら scratchpad の `build_ledger_page.py` で作り直すか手で追従する。
 - 守ること：追記だけ（累計は時点ごとに新しい行）／単位の違う数字を混ぜない／定義の分からない数字は書かない／出典は1行1つ／
   推計は `basis=estimate`。書いたら `node D:/tas9_labo/web/notes/data/check.js`。
 - 偏りの注意：会社の「突破」発表・IR の一覧は正確だが、出す会社に偏る。背骨は全作品を同じ物差しで数える源
