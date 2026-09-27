@@ -1,24 +1,51 @@
-﻿id,title_ja,developer,publisher,origin_jp,release_date,platforms,team_size,team_size_source,size_class,steam_appid,note
-mario-kart-world,マリオカート ワールド,任天堂,任天堂,1,2025-06-05,Switch2,,,,,
-donkey-kong-bananza,ドンキーコング バナンザ,任天堂,任天堂,1,2025-07-17,Switch2,,,,,
-pokemon-legends-za-sw2,Pokémon LEGENDS Z-A（Nintendo Switch 2 Edition）,ゲームフリーク,ポケモン／任天堂,1,2025-10-16,Switch2,,,,,Nintendo Switch 版は別の集計
-pokopia,ぽこ あ ポケモン,ポケモン／ゲームフリーク／コーエーテクモゲームス（共同開発）,ポケモン／任天堂,1,2026-03-05,Switch2,,,,,
-kirby-air-riders,カービィのエアライダー,ソラ／バンダイナムコスタジオ,任天堂,1,2025-11-20,Switch2,,,,,
-mario-party-jamboree-sw2,スーパー マリオパーティ ジャンボリー Nintendo Switch 2 Edition ＋ ジャンボリーTV,エヌディーキューブ,任天堂,1,2025-07-24,Switch2,,,,,
-tomodachi-life-wakuwaku,トモダチコレクション わくわく生活,任天堂,任天堂,1,2026-04-16,Switch,,,,,
-monster-hunter-wilds,モンスターハンターワイルズ,カプコン,カプコン,1,2025-02-28,PS5|XSX|PC,,,,2246340,
-resident-evil-requiem,バイオハザード レクイエム,カプコン,カプコン,1,2026-02-27,PS5|XSX|PC|Switch2,,,,3764200,
-pragmata,プラグマタ,カプコン,カプコン,1,2026-04-17,PS5|XSX|PC|Switch2,,,,3357650,Switch 2 版は 2026-04-24
-elden-ring,ELDEN RING,フロム・ソフトウェア,バンダイナムコエンターテインメント／フロム・ソフトウェア,1,2022-02-25,PS5|PS4|XSX|XB1|PC,,,,1245620,
-elden-ring-nightreign,ELDEN RING NIGHTREIGN,フロム・ソフトウェア,バンダイナムコエンターテインメント／フロム・ソフトウェア,1,2025-05-30,PS5|PS4|XSX|XB1|PC,,,,2622380,
-palworld,Palworld／パルワールド,ポケットペア,ポケットペア,1,2024-01-19,PC|Xbox|PS5|Mac,3-40,dev.html の出典欄（AUTOMATON 2024-01-19・Forbes JAPAN）,M,1623730,早期アクセスの開始日。1.0 正式版は 2026-07-10。3〜4人で着手し約40人へ
-exit-8,8番出口,KOTAKE CREATE,KOTAKE CREATE,1,2023-11-29,PC|Switch|PS5|Xbox,1,dev.html の出典欄（4Gamer IDC2024・KOTAKE CREATE プロフィール）,S,2653790,Steam 版の発売日。Switch 版は 2024-04-17
-dq3-hd2d,ドラゴンクエストIII そして伝説へ… HD-2D Remake,スクウェア・エニックス／アートディンク,スクウェア・エニックス,1,2024-11-14,Switch|PS5|XSX|PC,,,,2701660,
-splatoon-raiders,スプラトゥーン レイダース,任天堂,任天堂,1,2026-07-23,Switch2,,,,,
-onimusha-way-of-the-sword,鬼武者 Way of the Sword,カプコン,カプコン,1,2026-09-04,PS5|XSX|PC|Switch2,,,,2638890,
-rhythm-heaven-miracle-stars,リズム天国 ミラクルスターズ,,任天堂,1,2026-07-02,Switch,,,,,開発の主体は公式ページに明記なし（発売元は任天堂）
-pokemon-legends-za,Pokémon LEGENDS Z-A（Nintendo Switch 版）,ゲームフリーク,ポケモン／任天堂,1,2025-10-16,Switch,,,,,Nintendo Switch 2 Edition は別の集計（pokemon-legends-za-sw2）
-super-mario-party-jamboree,スーパー マリオパーティ ジャンボリー,エヌディーキューブ,任天堂,1,2024-10-17,Switch,,,,,Nintendo Switch 2 Edition は別の集計（mario-party-jamboree-sw2）
-minecraft,Minecraft,Mojang Studios,Microsoft（Xbox Game Studios）,0,2011-11-18,PC|Switch|PS|Xbox|スマホ,,,,,日本発ではない（比較用）。Switch 版は 2018-06-21
-mario-kart-8-deluxe,マリオカート8 デラックス,任天堂,任天堂,1,2017-04-28,Switch,,,,,
-dq1-2-hd2d,ドラゴンクエストI＆II HD-2D Remake,スクウェア・エニックス／アートディンク,スクウェア・エニックス,1,2025-10-30,Switch|Switch2|PS5|XSX|PC,,,,,
+﻿id,title_ja,developer,publisher,origin_jp,release_date,platforms,team_size,team_size_source,size_class,steam_appid,ip_owner,ip_country,dev_country,pub_country,note
+mario-kart-world,マリオカート ワールド,任天堂,任天堂,1,2025-06-05,Switch2,,,,,任天堂,JP,JP,JP,
+donkey-kong-bananza,ドンキーコング バナンザ,任天堂,任天堂,1,2025-07-17,Switch2,,,,,任天堂,JP,JP,JP,
+pokemon-legends-za-sw2,Pokémon LEGENDS Z-A（Nintendo Switch 2 Edition）,ゲームフリーク,ポケモン／任天堂,1,2025-10-16,Switch2,,,,,ポケモン（任天堂・クリーチャーズ・ゲームフリークの共有）,JP,JP,JP,Nintendo Switch 版は別の集計
+pokopia,ぽこ あ ポケモン,ポケモン／ゲームフリーク／コーエーテクモゲームス（共同開発）,ポケモン／任天堂,1,2026-03-05,Switch2,,,,,ポケモン（任天堂・クリーチャーズ・ゲームフリークの共有）,JP,JP,JP,
+kirby-air-riders,カービィのエアライダー,ソラ／バンダイナムコスタジオ,任天堂,1,2025-11-20,Switch2,,,,,任天堂（ハル研究所）,JP,JP,JP,
+mario-party-jamboree-sw2,スーパー マリオパーティ ジャンボリー Nintendo Switch 2 Edition ＋ ジャンボリーTV,エヌディーキューブ,任天堂,1,2025-07-24,Switch2,,,,,任天堂,JP,JP,JP,
+tomodachi-life-wakuwaku,トモダチコレクション わくわく生活,任天堂,任天堂,1,2026-04-16,Switch,,,,,任天堂,JP,JP,JP,
+monster-hunter-wilds,モンスターハンターワイルズ,カプコン,カプコン,1,2025-02-28,PS5|XSX|PC,,,,2246340,カプコン,JP,JP,JP,
+resident-evil-requiem,バイオハザード レクイエム,カプコン,カプコン,1,2026-02-27,PS5|XSX|PC|Switch2,,,,3764200,カプコン,JP,JP,JP,
+pragmata,プラグマタ,カプコン,カプコン,1,2026-04-17,PS5|XSX|PC|Switch2,,,,3357650,カプコン,JP,JP,JP,Switch 2 版は 2026-04-24
+elden-ring,ELDEN RING,フロム・ソフトウェア,バンダイナムコエンターテインメント／フロム・ソフトウェア,1,2022-02-25,PS5|PS4|XSX|XB1|PC,,,,1245620,フロム・ソフトウェア／バンダイナムコ（原案にジョージ・R・R・マーティン）,JP,JP,JP,
+elden-ring-nightreign,ELDEN RING NIGHTREIGN,フロム・ソフトウェア,バンダイナムコエンターテインメント／フロム・ソフトウェア,1,2025-05-30,PS5|PS4|XSX|XB1|PC,,,,2622380,フロム・ソフトウェア／バンダイナムコ,JP,JP,JP,
+palworld,Palworld／パルワールド,ポケットペア,ポケットペア,1,2024-01-19,PC|Xbox|PS5|Mac,3-40,dev.html の出典欄（AUTOMATON 2024-01-19・Forbes JAPAN）,M,1623730,ポケットペア,JP,JP,JP,早期アクセスの開始日。1.0 正式版は 2026-07-10。3〜4人で着手し約40人へ
+exit-8,8番出口,KOTAKE CREATE,KOTAKE CREATE,1,2023-11-29,PC|Switch|PS5|Xbox,1,dev.html の出典欄（4Gamer IDC2024・KOTAKE CREATE プロフィール）,S,2653790,KOTAKE CREATE,JP,JP,JP,Steam 版の発売日。Switch 版は 2024-04-17
+dq3-hd2d,ドラゴンクエストIII そして伝説へ… HD-2D Remake,スクウェア・エニックス／アートディンク,スクウェア・エニックス,1,2024-11-14,Switch|PS5|XSX|PC,,,,2701660,スクウェア・エニックス,JP,JP,JP,
+splatoon-raiders,スプラトゥーン レイダース,任天堂,任天堂,1,2026-07-23,Switch2,,,,,任天堂,JP,JP,JP,
+onimusha-way-of-the-sword,鬼武者 Way of the Sword,カプコン,カプコン,1,2026-09-04,PS5|XSX|PC|Switch2,,,,2638890,カプコン,JP,JP,JP,
+rhythm-heaven-miracle-stars,リズム天国 ミラクルスターズ,,任天堂,1,2026-07-02,Switch,,,,,任天堂,JP,,JP,開発の主体は公式ページに明記なし（発売元は任天堂）
+pokemon-legends-za,Pokémon LEGENDS Z-A（Nintendo Switch 版）,ゲームフリーク,ポケモン／任天堂,1,2025-10-16,Switch,,,,,ポケモン（任天堂・クリーチャーズ・ゲームフリークの共有）,JP,JP,JP,Nintendo Switch 2 Edition は別の集計（pokemon-legends-za-sw2）
+super-mario-party-jamboree,スーパー マリオパーティ ジャンボリー,エヌディーキューブ,任天堂,1,2024-10-17,Switch,,,,,任天堂,JP,JP,JP,Nintendo Switch 2 Edition は別の集計（mario-party-jamboree-sw2）
+minecraft,Minecraft,Mojang Studios,Microsoft（Xbox Game Studios）,0,2011-11-18,PC|Switch|PS|Xbox|スマホ,,,,,Microsoft（Mojang Studios）,US,SE,US,日本発ではない（比較用）。Switch 版は 2018-06-21
+mario-kart-8-deluxe,マリオカート8 デラックス,任天堂,任天堂,1,2017-04-28,Switch,,,,,任天堂,JP,JP,JP,
+dq1-2-hd2d,ドラゴンクエストI＆II HD-2D Remake,スクウェア・エニックス／アートディンク,スクウェア・エニックス,1,2025-10-30,Switch|Switch2|PS5|XSX|PC,,,,,スクウェア・エニックス,JP,JP,JP,
+arc-raiders,ARC Raiders,Embark Studios,Embark Studios（ネクソン）,0,2025-10-30,PC|PS5|XSX,,,,1808500,Embark Studios（親会社は韓国のネクソン）,KR,SE,KR,開発はストックホルム。IP と販売の国は最終的な親会社（ネクソン）で判定
+schedule-i,Schedule I,TVGS,TVGS,0,2025-03-24,PC,,,,3164500,TVGS（個人開発）,AU,AU,AU,早期アクセスの開始日
+dota-2,Dota 2,Valve,Valve,0,2013-07-09,PC,,,,570,Valve,US,US,US,
+marvel-rivals,マーベル・ライバルズ,NetEase Games,NetEase Games,0,2024-12-06,PC|PS5|XSX,,,,2767030,Marvel（ディズニー）,US,CN,CN,IP は米国、開発と運営は中国＝分かれている例
+repo,R.E.P.O.,semiwork,semiwork,0,2025-02-26,PC,,,,3241660,semiwork,SE,SE,SE,早期アクセスの開始日
+battlefield-6,Battlefield 6,Battlefield Studios（DICE ほか EA の複数スタジオ）,Electronic Arts,0,2025-10-10,PC|PS5|XSX,,,,2807960,Electronic Arts,US,,US,開発拠点はスウェーデン（DICE）・英国・カナダ・米国にまたがるため dev_country は空
+call-of-duty,Call of Duty（Black Ops 7・Black Ops 6・Warzone の統合アプリ）,Treyarch／Raven Software ほか,Activision（Microsoft）,0,,PC|PS5|XSX,,,,1938090,Activision（Microsoft）,US,US,US,Steam では1本の統合アプリとして集計。発売日は未確認（Black Ops 7 は 2025年11月）
+apex-legends,エーペックスレジェンズ,Respawn Entertainment,Electronic Arts,0,2019-02-04,PC|PS|Xbox|Switch,,,,1172470,Electronic Arts,US,US,US,Steam 版は 2020-11-04
+pubg,PUBG: BATTLEGROUNDS,PUBG Studios,KRAFTON,0,2017-12-21,PC|PS|Xbox|スマホ,,,,578080,KRAFTON,KR,KR,KR,早期アクセスは 2017-03-23。2022年から基本無料
+borderlands-4,ボーダーランズ4,Gearbox Software,2K（Take-Two Interactive）,0,2025-09-12,PC|PS5|XSX|Switch2,,,,1285190,2K（Take-Two Interactive）,US,US,US,
+counter-strike-2,Counter-Strike 2,Valve,Valve,0,2023-09-27,PC,,,,730,Valve,US,US,US,
+dune-awakening,Dune: Awakening,Funcom,Funcom（テンセント）,0,2025-06-10,PC,,,,1172710,Legendary Entertainment（原作フランク・ハーバートの遺産管理からの許諾）,US,NO,CN,IP は米国の許諾、開発はノルウェー、販売元 Funcom の親会社は中国のテンセント
+ea-sports-fc-26,EA SPORTS FC 26,EA Vancouver／EA Romania,Electronic Arts,0,2025-09-26,PC|PS5|PS4|XSX|XB1|Switch2|Switch,,,,3405690,Electronic Arts,US,CA,US,
+oblivion-remastered,The Elder Scrolls IV: Oblivion Remastered,Virtuos（Bethesda Game Studios と共同）,Bethesda Softworks（Microsoft）,0,2025-04-22,PC|PS5|XSX,,,,2623190,Bethesda（Microsoft）,US,SG,US,移植・リマスターの主開発はシンガポールの Virtuos
+kingdom-come-deliverance-ii,Kingdom Come: Deliverance II,Warhorse Studios,Plaion（Embracer Group）,0,2025-02-04,PC|PS5|XSX,,,,1771300,Warhorse Studios（親会社は Plaion＝Embracer Group）,SE,CZ,SE,開発はチェコ。IP と販売の国は最終的な親会社（スウェーデンの Embracer）で判定
+hollow-knight-silksong,Hollow Knight: Silksong,Team Cherry,Team Cherry,0,2025-09-04,PC|PS5|PS4|XSX|XB1|Switch2|Switch,,,,1030300,Team Cherry,AU,AU,AU,
+civilization-vii,シドマイヤーズ シヴィライゼーション VII,Firaxis Games,2K（Take-Two Interactive）,0,2025-02-11,PC|PS5|PS4|XSX|XB1|Switch2|Switch,,,,1295660,2K（Take-Two Interactive）,US,US,US,
+last-war-survival,ラストウォー：サバイバル,First Fun（江娯互動）,FirstFun／Funfly,0,,スマホ,,,,,First Fun（江娯互動・重慶）,CN,CN,CN,日本での配信は2023年8月・日は未確認。運営会社の登記はシンガポールだがグループの本拠は中国
+pokemon-tcg-pocket,Pokémon Trading Card Game Pocket（ポケポケ）,クリーチャーズ／DeNA,ポケモン,1,2024-10-30,スマホ,,,,,ポケモン（任天堂・クリーチャーズ・ゲームフリークの共有）,JP,JP,JP,
+monster-strike,モンスターストライク,MIXI,MIXI,1,2013-10-10,スマホ,,,,,MIXI,JP,JP,JP,iOS 版の配信開始日
+fate-grand-order,Fate/Grand Order,ラセングル,アニプレックス（ソニー）,1,2015-07-30,スマホ,,,,,TYPE-MOON／アニプレックス,JP,JP,JP,Android 版の配信開始日
+whiteout-survival,ホワイトアウト・サバイバル,Century Games,Century Games,0,,スマホ|PC,,,,,Century Games（北京）,CN,CN,CN,配信は2023年2月・日は未確認（媒体で9〜13日と幅）。登記はシンガポールだが本拠は中国
+umamusume,ウマ娘 プリティーダービー,Cygames,Cygames（サイバーエージェント）,1,2021-02-24,スマホ|PC,,,,,Cygames,JP,JP,JP,
+gundam-ggeneration-eternal,SDガンダム ジージェネレーション エターナル,バンダイナムコエンターテインメント（開発会社は未確認）,バンダイナムコエンターテインメント,1,2025-04-16,スマホ|PC,,,,,創通・サンライズ（バンダイナムコ）,JP,JP,JP,
+honkai-star-rail,崩壊：スターレイル,miHoYo（HoYoverse）,COGNOSPHERE（HoYoverse）,0,2023-04-26,スマホ|PC|PS5,,,,,miHoYo（上海）,CN,CN,CN,運営会社の登記はシンガポールだが本拠は中国
+efootball,eFootball,コナミデジタルエンタテインメント,コナミデジタルエンタテインメント,1,2021-09-30,スマホ|PC|PS|Xbox,,,,1665460,コナミ,JP,JP,JP,家庭用・PC の開始日。スマホ版は 2022-06-02
+prospi-a,プロ野球スピリッツA,コナミデジタルエンタテインメント,コナミデジタルエンタテインメント,1,2015-10-21,スマホ,,,,,コナミ（NPB の許諾）,JP,JP,JP,

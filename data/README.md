@@ -22,12 +22,16 @@ CSV は UTF-8（BOM つき＝Excel でそのまま開ける）。Google スプ�
 | developer | 開発の主体 | 複数は `／` でつなぐ |
 | publisher | 発売元 | 同上 |
 | origin_jp | 日本発か | `1`＝開発の主体が日本にある、`0`＝それ以外 |
-| release_date | 最初の発売日 | `YYYY-MM-DD`。早期アクセスなら開始日（note に明記） |
+| release_date | 最初の発売日 | `YYYY-MM-DD`。早期アクセスなら開始日（note に明記）。確かめられない時は空にして note に「発売日は未確認」 |
 | platforms | 出ている機器 | `Switch2|PS5|PC` のように `|` 区切り |
 | team_size | 開発人数 | 数字か範囲（`3-40`）。いちばん多い時期の人数。不明なら空 |
 | team_size_source | 人数の出どころ | URL か資料名。人数を書くなら必ず |
 | size_class | 規模 | `S`＝1〜10人／`M`＝20〜100人／`L`＝200人以上（`dev.html`「規模」章と同じ区分）。人数が不明なら空 |
 | steam_appid | Steam の作品番号 | ストアの URL `store.steampowered.com/app/数字/` の数字。Steam に無ければ空 |
+| ip_owner | IP（作品・キャラクターの権利）の持ち主 | 会社名。共有なら並べて書く |
+| ip_country | IP の持ち主の国 | 2文字の国コード（JP／US／CN／KR／SE…）。**最終的な親会社（グループの本拠）の国**で機械的に決める（シンガポール登記の中国系運営会社は CN、ネクソン傘下の Embark は KR）。事情は note に |
+| dev_country | 開発の主体の国 | **実際に作っている拠点の国**（人が働いている場所）。`origin_jp=1` なら JP。複数国にまたがれば空にして note に |
+| pub_country | 販売・運営の主体の国 | ip_country と同じく最終的な親会社の国。スマホは「運営して売上を受け取る会社」 |
 | note | 補足 | 早期アクセス・別エディション・機器ごとの発売日など |
 
 ## milestones.csv の列
@@ -47,6 +51,29 @@ CSV は UTF-8（BOM つき＝Excel でそのまま開ける）。Google スプ�
 | source_url | 出典の URL | 必ず |
 | note | 補足 | 「発売初日」「初週」「Switch 2 Edition のみ」など |
 
+## 順位表 rankings.csv（誰の作品にユーザーの興味が向いたか）
+
+「日本は好調」を会社の決算で見るのとは別に、**ユーザーが実際に選んだ作品の国籍**を測るための表。市場ごとに「全作品を同じ方法で並べた表」をそのまま写す。
+
+| 列 | 意味 |
+|---|---|
+| list_id | 表の識別子（例 `famitsu-annual-jp-2025`・`steam-best-of-2025`・`sensortower-jp-mobile-revenue-2025`） |
+| list_name / market / metric | 表の名前／市場（`japan-console`・`japan-mobile`・`world-pc`・`us-console`…）／並べた物差し（`units_sold_package`・`iap_revenue_rank`・`gross_revenue_tier`…） |
+| period_end | 集計期間の最終日 |
+| rank | 順位（帯だけで順位が無い表は、載っている順に番号を振り note に「順不同」と書く） |
+| title_id | `titles.csv` の id（無い作品は titles.csv にも足す。海外作品は `origin_jp=0`） |
+| value / unit | 表に数値があればその値（無ければ空） |
+| basis / source_name / source_url / note | 出典（推計の表は `estimate`） |
+
+- 使う表（毎年同じものを使う）：**国内家庭用**＝ファミ通の年間ソフト販売本数ランキング TOP10／**国内スマホ**＝Sensor Tower の年間収益ランキング TOP10（推計）／
+  **世界 PC**＝Steam「年間ベスト」トップセラーのプラチナ12本（公式・総収益の帯・順不同）。米国家庭用（Circana の年間 TOP）は出典が取れた年だけ。
+- **出す数字**：各表の上位のうち、`ip_country=JP` の割合／`dev_country=JP` の割合／`pub_country=JP` の割合。3つの差が「日本は権利者か、作るだけの受託側か」を示す。
+  - 例（2025年）：国内家庭用 TOP10 は日本 IP が9本。国内スマホ TOP10 は日本 IP が7本で、1位・5位・8位は中国 IP。
+- 国籍の判定：IP と販売運営は「最終的な親会社の国」、開発は「作っている拠点の国」。お金と権利が最後にどこへ行くかを見るのが目的なので、地域の登記（シンガポール法人など）では決めない。
+  IP が共有（例：ポケモン＝任天堂・クリーチャーズ・ゲームフリーク）、IP が許諾（例：Dune＝米国の許諾・開発ノルウェー・販売テンセント）などの事情は note に書き、判定は変えない。
+- 2025年の3表を入れた時点の観測：Steam トップセラーのプラチナ12本のうち日本 IP は1本（モンスターハンターワイルズ）、新作のプラチナ12本では2本（＋ELDEN RING NIGHTREIGN）。
+  国内スマホ TOP10 は日本 IP 7本・中国 IP 3本。国内家庭用 TOP10 は日本 IP 9本。
+
 ## 記入のルール
 
 1. **追記だけ。上書きしない。** 累計は増え続けるので、新しい数字は新しい行にする（同じ作品でも時点が違えば別の行）。
@@ -57,7 +84,6 @@ CSV は UTF-8（BOM つき＝Excel でそのまま開ける）。Google スプ�
 6. 書いたら `node data/check.js` で形を確かめる（列・日付・重複・id の対応）。
 7. **追記は人とルーティンの両方**（2026-09-26 から）。ルーティン `notes-check` は毎月、公式の「突破」発表・IR 一覧の更新を `milestones.csv` に、
    Steam のレビュー数を `steam_update.js` で足し、`check.js` を通してから push する。評価や予想は書かない・既存の行は消さない（News と同じ条件）。
-   `indicators.csv`（有報の数字）は EDINET の API 鍵が入るまで人の手。
 
 ## 母集団（何を載せるか）
 

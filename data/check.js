@@ -22,7 +22,7 @@ function readCsv(f) {
   return { h, rows: body.map(r => Object.fromEntries(h.map((k, i) => [k, (r[i] || '').trim()]))) };
 }
 
-const T_H = ['id', 'title_ja', 'developer', 'publisher', 'origin_jp', 'release_date', 'platforms', 'team_size', 'team_size_source', 'size_class', 'steam_appid', 'note'];
+const T_H = ['id', 'title_ja', 'developer', 'publisher', 'origin_jp', 'release_date', 'platforms', 'team_size', 'team_size_source', 'size_class', 'steam_appid', 'ip_owner', 'ip_country', 'dev_country', 'pub_country', 'note'];
 const M_H = ['id', 'metric', 'value', 'unit', 'precision', 'scope', 'channel', 'basis', 'as_of', 'source_name', 'source_url', 'note'];
 const EN = {
   metric: ['units_sold', 'units_shipped', 'units_shipped_dl', 'players', 'revenue', 'reviews'],
@@ -48,7 +48,7 @@ T.rows.forEach((r, i) => {
   ids.add(r.id); rel[r.id] = r.release_date;
   if (!r.title_ja) err(n + 'title_ja が空');
   if (!['0', '1'].includes(r.origin_jp)) err(n + 'origin_jp は 0 か 1');
-  if (!isDate(r.release_date)) err(n + 'release_date が日付でない');
+  if (r.release_date ? !isDate(r.release_date) : !/未確認/.test(r.note)) err(n + 'release_date が日付でない（空にするなら note に「発売日は未確認」と書く）');
   if (r.size_class && !['S', 'M', 'L'].includes(r.size_class)) err(n + 'size_class は S/M/L か空');
   if (r.team_size && !/^\d+(-\d+)?$/.test(r.team_size)) err(n + 'team_size は数字か範囲（3-40）');
   if ((r.team_size || r.size_class) && !r.team_size_source) err(n + '人数・規模を書くなら team_size_source が要る');
@@ -73,6 +73,35 @@ M.rows.forEach((r, i) => {
   if (seen.has(key)) err(n + '同じ作品・指標・時点・出典の重複');
   seen.add(key);
 });
+
+// ---- 国籍の列（2文字の国コードか空） ----
+T.rows.forEach((r, i) => {
+  const n = 'titles.csv ' + (i + 2) + '行目 ' + r.id + ': ';
+  ['ip_country', 'dev_country', 'pub_country'].forEach(k => { if (r[k] && !/^[A-Z]{2}$/.test(r[k])) err(n + k + ' は2文字の国コード（JP/US/CN…）か空'); });
+  if (r.ip_country && r.origin_jp === '1' && r.dev_country && r.dev_country !== 'JP') err(n + 'origin_jp=1 なのに dev_country が JP でない（開発の主体が日本＝origin_jp の定義）');
+});
+
+// ---- 順位表 ----
+const R_H = ['list_id', 'list_name', 'market', 'metric', 'period_end', 'rank', 'title_id', 'value', 'unit', 'basis', 'source_name', 'source_url', 'note'];
+if (fs.existsSync(path.join(D, 'rankings.csv'))) {
+  const R = readCsv('rankings.csv');
+  if (R.h.join() !== R_H.join()) err('rankings.csv の列が違う: ' + R.h.join(','));
+  const seenR = new Set();
+  R.rows.forEach((r, i) => {
+    const n = 'rankings.csv ' + (i + 2) + '行目 ' + r.list_id + '/' + r.rank + ': ';
+    if (!/^[a-z0-9-]+$/.test(r.list_id)) err(n + 'list_id は小文字英数字とハイフン');
+    if (!ids.has(r.title_id)) err(n + 'titles.csv に無い title_id: ' + r.title_id);
+    if (!/^\d+$/.test(r.rank)) err(n + 'rank は整数');
+    if (!isDate(r.period_end)) err(n + 'period_end が日付でない');
+    if (r.value && !/^-?\d+(\.\d+)?$/.test(r.value)) err(n + 'value は数字か空');
+    if (!EN.basis.includes(r.basis)) err(n + 'basis は ' + EN.basis.join('/'));
+    if (!/^https?:\/\//.test(r.source_url)) err(n + 'source_url が URL でない');
+    const key = r.list_id + '|' + r.rank;
+    if (seenR.has(key)) err(n + '同じ表の同じ順位が重複');
+    seenR.add(key);
+  });
+  var rankCount = R.rows.length;
+} else { var rankCount = 0; }
 
 // ---- 指標台帳 ----
 const DF_H = ['indicator_id', 'name_ja', 'unit', 'definition', 'default_source'];
