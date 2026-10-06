@@ -24,4 +24,10 @@
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>
  </url>
+ <url>
+  <loc>https://notes.tas9.net/learn/portfolio.html</loc>
+  <lastmod>2026-10-06</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+ </url>
 </urlset>
