@@ -708,6 +708,9 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 .hub{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:28px}
 .hub>a,.hub>.soon{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);
   border-radius:18px;padding:18px 20px 16px;text-decoration:none;color:inherit}
+/* 入口は縦768pxの窓に収める（2026-10-06 実測で詰めた）。詰めたのは上下の端だけ（上 28→16px・下 20→6px）。
+   カードの上の余白（28px・本人の指定）・ロゴの映り込み・署名の区切り線は触らない。スマホ幅は別の規則（下の 720px 以下）なので対象外 */
+@media (min-width:721px){body.hub-page{padding-top:10px;padding-bottom:6px}.hub-page .wrap{margin-top:6px;margin-bottom:0}}
 .hub>a{transition:border-color .2s,transform .2s,box-shadow .2s}
 .hub>a:hover{border-color:var(--ac);transform:translateY(-3px);box-shadow:var(--shadow)}
 .hub>.soon{color:var(--sub)}
