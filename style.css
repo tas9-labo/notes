@@ -687,7 +687,7 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 .hero-bg{position:absolute;top:0;left:0;right:0;height:clamp(300px,36vw,560px);overflow:hidden;pointer-events:none;z-index:0;
   -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 25%,transparent 100%),linear-gradient(to right,transparent 0%,#000 20%,#000 80%,transparent 100%);-webkit-mask-composite:source-in;
   mask-image:linear-gradient(to bottom,#000 0%,#000 25%,transparent 100%),linear-gradient(to right,transparent 0%,#000 20%,#000 80%,transparent 100%);mask-composite:intersect}
-.hero-bg img{position:absolute;left:50%;top:calc(49px - 12.25vw);display:block;width:100vw;max-width:none;height:auto;transform:translateX(-50%);opacity:.22}
+.hero-bg img{position:absolute;left:50%;top:calc(78px - 16vw);display:block;width:100vw;max-width:none;height:auto;transform:translateX(-50%);opacity:.22}
 @media (max-width:720px){.hero-bg{height:300px}.hero-bg img{width:250vw;top:calc(91px - 30.625vw)}}
 :root:not([data-theme="dark"]) .hero-bg img{opacity:.10;filter:saturate(.7)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hero-bg img{opacity:.22;filter:none}}
