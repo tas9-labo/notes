@@ -680,15 +680,12 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 /* 出典の一覧：ページには番号を出さないので1列（2026-09-22） */
 .srcs li{grid-template-columns:1fr}.srcs .d{grid-column:1}
 /* 入口の頭に敷く写真（飾り）。下へ向かって地色に溶かす。文字は前面 */
-/* 頭に薄く敷く写真（2026-10-06〜：コンクリートの通路。元写真 2000×1500 の y=140〜1060 を 1600×736 に切り出し。前の古地図は hero-map.jpg）。
-   暗い帯（元写真の y≒310〜460＝切り出し後の 170〜320・中心 245）を +9 ロゴの真後ろに置く。画像は幅に比例して拡大縮小するので、
-   top を幅から逆算する。PC は帯の下端（切り出し後 320）をロゴの下端＋2px＝78px に：top＝78px − 幅×320/2000（→16vw）。反射は明るい梁にかかってよい（本人 2026-10-07）。
-   スマホはロゴの中心 91px・画像を 2.5 倍（250vw）にして帯の高さをロゴ（70px）に合わせる（→30.625vw）。ふわっと消すマスクは枠（.hero-bg）にかける */
-.hero-bg{position:absolute;top:0;left:0;right:0;height:clamp(300px,36vw,560px);overflow:hidden;pointer-events:none;z-index:0;
+/* 頭に薄く敷く写真（2026-10-06〜：コンクリートの通路の写真を横長に切り出したもの。前の古地図は hero-map.jpg に残してある）。
+   どの幅でも横長の帯のまま（高さ＝幅の30%・220〜440px）。下と左右をマスクでふわっと消す */
+.hero-bg{position:absolute;top:0;left:0;right:0;height:clamp(220px,30vw,440px);overflow:hidden;pointer-events:none;z-index:0}
+.hero-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 50%;opacity:.22;
   -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 25%,transparent 100%),linear-gradient(to right,transparent 0%,#000 20%,#000 80%,transparent 100%);-webkit-mask-composite:source-in;
   mask-image:linear-gradient(to bottom,#000 0%,#000 25%,transparent 100%),linear-gradient(to right,transparent 0%,#000 20%,#000 80%,transparent 100%);mask-composite:intersect}
-.hero-bg img{position:absolute;left:50%;top:calc(78px - 16vw);display:block;width:100vw;max-width:none;height:auto;transform:translateX(-50%);opacity:.22}
-@media (max-width:720px){.hero-bg{height:300px}.hero-bg img{width:250vw;top:calc(91px - 30.625vw)}}
 :root:not([data-theme="dark"]) .hero-bg img{opacity:.10;filter:saturate(.7)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hero-bg img{opacity:.22;filter:none}}
 :root[data-theme="dark"] .hero-bg img{opacity:.22;filter:none}
