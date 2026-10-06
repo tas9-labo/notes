@@ -16,7 +16,7 @@ ver = re.search(r'style\.css\?v=([0-9a-z]+)', src).group(1)
 
 def relink(s):
     for a, b in [('href="index.html"', 'href="../index.html"'), ('href="industry.html"', 'href="../industry.html"'), ('href="dev.html"', 'href="../dev.html"'),
-                 ('href="news.html" aria-current="page"', 'href="../news.html"'), ('href="news.html"', 'href="../news.html"'), ('src="hero.jpg', 'src="../hero.jpg')]:
+                 ('href="news.html" aria-current="page"', 'href="../news.html"'), ('href="news.html"', 'href="../news.html"'), ('href="learn/', 'href="../learn/'), ('src="hero.jpg', 'src="../hero.jpg')]:
         s = s.replace(a, b)
     return s
 toc, hero, head = relink(toc), relink(hero), relink(head)
