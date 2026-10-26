@@ -52,12 +52,26 @@
 .it .ft a{color:var(--sub);text-decoration:none;border-bottom:1px solid var(--line)}
 .it .ft a:hover{color:var(--ink)}
 .it .ft .rel{color:var(--accent)}
+/* 風向き（業界で働く人・目指す人から見て）：data-w＝up 追い風（青▲）／down 向かい風（橙▼）／flat どちらとも（灰●）。
+   dev の「追い風／向かい風」と同じ組。色弱でも分かるよう、色・形・言葉の3つで示す */
+.it{--w:var(--c-slate)}
+.it[data-w="up"]{--w:var(--imp2)}
+.it[data-w="down"]{--w:var(--imp3)}
+.it .rail::after{background:var(--w);border:0;transform:none}/* style.css の共通 .rail::after（枠線の三角）を打ち消す */
+.it[data-w="up"] .rail::after,.it[data-w="down"] .rail::after{width:10px;height:9px;margin-left:-5px;border-radius:0}
+.it[data-w="up"] .rail::after{top:6px;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.it[data-w="down"] .rail::after{top:7px;clip-path:polygon(0 0,100% 0,50% 100%)}
+.it .dt::after{display:block;margin-top:5px;font-family:"Inter","Noto Sans JP",sans-serif;font-size:11px;font-weight:600;letter-spacing:0;color:var(--w)}
+.it[data-w="up"] .dt::after{content:"追い風"}
+.it[data-w="down"] .dt::after{content:"向かい風"}
+.it[data-w="flat"] .dt::after{content:"どちらとも"}
 .sub small{display:inline-block;margin-top:5px;font-size:12px;line-height:1.7}
 .empty{margin-top:30px;font-size:14px;color:var(--sub)}
 .it[hidden],.yr[hidden]{display:none}
 @media (max-width:720px){
   .it{grid-template-columns:14px minmax(0,1fr);padding:14px 0 16px}
   .it .dt{grid-column:2;padding:0 0 0 16px}
+  .it .dt::after{display:inline;margin:0 0 0 10px}
   .it .rail{grid-row:1 / span 2}
   .it .bd{grid-column:2;padding-left:16px;margin-top:4px}
   .filter{margin-top:24px}
@@ -127,12 +141,12 @@
 <section class="ch" id="news">
   <div class="ch-head"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M4 5.5h13v13H4zM17 9.5h3v7a2 2 0 01-2 2M7 9h7M7 12h7M7 15h4"/></svg></span><span class="ch-no">LOG</span></div>
   <h2>業界の動き</h2>
-  <p class="sub">一次資料（公式の発表・公表資料）を読んで、要点だけを書いています。<br><small>※この欄は AI が毎週、自動で追記しています。正確な内容は出典のリンク先で確かめてください。</small></p>
+  <p class="sub">一次資料（公式の発表・公表資料）を読んで、要点だけを書いています。<br><small>※この欄は AI が毎週、自動で追記しています。日付に添えた風向き（業界で働く人・目指す人にとっての追い風・向かい風）も AI の判断です。正確な内容は出典のリンク先で確かめてください。</small></p>
 
   <div class="filter" id="filter" role="group" aria-label="タグで絞り込む"></div>
   <ul class="items" id="newsList">
 <!-- ▼ 新しい記事はこの行の直後に足す（新しい順。書式は下の項目と同じ。タグは data-tags に「|」区切り） -->
-    <li class="it" data-d="2026-10-22" data-tags="制度・ルール|海外">
+    <li class="it" data-d="2026-10-22" data-tags="制度・ルール|海外" data-w="flat">
       <div class="dt">10/22</div><div class="rail"></div>
       <div class="bd">
         <h3>欧州の年齢区分 PEGI、有料のガチャがあるダウンロード専用ゲームを16歳以上対象へ</h3>
@@ -142,7 +156,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/22/28408.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 売り方</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-22" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-10-22" data-tags="会社の動き|海外" data-w="down">
       <div class="dt">10/22</div><div class="rail"></div>
       <div class="bd">
         <h3>EA が BioWare を閉鎖。次の『Mass Effect』も開発中止</h3>
@@ -152,7 +166,7 @@
         <p class="ft">出典：<a href="https://automaton-media.com/articles/newsjp/20261022-474839/" target="_blank" rel="noopener">AUTOMATON</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-22" data-tags="会社の動き">
+    <li class="it" data-d="2026-10-22" data-tags="会社の動き" data-w="down">
       <div class="dt">10/22</div><div class="rail"></div>
       <div class="bd">
         <h3>カプコン、会員サービス CAPCOM ID への不正アクセスでメールアドレス約1100万件が流出</h3>
@@ -162,7 +176,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/23/28420.html" target="_blank" rel="noopener">GameBusiness.jp</a></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-20" data-tags="技術・道具|海外">
+    <li class="it" data-d="2026-10-20" data-tags="技術・道具|海外" data-w="flat">
       <div class="dt">10/20</div><div class="rail"></div>
       <div class="bd">
         <h3>英国の業界団体 Ukie、ゲーム制作での AI 利用に「認証マーク」を出すサービスを開始</h3>
@@ -172,7 +186,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/20/28387.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 開発の現場 ／ 変化</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-19" data-tags="市場・お金">
+    <li class="it" data-d="2026-10-19" data-tags="市場・お金" data-w="up">
       <div class="dt">10/19</div><div class="rail"></div>
       <div class="bd">
         <h3>コーエーテクモ、中間期の経常利益の見込みを120億円から250億円へ引き上げ</h3>
@@ -182,7 +196,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/19/28373.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 売り方</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-15" data-tags="制度・ルール|海外">
+    <li class="it" data-d="2026-10-15" data-tags="制度・ルール|海外" data-w="flat">
       <div class="dt">10/15</div><div class="rail"></div>
       <div class="bd">
         <h3>米下院議員が、買ったゲームを「所有」できるようにする法案を発表</h3>
@@ -192,7 +206,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/17/28356.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 売り方</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-14" data-tags="就職・採用">
+    <li class="it" data-d="2026-10-14" data-tags="就職・採用" data-w="flat">
       <div class="dt">10/14</div><div class="rail"></div>
       <div class="bd">
         <h3>マイナビ調査：2027年卒の内々定率は9月末で86.3%</h3>
@@ -201,7 +215,7 @@
         <p class="ft">出典：<a href="https://career-research.mynavi.jp/column/20260317_108783/" target="_blank" rel="noopener">マイナビキャリアリサーチLab</a>　<span class="rel">→ 開発の現場 ／ 門を叩く</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-09" data-tags="市場・お金|海外">
+    <li class="it" data-d="2026-10-09" data-tags="市場・お金|海外" data-w="down">
       <div class="dt">10/09</div><div class="rail"></div>
       <div class="bd">
         <h3>米国のゲーム機の販売台数、XBOX は過去最低のペース。PS も2013年以来の低さ</h3>
@@ -211,7 +225,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/14/28304.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-08" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-10-08" data-tags="会社の動き|海外" data-w="flat">
       <div class="dt">10/08</div><div class="rail"></div>
       <div class="bd">
         <h3>XBOX が新部門「XP」を設立。ゲームを映画・グッズ・イベントへ広げる</h3>
@@ -220,7 +234,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/09/28269.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 売り方</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-08" data-tags="会社の動き|市場・お金">
+    <li class="it" data-d="2026-10-08" data-tags="会社の動き|市場・お金" data-w="down">
       <div class="dt">10/08</div><div class="rail"></div>
       <div class="bd">
         <h3>開発受託のトーセ、営業利益58.8%減。海外大手との大型開発が中断</h3>
@@ -230,7 +244,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/08/28260.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-08" data-tags="市場・お金">
+    <li class="it" data-d="2026-10-08" data-tags="市場・お金" data-w="down">
       <div class="dt">10/08</div><div class="rail"></div>
       <div class="bd">
         <h3>シリコンスタジオ、第3四半期までで営業赤字2億600万円。通期予想も下方修正</h3>
@@ -240,7 +254,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/08/28261.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-07" data-tags="市場・お金">
+    <li class="it" data-d="2026-10-07" data-tags="市場・お金" data-w="up">
       <div class="dt">10/07</div><div class="rail"></div>
       <div class="bd">
         <h3>日本ファルコム、業績予想を再び上方修正。営業利益28億円へ</h3>
@@ -250,7 +264,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/07/28246.html" target="_blank" rel="noopener">GameBusiness.jp</a></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-02" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-10-02" data-tags="会社の動き|海外" data-w="flat">
       <div class="dt">10/02</div><div class="rail"></div>
       <div class="bd">
         <h3>グラスホッパー・マニファクチュア、NetEase Games の傘下を離れて独立</h3>
@@ -260,7 +274,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/02/28196.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-10-01" data-tags="技術・道具|海外">
+    <li class="it" data-d="2026-10-01" data-tags="技術・道具|海外" data-w="flat">
       <div class="dt">10/01</div><div class="rail"></div>
       <div class="bd">
         <h3>Bose が、ゲーム用サウンドツール FMOD の開発元を買収</h3>
@@ -269,7 +283,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/10/02/28202.html" target="_blank" rel="noopener">GameBusiness.jp</a></p>
       </div>
     </li>
-    <li class="it" data-d="2026-09-22" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-09-22" data-tags="会社の動き|海外" data-w="down">
       <div class="dt">09/22</div><div class="rail"></div>
       <div class="bd">
         <h3>Xbox がスタジオ再編の第2弾を公表。268人を削減</h3>
@@ -279,7 +293,7 @@
         <p class="ft">出典：<a href="https://news.denfaminicogamer.jp/news/260922v" target="_blank" rel="noopener">電ファミニコゲーマー</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-09-21" data-tags="イベント">
+    <li class="it" data-d="2026-09-21" data-tags="イベント" data-w="up">
       <div class="dt">09/21</div><div class="rail"></div>
       <div class="bd">
         <h3>東京ゲームショウ2026 閉幕。出展1138社で過去最多</h3>
@@ -289,7 +303,7 @@
         <p class="ft">出典：<a href="https://www.4gamer.net/games/991/G999110/20260917019/" target="_blank" rel="noopener">4Gamer</a>・<a href="https://news.denfaminicogamer.jp/news/2609203w" target="_blank" rel="noopener">電ファミニコゲーマー</a>　<span class="rel">→ 産業のしくみ ／ 売り方</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-09-20" data-tags="イベント">
+    <li class="it" data-d="2026-09-20" data-tags="イベント" data-w="flat">
       <div class="dt">09/20</div><div class="rail"></div>
       <div class="bd">
         <h3>次回の東京ゲームショウは2027年9月16〜20日</h3>
@@ -298,7 +312,7 @@
         <p class="ft">出典：<a href="https://news.denfaminicogamer.jp/news/2609203w" target="_blank" rel="noopener">電ファミニコゲーマー</a></p>
       </div>
     </li>
-    <li class="it" data-d="2026-09-17" data-tags="技術・道具|市場・お金">
+    <li class="it" data-d="2026-09-17" data-tags="技術・道具|市場・お金" data-w="flat">
       <div class="dt">09/17</div><div class="rail"></div>
       <div class="bd">
         <h3>CESA ゲーム産業レポート2026 プレビュー版：開発者の生成AI活用は85.8%</h3>
@@ -308,7 +322,7 @@
         <p class="ft">出典：<a href="https://www.cesa.or.jp/information/info6/001290/cesa_2026.html" target="_blank" rel="noopener">CESA</a>　<span class="rel">→ 開発の現場 ／ 変化</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-09-15" data-tags="就職・採用">
+    <li class="it" data-d="2026-09-15" data-tags="就職・採用" data-w="flat">
       <div class="dt">09/15</div><div class="rail"></div>
       <div class="bd">
         <h3>CESA が「ゲームクリエイタースキル実証プロジェクト」の推進を発表</h3>
@@ -317,7 +331,7 @@
         <p class="ft">出典：<a href="https://www.cesa.or.jp/assets/pdf/information/game_creator_skill_project.pdf" target="_blank" rel="noopener">CESA（PDF）</a>　<span class="rel">→ 開発の現場 ／ スキル</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-09-02" data-tags="市場・お金|海外">
+    <li class="it" data-d="2026-09-02" data-tags="市場・お金|海外" data-w="flat">
       <div class="dt">09/02</div><div class="rail"></div>
       <div class="bd">
         <h3>日本のアプリ内課金は過去12か月で1.56兆円。アジア2位を維持</h3>
@@ -326,7 +340,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/09/02/27859.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-08-08" data-tags="会社の動き|市場・お金">
+    <li class="it" data-d="2026-08-08" data-tags="会社の動き|市場・お金" data-w="down">
       <div class="dt">08/08</div><div class="rail"></div>
       <div class="bd">
         <h3>スマホゲーム事業者の倒産、2026年1〜7月で10件。過去最多のペース</h3>
@@ -336,7 +350,7 @@
         <p class="ft">出典：<a href="https://www.tdb.co.jp/report/economic/20260808-smartphonegames26y1-7/" target="_blank" rel="noopener">帝国データバンク</a>・<a href="https://www.gamebusiness.jp/article/2026/08/18/27722.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-08-06" data-tags="市場・お金">
+    <li class="it" data-d="2026-08-06" data-tags="市場・お金" data-w="up">
       <div class="dt">08/06</div><div class="rail"></div>
       <div class="bd">
         <h3>任天堂：Nintendo Switch 2 が累計2368万台（2026年6月末）</h3>
@@ -346,7 +360,7 @@
         <p class="ft">出典：<a href="https://www.nintendo.co.jp/ir/finance/hard_soft/index.html" target="_blank" rel="noopener">任天堂 IR</a>・<a href="https://www.4gamer.net/games/999/G999905/20260806046/" target="_blank" rel="noopener">4Gamer</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-08-06" data-tags="市場・お金">
+    <li class="it" data-d="2026-08-06" data-tags="市場・お金" data-w="up">
       <div class="dt">08/06</div><div class="rail"></div>
       <div class="bd">
         <h3>ファミ通ゲーム白書2026：2025年の世界市場は32兆1024億円、国内は2兆5885億円</h3>
@@ -356,7 +370,7 @@
         <p class="ft">出典：<a href="https://prtimes.jp/main/html/rd/p/000000257.000017610.html" target="_blank" rel="noopener">角川アスキー総合研究所（PR TIMES）</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-08-01" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-08-01" data-tags="会社の動き|海外" data-w="flat">
       <div class="dt">08/01</div><div class="rail"></div>
       <div class="bd">
         <h3>EA、550億ドルでの非公開化に必要な承認をすべて取得</h3>
@@ -366,7 +380,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/08/01/27601.html" target="_blank" rel="noopener">GameBusiness.jp</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-07-31" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-07-31" data-tags="会社の動き|海外" data-w="flat">
       <div class="dt">07/31</div><div class="rail"></div>
       <div class="bd">
         <h3>マーベラス、テンセント子会社との資本業務提携を解消</h3>
@@ -376,7 +390,7 @@
         <p class="ft">出典：<a href="https://www.gamespark.jp/article/2026/07/31/170021.html" target="_blank" rel="noopener">Game*Spark</a>・<a href="https://www.4gamer.net/games/454/G045470/20260731054/" target="_blank" rel="noopener">4Gamer</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-07-22" data-tags="イベント|技術・道具">
+    <li class="it" data-d="2026-07-22" data-tags="イベント|技術・道具" data-w="flat">
       <div class="dt">07/22</div><div class="rail"></div>
       <div class="bd">
         <h3>CEDEC2026 開催（7月22〜24日・パシフィコ横浜ノース）</h3>
@@ -386,7 +400,7 @@
         <p class="ft">出典：<a href="https://cedec.cesa.or.jp/2026/outline/" target="_blank" rel="noopener">CEDEC2026 公式</a>　<span class="rel">→ 開発の現場 ／ スキル</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-07-22" data-tags="就職・採用">
+    <li class="it" data-d="2026-07-22" data-tags="就職・採用" data-w="up">
       <div class="dt">07/22</div><div class="rail"></div>
       <div class="bd">
         <h3>マイナビ調査：初任給を引き上げた企業は89.1%（2027年卒の採用活動）</h3>
@@ -396,7 +410,7 @@
         <p class="ft">出典：<a href="https://career-research.mynavi.jp/reserch/20260722_112587/" target="_blank" rel="noopener">マイナビ キャリアリサーチLab</a>　<span class="rel">→ 開発の現場 ／ 門を叩く</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-07-11" data-tags="市場・お金|海外">
+    <li class="it" data-d="2026-07-11" data-tags="市場・お金|海外" data-w="up">
       <div class="dt">07/11</div><div class="rail"></div>
       <div class="bd">
         <h3>Steam の上半期売上が過去最高の111億ドル（約1.8兆円）</h3>
@@ -405,7 +419,7 @@
         <p class="ft">出典：<a href="https://www.gamespark.jp/article/2026/07/11/169133.html" target="_blank" rel="noopener">Game*Spark</a>　<span class="rel">→ 産業のしくみ ／ 売り方</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-07-07" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-07-07" data-tags="会社の動き|海外" data-w="down">
       <div class="dt">07/07</div><div class="rail"></div>
       <div class="bd">
         <h3>Xbox が数千人規模の人員削減と5スタジオの閉鎖（報道）</h3>
@@ -414,7 +428,7 @@
         <p class="ft">出典：<a href="https://www.zaikei.co.jp/article/20260707/860080.html" target="_blank" rel="noopener">財経新聞</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-06-29" data-tags="就職・採用">
+    <li class="it" data-d="2026-06-29" data-tags="就職・採用" data-w="flat">
       <div class="dt">06/29</div><div class="rail"></div>
       <div class="bd">
         <h3>ゲーム業界の就活イベントで学生が求めていたのは「どんな人が働いているか」</h3>
@@ -424,7 +438,7 @@
         <p class="ft">出典：<a href="https://news.mynavi.jp/article/20260629-4643213/" target="_blank" rel="noopener">マイナビニュース</a>　<span class="rel">→ 開発の現場 ／ 門を叩く</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-06-20" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-06-20" data-tags="会社の動き|海外" data-w="down">
       <div class="dt">06/20</div><div class="rail"></div>
       <div class="bd">
         <h3>名越スタジオ、複数のスタッフが5月末で退職</h3>
@@ -434,7 +448,7 @@
         <p class="ft">出典：<a href="https://www.gamebusiness.jp/article/2026/06/20/27268.html" target="_blank" rel="noopener">GameBusiness.jp</a>・<a href="https://automaton-media.com/articles/newsjp/nagoshi-20260307-427236/" target="_blank" rel="noopener">AUTOMATON</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-06-11" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-06-11" data-tags="会社の動き|海外" data-w="down">
       <div class="dt">06/11</div><div class="rail"></div>
       <div class="bd">
         <h3>Ubisoft が2スタジオを閉鎖、約380人規模の削減（報道）</h3>
@@ -443,7 +457,7 @@
         <p class="ft">出典：<a href="https://automaton-media.com/articles/newsjp/ubisoft-20260611-449091/" target="_blank" rel="noopener">AUTOMATON</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-06-04" data-tags="市場・お金">
+    <li class="it" data-d="2026-06-04" data-tags="市場・お金" data-w="flat">
       <div class="dt">06/04</div><div class="rail"></div>
       <div class="bd">
         <h3>主要モバイルゲーム企業、2026年1〜3月期は13社中12社が営業黒字。ただし主力タイトルの売上は逓減</h3>
@@ -453,7 +467,7 @@
         <p class="ft">出典：<a href="https://gamebiz.jp/news/427056" target="_blank" rel="noopener">gamebiz</a>・<a href="https://gamebiz.jp/news/426723" target="_blank" rel="noopener">gamebiz</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-05-26" data-tags="市場・お金">
+    <li class="it" data-d="2026-05-26" data-tags="市場・お金" data-w="up">
       <div class="dt">05/26</div><div class="rail"></div>
       <div class="bd">
         <h3>2026年3月期：家庭用ゲーム大手6社のうち4社がゲーム事業で増益</h3>
@@ -463,7 +477,7 @@
         <p class="ft">出典：<a href="https://gamebiz.jp/news/426480" target="_blank" rel="noopener">gamebiz</a>　<span class="rel">→ 開発の現場 ／ お金</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-04-23" data-tags="就職・採用">
+    <li class="it" data-d="2026-04-23" data-tags="就職・採用" data-w="down">
       <div class="dt">04/23</div><div class="rail"></div>
       <div class="bd">
         <h3>2027年卒の大卒求人倍率は1.62倍。2年連続で低下</h3>
@@ -473,7 +487,7 @@
         <p class="ft">出典：<a href="https://www.works-i.com/surveys/report/260423_recruitment_saiyo_ratio.html" target="_blank" rel="noopener">リクルートワークス研究所</a>　<span class="rel">→ 開発の現場 ／ 門を叩く</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-04-20" data-tags="就職・採用|海外">
+    <li class="it" data-d="2026-04-20" data-tags="就職・採用|海外" data-w="down">
       <div class="dt">04/20</div><div class="rail"></div>
       <div class="bd">
         <h3>調査：レイオフを経験した人の44%が「業界外への転職を検討」</h3>
@@ -482,7 +496,7 @@
         <p class="ft">出典：<a href="https://automaton-media.com/articles/newsjp/20260420-438623/" target="_blank" rel="noopener">AUTOMATON</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-04-13" data-tags="就職・採用">
+    <li class="it" data-d="2026-04-13" data-tags="就職・採用" data-w="up">
       <div class="dt">04/13</div><div class="rail"></div>
       <div class="bd">
         <h3>マイナビ調査：2027年卒の内々定率は3月末で58.7%</h3>
@@ -492,7 +506,7 @@
         <p class="ft">出典：<a href="https://career-research.mynavi.jp/reserch/20260413_109492/" target="_blank" rel="noopener">マイナビ キャリアリサーチLab</a>　<span class="rel">→ 開発の現場 ／ お金</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-04-07" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-04-07" data-tags="会社の動き|海外" data-w="flat">
       <div class="dt">04/07</div><div class="rail"></div>
       <div class="bd">
         <h3>サウジアラビアの EGDC がカプコン株を買い増し、保有比率 6.04% に</h3>
@@ -502,7 +516,7 @@
         <p class="ft">出典：<a href="https://news.denfaminicogamer.jp/news/260407k" target="_blank" rel="noopener">電ファミニコゲーマー</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-02-27" data-tags="就職・採用">
+    <li class="it" data-d="2026-02-27" data-tags="就職・採用" data-w="up">
       <div class="dt">02/27</div><div class="rail"></div>
       <div class="bd">
         <h3>SIE が新卒の初任給を42万5000円へ（2026年4月1日から）</h3>
@@ -511,7 +525,7 @@
         <p class="ft">出典：<a href="https://news.denfaminicogamer.jp/news/260227i" target="_blank" rel="noopener">電ファミニコゲーマー</a>　<span class="rel">→ 開発の現場 ／ お金</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-02-18" data-tags="就職・採用">
+    <li class="it" data-d="2026-02-18" data-tags="就職・採用" data-w="up">
       <div class="dt">02/18</div><div class="rail"></div>
       <div class="bd">
         <h3>2026年度の初任給、引き上げる企業は67.5%（平均9462円増）</h3>
@@ -520,7 +534,7 @@
         <p class="ft">出典：<a href="https://www.tdb.co.jp/report/economic/20260218-startingsalary2026/" target="_blank" rel="noopener">帝国データバンク</a>　<span class="rel">→ 開発の現場 ／ お金</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-02-02" data-tags="就職・採用|海外">
+    <li class="it" data-d="2026-02-02" data-tags="就職・採用|海外" data-w="down">
       <div class="dt">02/02</div><div class="rail"></div>
       <div class="bd">
         <h3>GDC の業界調査：AAA スタジオの6割以上が過去1年にレイオフ</h3>
@@ -530,7 +544,7 @@
         <p class="ft">出典：<a href="https://gamemakers.jp/article/2026_02_02_130006/" target="_blank" rel="noopener">ゲームメーカーズ</a>・<a href="https://igda.jp/2026/03/21/16481/" target="_blank" rel="noopener">IGDA 日本</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2026-01-29" data-tags="会社の動き|海外">
+    <li class="it" data-d="2026-01-29" data-tags="会社の動き|海外" data-w="down">
       <div class="dt">01/29</div><div class="rail"></div>
       <div class="bd">
         <h3>Amazon が大規模な人員削減。ゲームスタジオ責任者の退任も報じられる</h3>
@@ -539,7 +553,7 @@
         <p class="ft">出典：<a href="https://www.gamespark.jp/article/2026/01/29/162122.html" target="_blank" rel="noopener">Game*Spark</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2025-02-22" data-tags="会社の動き|海外">
+    <li class="it" data-d="2025-02-22" data-tags="会社の動き|海外" data-w="down">
       <div class="dt">02/22</div><div class="rail"></div>
       <div class="bd">
         <h3>NetEase が中国国外のスタジオへの投資を打ち切る方針と報道</h3>
@@ -549,7 +563,7 @@
         <p class="ft">出典：<a href="https://automaton-media.com/articles/newsjp/netease-20250222-329261/" target="_blank" rel="noopener">AUTOMATON</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2024-12-25" data-tags="会社の動き|海外">
+    <li class="it" data-d="2024-12-25" data-tags="会社の動き|海外" data-w="down">
       <div class="dt">12/25</div><div class="rail"></div>
       <div class="bd">
         <h3>NetEase の桜花スタジオ、公式サイトを閉鎖</h3>
@@ -559,7 +573,7 @@
         <p class="ft">出典：<a href="https://www.gamespark.jp/article/2024/12/25/148074.html" target="_blank" rel="noopener">Game*Spark</a>　<span class="rel">→ 産業のしくみ ／ 課題</span></p>
       </div>
     </li>
-    <li class="it" data-d="2022-08-31" data-tags="会社の動き|海外">
+    <li class="it" data-d="2022-08-31" data-tags="会社の動き|海外" data-w="flat">
       <div class="dt">08/31</div><div class="rail"></div>
       <div class="bd">
         <h3>フロム・ソフトウェア、テンセント子会社 Sixjoy と SIE を割当先に第三者割当増資</h3>
@@ -569,7 +583,7 @@
         <p class="ft">出典：<a href="https://www.fromsoftware.jp/jp/pressrelease/20220831_announcement.html" target="_blank" rel="noopener">フロム・ソフトウェア</a>・<a href="https://www.4gamer.net/games/999/G999905/20220831067/" target="_blank" rel="noopener">4Gamer</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2022-01-24" data-tags="会社の動き|海外">
+    <li class="it" data-d="2022-01-24" data-tags="会社の動き|海外" data-w="up">
       <div class="dt">01/24</div><div class="rail"></div>
       <div class="bd">
         <h3>名越稔洋氏が「名越スタジオ」を設立。NetEase Games の100%出資</h3>
@@ -578,7 +592,7 @@
         <p class="ft">出典：<a href="https://news.denfaminicogamer.jp/news/220124i" target="_blank" rel="noopener">電ファミニコゲーマー</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2021-10-29" data-tags="会社の動き|海外">
+    <li class="it" data-d="2021-10-29" data-tags="会社の動き|海外" data-w="flat">
       <div class="dt">10/29</div><div class="rail"></div>
       <div class="bd">
         <h3>KADOKAWA、テンセントグループと資本業務提携</h3>
@@ -588,7 +602,7 @@
         <p class="ft">出典：<a href="https://prtimes.jp/main/html/rd/p/000009458.000007006.html" target="_blank" rel="noopener">KADOKAWA（PR TIMES）</a>・<a href="https://gamebiz.jp/news/337330" target="_blank" rel="noopener">gamebiz</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2021-10-22" data-tags="会社の動き|海外">
+    <li class="it" data-d="2021-10-22" data-tags="会社の動き|海外" data-w="flat">
       <div class="dt">10/22</div><div class="rail"></div>
       <div class="bd">
         <h3>グラスホッパー・マニファクチュアが NetEase Games の傘下に</h3>
@@ -598,7 +612,7 @@
         <p class="ft">出典：<a href="https://automaton-media.com/articles/newsjp/20211022-179873/" target="_blank" rel="noopener">AUTOMATON</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2020-05-25" data-tags="会社の動き|海外">
+    <li class="it" data-d="2020-05-25" data-tags="会社の動き|海外" data-w="flat">
       <div class="dt">05/25</div><div class="rail"></div>
       <div class="bd">
         <h3>マーベラス、テンセント子会社と資本業務提携。筆頭株主に</h3>
@@ -607,7 +621,7 @@
         <p class="ft">出典：<a href="https://gamebiz.jp/news/267500" target="_blank" rel="noopener">gamebiz</a>　<span class="rel">→ 産業のしくみ ／ 日本と世界</span></p>
       </div>
     </li>
-    <li class="it" data-d="2020-01-07" data-tags="会社の動き|海外">
+    <li class="it" data-d="2020-01-07" data-tags="会社の動き|海外" data-w="flat">
       <div class="dt">01/07</div><div class="rail"></div>
       <div class="bd">
         <h3>プラチナゲームズ、テンセントからの出資を受け入れ資本提携</h3>
