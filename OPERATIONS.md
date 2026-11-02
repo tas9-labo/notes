@@ -66,5 +66,6 @@
   **本人の端末は除外済み**（この PC の Chrome）。スマホ・他のブラウザでは一度だけ `https://notes.tas9.net/?nocount=1` を開く。
   **既知の制限**：Claude のデスクトップアプリの Browser ペインで本番を開くと**数に入る**（UA に `Claude` が入る。2026-09-27 は 26 閲覧がこれ）。「集計」シートはこれを除いていない＝数字を読む時は `log` の UA で除く。
   Browser ペインで本番を確かめる時は、先に一度 `?nocount=1` を開いておく。
-- **Claude が数字を読む時**：Drive のコネクタ検索ではこのファイルが見つからない（2026-10-09）。本人の Chrome でドライブから開き、
-  同じ画面の中で `gviz/tq?tqx=out:csv&sheet=集計`（または `log`）を読む。Search Console の URL 検査は URL を直接開くと 404 になる＝上の検索窓に URL を打って Enter。
+- **Claude が数字を読む時**：`G:\マイドライブ\notes_access_log.csv`（「log」の写し）を読む＝ブラウザもログインも要らない。
+  毎朝5時の `summarize` の最後に `exportCsv` が書き直す（2026-11-02〜・初回にドライブの許可を本人が承認済み）。当日の最新が要る時だけ、
+  本人の Chrome でスプレッドシートを開き `gviz/tq?tqx=out:csv&sheet=log` を読む（Drive のコネクタからはこのファイルが見つからない）。Search Console の URL 検査は URL を直接開くと 404 になる＝上の検索窓に URL を打って Enter。

@@ -57,6 +57,26 @@ function summarize() {
   var width = 3;
   sh.getRange(1, 1, out.length, width).setValues(out.map(function (r) { while (r.length < width) r.push(''); return r; }));
   sh.getRange(1, 1, 1, width).setFontWeight('bold');
+  try { exportCsv(); } catch (err) {}
+}
+
+// 「log」の写しを CSV でスプレッドシートと同じフォルダに置く（G ドライブ経由でブラウザ無しに読むため・2026-11-02）
+var CSV_NAME = 'notes_access_log.csv';
+function exportCsv() {
+  var ss = SpreadsheetApp.getActive();
+  var log = ss.getSheetByName(LOG);
+  if (!log || log.getLastRow() < 1) return;
+  var rows = log.getDataRange().getValues();
+  var text = rows.map(function (r) {
+    return r.map(function (c) {
+      var s = c instanceof Date ? Utilities.formatDate(c, 'Asia/Tokyo', 'yyyy/MM/dd HH:mm:ss') : String(c);
+      return '"' + s.replace(/"/g, '""') + '"';
+    }).join(',');
+  }).join('\n') + '\n';
+  var folder = DriveApp.getFileById(ss.getId()).getParents().next();
+  var found = folder.getFilesByName(CSV_NAME);
+  if (found.hasNext()) found.next().setContent(text);
+  else folder.createFile(CSV_NAME, text, MimeType.CSV);
 }
 
 function table(title, obj, keepOrder) {
