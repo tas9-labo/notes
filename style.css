@@ -71,7 +71,7 @@ nav.toc{position:fixed;left:0;right:0;top:0;z-index:5;padding:10px 16px;transfor
 nav.toc.show{transform:none}
 nav.toc ul{position:relative;display:flex;gap:8px;max-width:960px;margin:0 auto;padding:0;list-style:none;overflow-x:auto;scrollbar-width:none}
 .toc-pages{display:flex;align-items:center;gap:6px;max-width:960px;margin:0 auto 8px;padding-bottom:8px;
-  border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent);overflow-x:auto;scrollbar-width:none}
+  border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
 .toc-pages::-webkit-scrollbar{display:none}
 .toc-pages a{display:flex;align-items:center;flex:none;padding:5px 13px;border-radius:980px;border:1px solid var(--line);
   color:var(--sub);text-decoration:none;font-size:13px;line-height:1.45;white-space:nowrap;
@@ -86,7 +86,7 @@ nav.toc a{display:block;padding:6px 14px;border-radius:980px;background:var(--ca
 nav.toc a .n{font-family:var(--mono);color:var(--sub);font-variant-numeric:tabular-nums;margin-right:.5em}
 
 /* 章カード */
-section.ch{background:var(--card);border:1px solid color-mix(in srgb,var(--line) 55%,transparent);border-radius:24px;box-shadow:var(--shadow);padding:46px 40px 40px;margin-top:24px;scroll-margin-top:112px}
+section.ch{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:46px 40px 40px;margin-top:24px;scroll-margin-top:112px}
 .ch-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .ch-head .ico{width:34px;height:34px;border-radius:10px;margin-right:2px}
 .ch-head .ic{width:20px;height:20px}
@@ -584,7 +584,7 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
   .stage,.down{grid-template-columns:minmax(0,1fr)}
   .stage-k{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
   .stage .link{display:none}
-  .helpers{margin:8px 0 0 16px;padding-left:12px;border-left:1.5px solid var(--line)}
+  .helpers{margin:8px 0 0 16px;padding-left:12px;border-left:1px solid var(--line)}
   .arr-v{grid-column:1}
   button.node{display:grid;grid-template-columns:38px minmax(0,1fr)}
   button.node.sub{grid-template-columns:32px minmax(0,1fr)}
@@ -737,7 +737,7 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
 .pages .home svg{display:block;width:auto;height:19px;fill:currentColor}
 
 /* まとめた人（名刺サイトへ） */
-.by{margin:6px 8px 0;padding-top:8px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent);
+.by{margin:6px 8px 0;padding-top:8px;border-top:1px solid var(--line);
   color:var(--sub);text-align:right}
 .by p{margin:0}
 .by .who{font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--ink)}
