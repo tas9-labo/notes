@@ -5,7 +5,7 @@
   --warm:#f1ecdf; --warm-ink:#6a5422; --coin:#9a7413;
   --c-teal:#0e7f8c; --c-blue:#1160c9; --c-violet:#5a6a80; --c-gold:#8f6f10; --c-green:#1a7a56; --c-coral:#c2562a; --c-slate:#5b6472;
   --imp3:#c65312; --imp2:#1160c9; --on-color:#fff; --warn:#a97f00;
-  --shadow:0 1px 2px rgba(16,20,28,.05),0 8px 28px rgba(16,20,28,.06);
+  --shadow:0 1px 2px rgba(16,20,28,.04),0 4px 12px rgba(16,20,28,.04);--shadow-float:0 8px 24px rgba(16,20,28,.12);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -14,7 +14,7 @@
     --warm:#26211a; --warm-ink:#dcbc80; --coin:#e0c15f;
     --c-teal:#35b7c9; --c-blue:#5ea8ff; --c-violet:#a9b6c9; --c-gold:#e0c15f; --c-green:#8fd4a8; --c-coral:#ff8a4d; --c-slate:#7f8794;
     --imp3:#ff8a4d; --imp2:#5ea8ff; --on-color:#0a0b0d; --warn:#e8c25c;
-    --shadow:0 1px 0 rgba(255,255,255,.03),0 18px 50px rgba(0,0,0,.5);
+    --shadow:0 1px 2px rgba(0,0,0,.2),0 4px 12px rgba(0,0,0,.18);--shadow-float:0 8px 24px rgba(0,0,0,.35);
   }
 }
 :root[data-theme="dark"]{
@@ -23,7 +23,7 @@
     --warm:#26211a; --warm-ink:#dcbc80; --coin:#e0c15f;
     --c-teal:#35b7c9; --c-blue:#5ea8ff; --c-violet:#a9b6c9; --c-gold:#e0c15f; --c-green:#8fd4a8; --c-coral:#ff8a4d; --c-slate:#7f8794;
     --imp3:#ff8a4d; --imp2:#5ea8ff; --on-color:#0a0b0d; --warn:#e8c25c;
-    --shadow:0 1px 0 rgba(255,255,255,.03),0 18px 50px rgba(0,0,0,.5);
+    --shadow:0 1px 2px rgba(0,0,0,.2),0 4px 12px rgba(0,0,0,.18);--shadow-float:0 8px 24px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 :root{--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
@@ -57,7 +57,7 @@ h1{font-size:clamp(28px,3.6vw,40px);line-height:1.18;letter-spacing:-.02em;font-
 
 /* 入口：7章を小さな札で横一列（場所を取らない） */
 .chapters{list-style:none;margin:34px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.chapters a{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:12px;padding:6px 12px 6px 7px;text-decoration:none;box-shadow:var(--shadow);transition:transform .15s}
+.chapters a{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:12px;padding:6px 12px 6px 7px;text-decoration:none;box-shadow:none;transition:transform .15s}
 .chapters a:hover{transform:translateY(-2px)}
 .chapters .ico{width:26px;height:26px;border-radius:8px}
 .chapters .ico .ic{width:14px;height:14px}
@@ -539,7 +539,7 @@ details.more .notes{margin:10px 0 0;padding:0 0 0 1.2em;font-size:13px;color:var
 /* 用語のポップアップ（用語集の dl から自動で作る） */
 .term{text-decoration:underline dotted var(--sub);text-underline-offset:3px;cursor:help}
 .term:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
-#pop{position:absolute;z-index:10;max-width:min(400px,calc(100vw - 16px));background:var(--ink);color:var(--card);border-radius:12px;padding:10px 14px 11px;font-size:13px;line-height:1.6;box-shadow:var(--shadow)}
+#pop{position:absolute;z-index:10;max-width:min(400px,calc(100vw - 16px));background:var(--ink);color:var(--card);border-radius:12px;padding:10px 14px 11px;font-size:13px;line-height:1.6;box-shadow:var(--shadow-float)}
 #pop[hidden]{display:none}
 #pop b{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;opacity:.7}
 /* 1話題＝1段落。折り返しは文節の切れ目（auto-phrase）で、2行になる時は長さを揃える（balance）＝数文字だけの行を作らない */
@@ -713,7 +713,7 @@ nav.toc a[aria-current="true"] .n{color:inherit;opacity:.7}
    カードの上の余白（28px・本人の指定）・ロゴの映り込み・署名の区切り線は触らない。スマホ幅は別の規則（下の 720px 以下）なので対象外 */
 @media (min-width:721px){body.hub-page{padding-top:10px;padding-bottom:6px}.hub-page .wrap{margin-top:6px;margin-bottom:0}}
 .hub>a{transition:border-color .2s,transform .2s,box-shadow .2s}
-.hub>a:hover{border-color:var(--ac);transform:translateY(-3px);box-shadow:var(--shadow)}
+.hub>a:hover{border-color:var(--ac);transform:translateY(-3px)}
 .hub>.soon{color:var(--sub)}
 .hub .k{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:600;letter-spacing:.06em;color:var(--ink)}
 .hub .k .ic{width:19px;height:19px}
