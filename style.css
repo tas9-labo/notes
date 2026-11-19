@@ -64,7 +64,7 @@ nav.toc ul{position:relative;display:flex;gap:8px;max-width:960px;margin:0 auto;
 .toc-pages{display:flex;align-items:center;gap:6px;max-width:960px;margin:0 auto 8px;padding-bottom:8px;
   border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
 .toc-pages::-webkit-scrollbar{display:none}
-.toc-pages a{display:flex;align-items:center;flex:none;padding:5px 13px;border-radius:var(--r-pill);border:1px solid var(--line);
+.toc-pages a{display:flex;align-items:center;flex:none;padding:6px 14px;border-radius:var(--r-pill);border:1px solid var(--line);
   color:var(--sub);text-decoration:none;font-size:var(--fs-s);line-height:1.45;white-space:nowrap;
   transition:color .2s,border-color .2s,background-color .2s}
 .toc-pages a:hover{color:var(--ink);border-color:var(--sub)}
