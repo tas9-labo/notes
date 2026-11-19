@@ -1,4 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=optional");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap");
+/* Inter が届くまでの仮の書体（Arial）を、Inter と同じ幅に伸ばしておく。
+   届いて入れ替わっても、ボタンや文字の幅が変わらない（2026-11-19 佐「押すと横に縮む」） */
+@font-face{font-family:"Inter Fallback";src:local("Arial"),local("ArialMT");font-weight:400;size-adjust:107.2%;ascent-override:90.4%;descent-override:22.5%;line-gap-override:0%}
+@font-face{font-family:"Inter Fallback";src:local("Arial"),local("ArialMT");font-weight:500;size-adjust:108.3%;ascent-override:89.5%;descent-override:22.3%;line-gap-override:0%}
+@font-face{font-family:"Inter Fallback";src:local("Arial Bold"),local("Arial-BoldMT");font-weight:600;size-adjust:102.1%;ascent-override:94.9%;descent-override:23.6%;line-gap-override:0%}
+@font-face{font-family:"Inter Fallback";src:local("Arial Bold"),local("Arial-BoldMT");font-weight:700;size-adjust:103.1%;ascent-override:94%;descent-override:23.4%;line-gap-override:0%}
 /* =========================================================================
    tas9.css — 佐のページ共通の土台（原本はここ1枚・2026-11-17）
    ここを直して配る（sync）と、全ページの見た目が一気に変わる。
@@ -21,7 +27,7 @@
   /* 線（1px と 2px だけ） */
   --bw:1px; --bw-strong:2px;
   /* 書体 */
-  --font:"Inter","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+  --font:"Inter","Inter Fallback","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
   --mono:ui-monospace,"Cascadia Mono",Consolas,"Noto Sans JP",monospace;
   /* 文字の段（6段） */
   --fs-xs:11px; --fs-s:13px; --fs-m:15px; --fs-l:18px; --fs-xl:24px; --fs-2xl:clamp(26px,4vw,34px);
